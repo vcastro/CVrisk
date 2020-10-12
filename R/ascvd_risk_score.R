@@ -1,13 +1,7 @@
-
-
-
-#https://www.ahajournals.org/doi/suppl/10.1161/01.cir.0000437741.48606.98
-#Tables 4 and 5: Pages 32-34
-
 #' ASCVD risk score
 #' 
 #' Computes 10-year risk for hard ASCVD event (defined as first occurrence of 
-#' nonfatal myocardial infarction (MI), congestive heart disease (CHD) death, 
+#' non-fatal myocardial infarction (MI), congestive heart disease (CHD) death, 
 #' or fatal or nonfatal stroke).
 #'
 #' @param race patient race (white, aa)
@@ -54,13 +48,14 @@ ascvd_risk_score <- function (race, gender = c("male", "female"),
   if(!is.numeric(totchol) | totchol < 1 | totchol > 999 | missing(totchol))
     stop("totchol must be a valid numeric value'")
   
+  
+  ascvd_pooled_coef <- NULL
+  
   utils::data(ascvd_pooled_coef, envir = environment())
   
   d <- ascvd_pooled_coef 
   
   pooled_coef <- d[which(d$race == race & d$gender == gender),]
-  
-# print(pooled_coef)
   
   sbp_treated <- ifelse(bp_med == TRUE, sbp, 1)
   sbp_untreated <- ifelse(bp_med == FALSE, sbp, 1)
@@ -79,14 +74,12 @@ ascvd_risk_score <- function (race, gender = c("male", "female"),
               smoker*log(age) *       pooled_coef$ln_age_smoker +
               diabetes *              pooled_coef$diabetes
 
-# print(indv_sum)
-  
   risk_score <- round((1-(pooled_coef$baseline_survival^
                      exp(indv_sum-pooled_coef$group_mean)))*100.000,2)
   
   ifelse(risk_score<1, 1, ifelse(risk_score>30, 30, risk_score))
 }
 
-ascvd_risk_score(race = "aa", gender = "female", age = 55, totchol = 213, hdl = 50, sbp = 140, bp_med = FALSE, smoker=0, diabetes=0)
+#ascvd_risk_score(race = "aa", gender = "female", age = 55, totchol = 213, hdl = 50, sbp = 140, bp_med = FALSE, smoker=0, diabetes=0)
 
-ascvd_risk_score(race = "aa", gender = "female", age = 20, totchol = 213, hdl = 50, sbp = 140, bp_med = FALSE, smoker=0, diabetes=0)
+#ascvd_risk_score(race = "aa", gender = "female", age = 20, totchol = 213, hdl = 50, sbp = 140, bp_med = FALSE, smoker=0, diabetes=0)

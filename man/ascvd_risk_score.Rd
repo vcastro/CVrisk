@@ -4,8 +4,17 @@
 \alias{ascvd_risk_score}
 \title{ASCVD risk score}
 \usage{
-ascvd_risk_score(race, gender = c("male", "female"), age, totchol, hdl,
-  sbp, bp_med, smoker, diabetes)
+ascvd_risk_score(
+  race,
+  gender = c("male", "female"),
+  age,
+  totchol,
+  hdl,
+  sbp,
+  bp_med,
+  smoker,
+  diabetes
+)
 }
 \arguments{
 \item{race}{patient race (white, aa)}
@@ -31,7 +40,7 @@ Estimated 10-Y Risk for hard ASCVD (percent)
 }
 \description{
 Computes 10-year risk for hard ASCVD event (defined as first occurrence of 
-nonfatal myocardial infarction (MI), congestive heart disease (CHD) death, 
+non-fatal myocardial infarction (MI), congestive heart disease (CHD) death, 
 or fatal or nonfatal stroke).
 }
 \examples{
