@@ -3,13 +3,12 @@
 
 <!-- badges: start -->
 [![R build status](https://github.com/vcastro/CVrisk/workflows/R-CMD-check/badge.svg)](https://github.com/vcastro/CVrisk/actions)
+[![Codecov test coverage](https://codecov.io/gh/vcastro/CVrisk/branch/master/graph/badge.svg)](https://codecov.io/gh/vcastro/CVrisk?branch=master)
 <!-- badges: end -->
 
 Calculate cardiovascular risk scores in R.
 
 ## Installation
-
-You can install the released version of CVrisk from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 # Install the development version from GitHub:
@@ -17,9 +16,7 @@ You can install the released version of CVrisk from [CRAN](https://CRAN.R-projec
 devtools::install_github("vcastro/CVRisk")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## Usage
 
 ``` r
 library(CVrisk)
