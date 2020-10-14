@@ -7,7 +7,7 @@ test_that("aa male example is correct", {
       totchol = 213,
       hdl = 50,
       sbp = 140,
-      bp_med = FALSE,
+      bp_med = 0,
       smoker = 0,
       diabetes = 0
     ),
@@ -24,7 +24,7 @@ test_that("aa female example is correct", {
       totchol = 213,
       hdl = 50,
       sbp = 140,
-      bp_med = FALSE,
+      bp_med = 0,
       smoker = 0,
       diabetes = 0
     ),
@@ -41,7 +41,7 @@ test_that("white female example is correct", {
       totchol = 213,
       hdl = 50,
       sbp = 140,
-      bp_med = FALSE,
+      bp_med = 0,
       smoker = 0,
       diabetes = 0
     ),
@@ -59,7 +59,7 @@ test_that("white male example is correct", {
       totchol = 213,
       hdl = 50,
       sbp = 140,
-      bp_med = FALSE,
+      bp_med = 0,
       smoker = 0,
       diabetes = 0
     ),

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • CVrisk</title>
+<title>Framingham ASCVD Risk Score (no lab measurement) — ascvd_frs_simple • CVrisk</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Framingham ASCVD Risk Score (no lab measurement) — ascvd_frs_simple" />
+<meta property="og:description" content="Computes 10-year risk for ASCVD event (coronary death, myocardial infarction (MI),
+coronary insufficiency, angina, ischemic stroke, hemorrhagic stroke, 
+transient ischemic attack, peripheral artery disease, or heart failure)." />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,84 +108,80 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Framingham ASCVD Risk Score (no lab measurement)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vcastro/CVrisk/blob/master/R/ascvd_frs_simple.R'><code>R/ascvd_frs_simple.R</code></a></small>
+    <div class="hidden name"><code>ascvd_frs_simple.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Computes 10-year risk for ASCVD event (coronary death, myocardial infarction (MI),
+coronary insufficiency, angina, ischemic stroke, hemorrhagic stroke, 
+transient ischemic attack, peripheral artery disease, or heart failure).</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>ascvd_frs_simple</span><span class='op'>(</span>
+  gender <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"male"</span>, <span class='st'>"female"</span><span class='op'>)</span>,
+  <span class='va'>age</span>,
+  <span class='va'>bmi</span>,
+  <span class='va'>sbp</span>,
+  <span class='va'>bp_med</span>,
+  <span class='va'>smoker</span>,
+  <span class='va'>diabetes</span>
+<span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ascvd_frs.html">ascvd_frs()</a></code> </p>
-        </td>
-        <td><p>Framingham 2008 ASCVD Risk Score (with lab measurement)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ascvd_frs_simple.html">ascvd_frs_simple()</a></code> </p>
-        </td>
-        <td><p>Framingham ASCVD Risk Score (no lab measurement)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ascvd_pooled_coef.html">ascvd_pooled_coef</a></code> </p>
-        </td>
-        <td><p>ascvd_pooled_coef</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ascvd_risk_score.html">ascvd_risk_score()</a></code> </p>
-        </td>
-        <td><p>ACC/AHA 2013 ASCVD risk score</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="frs_coef.html">frs_coef</a></code> </p>
-        </td>
-        <td><p>frs_coef</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="frs_simple_coef.html">frs_simple_coef</a></code> </p>
-        </td>
-        <td><p>frs_simple_coef</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mesa_cac_coef.html">mesa_cac_coef</a></code> </p>
-        </td>
-        <td><p>mesa_cac_coef</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mesa_coef.html">mesa_coef</a></code> </p>
-        </td>
-        <td><p>mesa_coef</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>gender</th>
+      <td><p>patient gender (male, female)</p></td>
+    </tr>
+    <tr>
+      <th>age</th>
+      <td><p>patient age (years), between 30 and 74</p></td>
+    </tr>
+    <tr>
+      <th>bmi</th>
+      <td><p>Body mass index (kg/m2)</p></td>
+    </tr>
+    <tr>
+      <th>sbp</th>
+      <td><p>Systolic blood pressure (mm Hg)</p></td>
+    </tr>
+    <tr>
+      <th>bp_med</th>
+      <td><p>Patient is on a blood pressure medication (1=Yes, 0=No)</p></td>
+    </tr>
+    <tr>
+      <th>smoker</th>
+      <td><p>Current smoker (1=Yes, 0=No)</p></td>
+    </tr>
+    <tr>
+      <th>diabetes</th>
+      <td><p>Diabetes (1=Yes, 0=No)</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Estimated 10-Y Risk for hard ASCVD (percent)</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>D’agostino, R.B., Vasan, R.S., Pencina, M.J., Wolf, P.A., Cobain, M., Massaro, 
+J.M. and Kannel, W.B., 2008. General cardiovascular risk profile for use
+in primary care. Circulation, 117(6), pp.743-753.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/vcastro/CVrisk'>CVrisk</a></span><span class='op'>)</span>
+<span class='fu'>ascvd_frs_simple</span><span class='op'>(</span>gender <span class='op'>=</span> <span class='st'>"male"</span>, age <span class='op'>=</span> <span class='fl'>55</span>, 
+  bmi <span class='op'>=</span> <span class='fl'>30</span>, sbp <span class='op'>=</span> <span class='fl'>140</span>, 
+  bp_med <span class='op'>=</span> <span class='fl'>0</span>, smoker <span class='op'>=</span> <span class='fl'>0</span>, diabetes <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 16.75</div><div class='input'>  
+<span class='co'>#16.7</span>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

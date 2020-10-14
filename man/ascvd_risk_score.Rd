@@ -2,7 +2,7 @@
 % Please edit documentation in R/ascvd_risk_score.R
 \name{ascvd_risk_score}
 \alias{ascvd_risk_score}
-\title{ASCVD risk score}
+\title{ACC/AHA 2013 ASCVD risk score}
 \usage{
 ascvd_risk_score(
   race,
@@ -29,7 +29,7 @@ ascvd_risk_score(
 
 \item{sbp}{Systolic blood pressure (mm Hg)}
 
-\item{bp_med}{Patient is on a blood pressure medication (TRUE/FALSE)}
+\item{bp_med}{Patient is on a blood pressure medication (1=Yes, 0=No)}
 
 \item{smoker}{Current smoker (1=Yes, 0=No)}
 
@@ -47,7 +47,7 @@ or fatal or nonfatal stroke).
 library(CVrisk)
 ascvd_risk_score(race = "aa", gender = "male", age = 55, 
   totchol = 213, hdl = 50, sbp = 140, 
-  bp_med = FALSE, smoker=0, diabetes=0)
+  bp_med = 0, smoker = 0, diabetes = 0)
 
 }
 \references{

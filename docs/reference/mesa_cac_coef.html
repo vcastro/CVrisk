@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • CVrisk</title>
+<title>mesa_cac_coef — mesa_cac_coef • CVrisk</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="mesa_cac_coef — mesa_cac_coef" />
+<meta property="og:description" content="A data set containing the MESA risk score coefficients (model with CAC)" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,84 +106,50 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>mesa_cac_coef</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vcastro/CVrisk/blob/master/R/mesa_cac_coef.R'><code>R/mesa_cac_coef.R</code></a></small>
+    <div class="hidden name"><code>mesa_cac_coef.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>A data set containing the MESA risk score coefficients (model with CAC)</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='va'>mesa_cac_coef</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ascvd_frs.html">ascvd_frs()</a></code> </p>
-        </td>
-        <td><p>Framingham 2008 ASCVD Risk Score (with lab measurement)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ascvd_frs_simple.html">ascvd_frs_simple()</a></code> </p>
-        </td>
-        <td><p>Framingham ASCVD Risk Score (no lab measurement)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ascvd_pooled_coef.html">ascvd_pooled_coef</a></code> </p>
-        </td>
-        <td><p>ascvd_pooled_coef</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ascvd_risk_score.html">ascvd_risk_score()</a></code> </p>
-        </td>
-        <td><p>ACC/AHA 2013 ASCVD risk score</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="frs_coef.html">frs_coef</a></code> </p>
-        </td>
-        <td><p>frs_coef</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="frs_simple_coef.html">frs_simple_coef</a></code> </p>
-        </td>
-        <td><p>frs_simple_coef</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mesa_cac_coef.html">mesa_cac_coef</a></code> </p>
-        </td>
-        <td><p>mesa_cac_coef</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mesa_coef.html">mesa_coef</a></code> </p>
-        </td>
-        <td><p>mesa_coef</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 1 obs. and 15 variables:</p><dl>
+  <dt>age</dt><dd><p>Coefficient for age</p></dd>
+  <dt>gender_male</dt><dd><p>Coefficient for male gender</p></dd>
+  <dt>race_chinese</dt><dd><p>Coefficient for chinese race</p></dd>
+  <dt>race_aa</dt><dd><p>Coefficient for african american race</p></dd>
+  <dt>race_hispanic</dt><dd><p>Coefficient for hispanic race</p></dd>
+  <dt>diabetes</dt><dd><p>Coefficient for diabetes status</p></dd>
+  <dt>smoker</dt><dd><p>Coefficient for current smoker</p></dd>
+  <dt>totchol</dt><dd><p>Coefficient for total cholestorol level</p></dd>
+  <dt>hdl</dt><dd><p>Coefficient for HDL level</p></dd>
+  <dt>hld_med</dt><dd><p>Coefficient for antihyperlipidemic medication</p></dd>
+  <dt>sbp</dt><dd><p>Coefficient for systolic blood pressure</p></dd>
+  <dt>bp_med</dt><dd><p>Coefficient for antihypertensive medication</p></dd>
+  <dt>fh_heartattack</dt><dd><p>Coefficient for family history of heart attacks</p></dd>
+  <dt>log1p_cac</dt><dd><p>Coefficient for ln(coronary artery calcification (units)+1)</p></dd>
+  <dt>baseline_survival</dt><dd><p>Baseline survival</p></dd>
+
+</dl>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>McClelland RL, Jorgensen NW, Budoff M, et al. 10-Year Coronary Heart Disease 
+Risk Prediction Using Coronary Artery Calcium and Traditional Risk Factors: 
+Derivation in the MESA (Multi-Ethnic Study of Atherosclerosis) With Validation in 
+the HNR (Heinz Nixdorf Recall) Study and the DHS (Dallas Heart Study). 
+J Am Coll Cardiol. 2015;66(15):1643-1653. doi:10.1016/j.jacc.2015.08.035</p>
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

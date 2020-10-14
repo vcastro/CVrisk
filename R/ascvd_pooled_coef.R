@@ -1,6 +1,6 @@
 #' ascvd_pooled_coef
 #'
-#' A data set containing the ASCVD pooled cohort coefficients
+#' A data set containing the 2013 ACC/AHA ASCVD 10-year risk pooled cohort coefficients
 #' 
 #'
 #' @format A data frame with 4 obs. and 17 variables:

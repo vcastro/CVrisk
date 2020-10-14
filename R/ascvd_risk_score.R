@@ -1,4 +1,4 @@
-#' ASCVD risk score
+#' ACC/AHA 2013 ASCVD risk score
 #' 
 #' Computes 10-year risk for hard ASCVD event (defined as first occurrence of 
 #' non-fatal myocardial infarction (MI), congestive heart disease (CHD) death, 
@@ -10,7 +10,7 @@
 #' @param totchol Total cholesterol (mg/dL)
 #' @param hdl HDL cholesterol (mg/dL)
 #' @param sbp Systolic blood pressure (mm Hg)
-#' @param bp_med Patient is on a blood pressure medication (TRUE/FALSE)
+#' @param bp_med Patient is on a blood pressure medication (1=Yes, 0=No)
 #' @param smoker Current smoker (1=Yes, 0=No)
 #' @param diabetes Diabetes (1=Yes, 0=No)
 #'
@@ -22,7 +22,7 @@
 #' library(CVrisk)
 #' ascvd_risk_score(race = "aa", gender = "male", age = 55, 
 #'   totchol = 213, hdl = 50, sbp = 140, 
-#'   bp_med = FALSE, smoker=0, diabetes=0)
+#'   bp_med = 0, smoker = 0, diabetes = 0)
 #'
 #' @references 
 #' Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of 
@@ -57,8 +57,8 @@ ascvd_risk_score <- function (race, gender = c("male", "female"),
   
   pooled_coef <- d[which(d$race == race & d$gender == gender),]
   
-  sbp_treated <- ifelse(bp_med == TRUE, sbp, 1)
-  sbp_untreated <- ifelse(bp_med == FALSE, sbp, 1)
+  sbp_treated <- ifelse(bp_med == 1, sbp, 1)
+  sbp_untreated <- ifelse(bp_med == 0, sbp, 1)
   
   indv_sum <- log(age) *              pooled_coef$ln_age +
               log(age)^2 *            pooled_coef$ln_age_squared +

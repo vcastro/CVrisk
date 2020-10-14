@@ -30,7 +30,7 @@ A data frame with 4 obs. and 17 variables:
 ascvd_pooled_coef
 }
 \description{
-A data set containing the ASCVD pooled cohort coefficients
+A data set containing the 2013 ACC/AHA ASCVD 10-year risk pooled cohort coefficients
 }
 \references{
 Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of 
