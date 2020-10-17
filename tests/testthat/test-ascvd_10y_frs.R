@@ -6,7 +6,7 @@ test_that("FRS: 55yo male example is correct", {
       sbp = 140,
       hdl = 50,
       totchol = 213,
-      bp_med = 0, 
+      bp_med = 0,
       smoker = 0,
       diabetes = 0
     ),
