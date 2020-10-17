@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ascvd_pooled_coef — ascvd_pooled_coef • CVrisk</title>
+<title>sample_data — sample_data • CVrisk</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="ascvd_pooled_coef — ascvd_pooled_coef" />
-<meta property="og:description" content="A data set containing the 2013 ACC/AHA ASCVD 10-year risk pooled cohort coefficients" />
+<meta property="og:title" content="sample_data — sample_data" />
+<meta property="og:description" content="A data set containing sample patient data" />
 
 
 
@@ -108,48 +108,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ascvd_pooled_coef</h1>
+    <h1>sample_data</h1>
     <small class="dont-index">Source: <a href='https://github.com/vcastro/CVrisk/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>ascvd_pooled_coef.Rd</code></div>
+    <div class="hidden name"><code>sample_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A data set containing the 2013 ACC/AHA ASCVD 10-year risk pooled cohort coefficients</p>
+    <p>A data set containing sample patient data</p>
     </div>
 
-    <pre class="usage"><span class='va'>ascvd_pooled_coef</span></pre>
+    <pre class="usage"><span class='va'>sample_data</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 4 obs. and 17 variables:</p><dl>
-  <dt>race</dt><dd><p>Patient race, either white or aa</p></dd>
-  <dt>gender</dt><dd><p>Patient gender, either female or male</p></dd>
-  <dt>ln_age</dt><dd><p>Natural log of patient age</p></dd>
-  <dt>ln_age_squared</dt><dd><p>Natural log of patient age in years, squared</p></dd>
-  <dt>ln_totchol</dt><dd><p>Natural log of total cholestorol level</p></dd>
-  <dt>ln_age_totchol</dt><dd><p>Natural log of combined age and total cholestorol</p></dd>
-  <dt>ln_hdl</dt><dd><p>Natural log of HDL level</p></dd>
-  <dt>ln_age_hdl</dt><dd><p>Natural log of HDL and age</p></dd>
-  <dt>ln_treated_sbp</dt><dd><p>Natural log of treated systolic blood pressure</p></dd>
-  <dt>ln_age_treated_sbp</dt><dd><p>Natural log of treated systolic blood pressure and age</p></dd>
-  <dt>ln_untreated_sbp</dt><dd><p>Natural log of untreated systolic blood pressure</p></dd>
-  <dt>ln_age_untreated_sbp</dt><dd><p>Natural log of untreated systolic blood pressure and age</p></dd>
+    <p>A data frame with 3 obs. and 10 variables:</p><dl>
+  <dt>age</dt><dd><p>age in years</p></dd>
+  <dt>gender</dt><dd><p>Patient gender</p></dd>
+  <dt>race</dt><dd><p>race</p></dd>
+  <dt>BMI</dt><dd><p>Body mass index (kg/m2)</p></dd>
+  <dt>sbp</dt><dd><p>systolic blood pressure</p></dd>
+  <dt>hdl</dt><dd><p>HDL</p></dd>
+  <dt>totchol</dt><dd><p>Total cholestorol</p></dd>
+  <dt>bp_med</dt><dd><p>Patient is on blood pressure medication</p></dd>
   <dt>smoker</dt><dd><p>Smoking status</p></dd>
-  <dt>ln_age_smoker</dt><dd><p>Natural log of smoking status and age</p></dd>
   <dt>diabetes</dt><dd><p>Diabetes status</p></dd>
-  <dt>group_mean</dt><dd><p>Grouped mean</p></dd>
-  <dt>baseline_survival</dt><dd><p>Baseline survival</p></dd>
 
 </dl>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of 
-cardiovascular risk: a report of the American College of 
-Cardiology/American Heart Association Task Force on Practice 
-Guidelines." Journal of the American College of Cardiology 63.25 
-Part B (2014): 2935-2959.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

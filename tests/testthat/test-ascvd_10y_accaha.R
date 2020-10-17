@@ -1,6 +1,6 @@
 test_that("aa male example is correct", {
   expect_equal(
-    ascvd_risk_score(
+    ascvd_10y_accaha(
       race = "aa",
       gender = "male",
       age = 55,
@@ -17,7 +17,7 @@ test_that("aa male example is correct", {
 
 test_that("aa female example is correct", {
   expect_equal(
-    ascvd_risk_score(
+    ascvd_10y_accaha(
       race = "aa",
       gender = "female",
       age = 55,
@@ -34,7 +34,7 @@ test_that("aa female example is correct", {
 
 test_that("white female example is correct", {
   expect_equal(
-    ascvd_risk_score(
+    ascvd_10y_accaha(
       race = "white",
       gender = "female",
       age = 55,
@@ -52,7 +52,7 @@ test_that("white female example is correct", {
 
 test_that("white male example is correct", {
   expect_equal(
-    ascvd_risk_score(
+    ascvd_10y_accaha(
       race = "white",
       gender = "male",
       age = 55,

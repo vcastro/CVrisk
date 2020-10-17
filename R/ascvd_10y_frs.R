@@ -12,6 +12,7 @@
 #' @param bp_med Patient is on a blood pressure medication (1=Yes, 0=No)
 #' @param smoker Current smoker (1=Yes, 0=No)
 #' @param diabetes Diabetes (1=Yes, 0=No)
+#' @param ... Additional predictors can be passed and will be ignored
 #'
 #' @return Estimated 10-Y Risk for hard ASCVD event (percent)
 #' 
@@ -19,7 +20,7 @@
 #'
 #' @examples
 #' library(CVrisk)
-#' ascvd_frs(gender = "male", age = 55, 
+#' ascvd_10y_frs(gender = "male", age = 55, 
 #'   hdl = 50, totchol = 213, sbp = 140, 
 #'   bp_med = 0, smoker = 0, diabetes = 0)
 #'   
@@ -29,9 +30,9 @@
 #' J.M. and Kannel, W.B., 2008. General cardiovascular risk profile for use
 #' in primary care. Circulation, 117(6), pp.743-753.
 
-ascvd_frs <- function (gender = c("male", "female"), 
+ascvd_10y_frs <- function (gender = c("male", "female"), 
                               age, hdl, totchol, sbp, 
-                              bp_med, smoker, diabetes) {
+                              bp_med, smoker, diabetes, ...) {
   
   gender <- tolower(gender)
   gender <- ifelse(gender == "m", "male", gender)
@@ -70,7 +71,3 @@ ascvd_frs <- function (gender = c("male", "female"),
   
   ifelse(risk_score<1, 1, ifelse(risk_score>30, 30, risk_score))
 }
-
-#ascvd_frs_simple(gender = "male", age = 55, bmi = 30, sbp = 140, bp_med = FALSE, smoker=0, diabetes=0)
-
-#ascvd_risk_score(race = "aa", gender = "female", age = 20, totchol = 213, hdl = 50, sbp = 140, bp_med = FALSE, smoker=0, diabetes=0)

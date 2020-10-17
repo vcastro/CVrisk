@@ -71,7 +71,30 @@
 <a href="#cvrisk" class="anchor"></a>CVrisk</h1></div>
 <!-- badges: start -->
 
-<p>Calculate cardiovascular risk scores in R.</p>
+<div id="about-the-package" class="section level2">
+<h2 class="hasAnchor">
+<a href="#about-the-package" class="anchor"></a>About the package</h2>
+<p><code>CVrisk</code> is a package to calculate various cardiovascular disease risk scores.</p>
+<div id="currently-available-risk-scores" class="section level3">
+<h3 class="hasAnchor">
+<a href="#currently-available-risk-scores" class="anchor"></a>Currently available risk scores</h3>
+<ul>
+<li>Framingham 2008 10-year ASCVD risk (model with lipid labs)</li>
+<li>Framingham 2008 10-year ASCVD risk (model with BMI)</li>
+<li>ACC/AHA 2013 10-year ASCVD risk</li>
+</ul>
+</div>
+<div id="coming-soon" class="section level3">
+<h3 class="hasAnchor">
+<a href="#coming-soon" class="anchor"></a>Coming soon</h3>
+<ul>
+<li>MESA 2015 10-year ASCVD risk (traditional risk factors)</li>
+<li>MESA 2015 10-year ASCVD risk (using coronary artery calcium)</li>
+<li>Reynolds 2007 10-year ASCVD risk in Women</li>
+<li>Framingham 2009 30-year ASCVD risk</li>
+</ul>
+</div>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -85,7 +108,7 @@
 <a href="#usage" class="anchor"></a>Usage</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vcastro/CVrisk">CVrisk</a></span><span class="op">)</span>
-<span class="fu"><a href="reference/ascvd_risk_score.html">ascvd_risk_score</a></span><span class="op">(</span>race <span class="op">=</span> <span class="st">"aa"</span>, gender <span class="op">=</span> <span class="st">"male"</span>, age <span class="op">=</span> <span class="fl">55</span>, 
+<span class="fu"><a href="reference/ascvd_10y_accaha.html">ascvd_10y_accaha</a></span><span class="op">(</span>race <span class="op">=</span> <span class="st">"aa"</span>, gender <span class="op">=</span> <span class="st">"male"</span>, age <span class="op">=</span> <span class="fl">55</span>, 
    totchol <span class="op">=</span> <span class="fl">213</span>, hdl <span class="op">=</span> <span class="fl">50</span>, sbp <span class="op">=</span> <span class="fl">140</span>, 
    bp_med <span class="op">=</span> <span class="cn">FALSE</span>, smoker<span class="op">=</span><span class="fl">0</span>, diabetes<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
    </pre></div>

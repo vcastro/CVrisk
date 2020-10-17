@@ -6,7 +6,23 @@
 [![Codecov test coverage](https://codecov.io/gh/vcastro/CVrisk/branch/master/graph/badge.svg)](https://codecov.io/gh/vcastro/CVrisk?branch=master)
 <!-- badges: end -->
 
-Calculate cardiovascular risk scores in R.
+
+## About the package
+
+`CVrisk` is a  package to calculate various cardiovascular disease risk scores. 
+
+### Currently available risk scores
+
+- Framingham 2008 10-year ASCVD risk (model with lipid labs)
+- Framingham 2008 10-year ASCVD risk (model with BMI)
+- ACC/AHA 2013 10-year ASCVD risk 
+
+### Coming soon
+
+- MESA 2015 10-year ASCVD risk (traditional risk factors)
+- MESA 2015 10-year ASCVD risk (using coronary artery calcium)
+- Reynolds 2007 10-year ASCVD risk in Women
+- Framingham 2009 30-year ASCVD risk
 
 ## Installation
 
@@ -20,7 +36,7 @@ devtools::install_github("vcastro/CVRisk")
 
 ``` r
 library(CVrisk)
-ascvd_risk_score(race = "aa", gender = "male", age = 55, 
+ascvd_10y_accaha(race = "aa", gender = "male", age = 55, 
    totchol = 213, hdl = 50, sbp = 140, 
    bp_med = FALSE, smoker=0, diabetes=0)
    

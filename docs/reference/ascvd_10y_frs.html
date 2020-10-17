@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ascvd_pooled_coef — ascvd_pooled_coef • CVrisk</title>
+<title>Framingham 2008 ASCVD Risk Score (with lab measurement) — ascvd_10y_frs • CVrisk</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="ascvd_pooled_coef — ascvd_pooled_coef" />
-<meta property="og:description" content="A data set containing the 2013 ACC/AHA ASCVD 10-year risk pooled cohort coefficients" />
+<meta property="og:title" content="Framingham 2008 ASCVD Risk Score (with lab measurement) — ascvd_10y_frs" />
+<meta property="og:description" content="Computes 10-year risk for ASCVD event (coronary death, myocardial infarction (MI),
+coronary insufficiency, angina, ischemic stroke, hemorrhagic stroke, 
+transient ischemic attack, peripheral artery disease, or heart failure)." />
 
 
 
@@ -108,49 +110,87 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ascvd_pooled_coef</h1>
-    <small class="dont-index">Source: <a href='https://github.com/vcastro/CVrisk/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>ascvd_pooled_coef.Rd</code></div>
+    <h1>Framingham 2008 ASCVD Risk Score (with lab measurement)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/vcastro/CVrisk/blob/master/R/ascvd_10y_frs.R'><code>R/ascvd_10y_frs.R</code></a></small>
+    <div class="hidden name"><code>ascvd_10y_frs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A data set containing the 2013 ACC/AHA ASCVD 10-year risk pooled cohort coefficients</p>
+    <p>Computes 10-year risk for ASCVD event (coronary death, myocardial infarction (MI),
+coronary insufficiency, angina, ischemic stroke, hemorrhagic stroke, 
+transient ischemic attack, peripheral artery disease, or heart failure).</p>
     </div>
 
-    <pre class="usage"><span class='va'>ascvd_pooled_coef</span></pre>
+    <pre class="usage"><span class='fu'>ascvd_10y_frs</span><span class='op'>(</span>
+  gender <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"male"</span>, <span class='st'>"female"</span><span class='op'>)</span>,
+  <span class='va'>age</span>,
+  <span class='va'>hdl</span>,
+  <span class='va'>totchol</span>,
+  <span class='va'>sbp</span>,
+  <span class='va'>bp_med</span>,
+  <span class='va'>smoker</span>,
+  <span class='va'>diabetes</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>gender</th>
+      <td><p>patient gender (male, female)</p></td>
+    </tr>
+    <tr>
+      <th>age</th>
+      <td><p>patient age (years), between 30 and 74</p></td>
+    </tr>
+    <tr>
+      <th>hdl</th>
+      <td><p>HDL cholesterol (mg/dL)</p></td>
+    </tr>
+    <tr>
+      <th>totchol</th>
+      <td><p>Total cholesterol (mg/dL)</p></td>
+    </tr>
+    <tr>
+      <th>sbp</th>
+      <td><p>Systolic blood pressure (mm Hg)</p></td>
+    </tr>
+    <tr>
+      <th>bp_med</th>
+      <td><p>Patient is on a blood pressure medication (1=Yes, 0=No)</p></td>
+    </tr>
+    <tr>
+      <th>smoker</th>
+      <td><p>Current smoker (1=Yes, 0=No)</p></td>
+    </tr>
+    <tr>
+      <th>diabetes</th>
+      <td><p>Diabetes (1=Yes, 0=No)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional predictors can be passed and will be ignored</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 4 obs. and 17 variables:</p><dl>
-  <dt>race</dt><dd><p>Patient race, either white or aa</p></dd>
-  <dt>gender</dt><dd><p>Patient gender, either female or male</p></dd>
-  <dt>ln_age</dt><dd><p>Natural log of patient age</p></dd>
-  <dt>ln_age_squared</dt><dd><p>Natural log of patient age in years, squared</p></dd>
-  <dt>ln_totchol</dt><dd><p>Natural log of total cholestorol level</p></dd>
-  <dt>ln_age_totchol</dt><dd><p>Natural log of combined age and total cholestorol</p></dd>
-  <dt>ln_hdl</dt><dd><p>Natural log of HDL level</p></dd>
-  <dt>ln_age_hdl</dt><dd><p>Natural log of HDL and age</p></dd>
-  <dt>ln_treated_sbp</dt><dd><p>Natural log of treated systolic blood pressure</p></dd>
-  <dt>ln_age_treated_sbp</dt><dd><p>Natural log of treated systolic blood pressure and age</p></dd>
-  <dt>ln_untreated_sbp</dt><dd><p>Natural log of untreated systolic blood pressure</p></dd>
-  <dt>ln_age_untreated_sbp</dt><dd><p>Natural log of untreated systolic blood pressure and age</p></dd>
-  <dt>smoker</dt><dd><p>Smoking status</p></dd>
-  <dt>ln_age_smoker</dt><dd><p>Natural log of smoking status and age</p></dd>
-  <dt>diabetes</dt><dd><p>Diabetes status</p></dd>
-  <dt>group_mean</dt><dd><p>Grouped mean</p></dd>
-  <dt>baseline_survival</dt><dd><p>Baseline survival</p></dd>
-
-</dl>
-
+    <p>Estimated 10-Y Risk for hard ASCVD event (percent)</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of 
-cardiovascular risk: a report of the American College of 
-Cardiology/American Heart Association Task Force on Practice 
-Guidelines." Journal of the American College of Cardiology 63.25 
-Part B (2014): 2935-2959.</p>
+    <p>D’agostino, R.B., Vasan, R.S., Pencina, M.J., Wolf, P.A., Cobain, M., Massaro, 
+J.M. and Kannel, W.B., 2008. General cardiovascular risk profile for use
+in primary care. Circulation, 117(6), pp.743-753.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/vcastro/CVrisk'>CVrisk</a></span><span class='op'>)</span>
+<span class='fu'>ascvd_10y_frs</span><span class='op'>(</span>gender <span class='op'>=</span> <span class='st'>"male"</span>, age <span class='op'>=</span> <span class='fl'>55</span>, 
+  hdl <span class='op'>=</span> <span class='fl'>50</span>, totchol <span class='op'>=</span> <span class='fl'>213</span>, sbp <span class='op'>=</span> <span class='fl'>140</span>, 
+  bp_med <span class='op'>=</span> <span class='fl'>0</span>, smoker <span class='op'>=</span> <span class='fl'>0</span>, diabetes <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 13.53</div><div class='input'>  
+<span class='co'>#16.7</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

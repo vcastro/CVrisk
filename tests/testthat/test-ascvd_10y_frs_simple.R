@@ -1,6 +1,6 @@
 test_that("FRS-simple: 55yo male example is correct", {
   expect_equal(
-    ascvd_frs_simple(
+    ascvd_10y_frs_simple(
       gender = "male",
       age = 55,
       bmi = 30,
