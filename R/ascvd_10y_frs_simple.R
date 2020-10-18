@@ -1,4 +1,4 @@
-#' Framingham ASCVD risk score (no lab measurement)
+#' Framingham 2008 ASCVD risk score (no lab measurement)
 #'
 #' Computes 10-year risk for ASCVD event (coronary death, myocardial
 #' infarction (MI),coronary insufficiency, angina, ischemic stroke,

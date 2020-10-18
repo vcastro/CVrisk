@@ -1,13 +1,13 @@
 Package: CVrisk
 Title: Compute Risk Scores for Cardiovascular Diseases
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
     person(given = "Victor",
            family = "Castro",
            role = c("aut", "cre"),
            email = "vcastro@mgh.harvard.edu",
            comment = c(ORCID = "https://orcid.org/0000-0001-7390-6354"))
-Description: Calculate cardiovascular risk scores, including the ACC ASCVD score.
+Description: Calculate cardiovascular risk scores, including the ACC/AHA ASCVD score.
 License: GPL-3 + file LICENSE
 Depends: R (>= 2.10)
 Encoding: UTF-8
