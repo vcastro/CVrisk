@@ -2,7 +2,7 @@
 % Please edit documentation in R/ascvd_10y_frs_simple.R
 \name{ascvd_10y_frs_simple}
 \alias{ascvd_10y_frs_simple}
-\title{Framingham ASCVD risk score (no lab measurement)}
+\title{Framingham 2008 ASCVD risk score (no lab measurement)}
 \usage{
 ascvd_10y_frs_simple(
   gender = c("male", "female"),
