@@ -1,0 +1,31 @@
+destination: docs
+
+template:
+  params:
+    bootswatch: cosmo
+
+reference:
+- title: Compute multiple risk scores
+  desc: ~
+  contents:
+  - compute_CVrisk
+  
+- title: Individual risk scores
+  desc: ~
+  contents:
+  - ascvd_10y_frs
+  - ascvd_10y_frs_simple
+  - ascvd_10y_accaha
+
+- title: Supporting datasets
+  desc: ~
+  contents:
+  - sample_data
+  - frs_coef
+  - frs_simple_coef
+  - ascvd_pooled_coef
+  
+- title: Package info
+  desc: ~
+  contents:
+  - CVrisk

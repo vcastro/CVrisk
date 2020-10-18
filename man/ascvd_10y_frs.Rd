@@ -2,7 +2,7 @@
 % Please edit documentation in R/ascvd_10y_frs.R
 \name{ascvd_10y_frs}
 \alias{ascvd_10y_frs}
-\title{Framingham 2008 ASCVD Risk Score (with lab measurement)}
+\title{Framingham 2008 ASCVD risk score (with lab measurement)}
 \usage{
 ascvd_10y_frs(
   gender = c("male", "female"),
@@ -39,20 +39,23 @@ ascvd_10y_frs(
 Estimated 10-Y Risk for hard ASCVD event (percent)
 }
 \description{
-Computes 10-year risk for ASCVD event (coronary death, myocardial infarction (MI),
-coronary insufficiency, angina, ischemic stroke, hemorrhagic stroke, 
-transient ischemic attack, peripheral artery disease, or heart failure).
+Computes 10-year risk for ASCVD event (coronary death, myocardial
+infarction (MI), coronary insufficiency, angina, ischemic stroke,
+hemorrhagic stroke, transient ischemic attack, peripheral artery disease,
+or heart failure).
 }
 \examples{
 library(CVrisk)
-ascvd_10y_frs(gender = "male", age = 55, 
-  hdl = 50, totchol = 213, sbp = 140, 
-  bp_med = 0, smoker = 0, diabetes = 0)
-  
-#16.7
+ascvd_10y_frs(
+  gender = "male", age = 55,
+  hdl = 50, totchol = 213, sbp = 140,
+  bp_med = 0, smoker = 0, diabetes = 0
+)
+
+# 16.7
 }
 \references{
-D’agostino, R.B., Vasan, R.S., Pencina, M.J., Wolf, P.A., Cobain, M., Massaro, 
-J.M. and Kannel, W.B., 2008. General cardiovascular risk profile for use
-in primary care. Circulation, 117(6), pp.743-753.
+D’agostino, R.B., Vasan, R.S., Pencina, M.J., Wolf, P.A., Cobain, M.,
+Massaro, J.M. and Kannel, W.B., 2008. General cardiovascular risk
+profile for use in primary care. Circulation, 117(6), pp.743-753.
 }

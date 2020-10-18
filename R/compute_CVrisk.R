@@ -1,17 +1,17 @@
 #' Compute multiple CV risk scores
 #'
 #' @param df input dataframe
-#' @param scores which scores to compute
-#' @param age patient age in years
+#' @param scores scores to compute, default is all scores
+#' @param age patient age in years (required for all scores)
 #' @param gender patient gender (male or female)
-#' @param race patient race
+#' @param race character string for patient race (white, aa, other) column
 #' @param sbp character string of systolic blood pressure (in mm Hg) column
-#' @param bmi string of bmi column
-#' @param hdl string of hdl column
-#' @param totchol string of totchol column
-#' @param bp_med string of bp_med column
-#' @param smoker string of smoker column
-#' @param diabetes string of diabetes column
+#' @param bmi character string of Body mass index (kg/m2) column
+#' @param hdl character string of HDL column
+#' @param totchol character string of total cholesterol column
+#' @param bp_med character string of blood pressure medication column
+#' @param smoker character string of smoking status column
+#' @param diabetes character string of diabetes status column
 #'
 #' @return input data frame with risk score results appended as columns
 #'

@@ -1,4 +1,4 @@
-#' sample_data
+#' Sample patient data
 #'
 #' A data set containing sample patient data
 #'
@@ -19,7 +19,7 @@
 "sample_data"
 
 
-#' frs_coef
+#' Model coefficients for ASCVD 10y FRS model
 #'
 #' A data set containing the Framingham risk score coefficients (full model
 #' with lab features)
@@ -45,7 +45,7 @@
 #' profile for use in primary care. Circulation, 117(6), pp.743-753.
 "frs_coef"
 
-#' frs_simple_coef
+#' Model coefficients for ASCVD 10y FRS simple model
 #'
 #' A data set containing the Framingham risk score coefficients (simple model
 #' without lab features)
@@ -71,7 +71,7 @@
 "frs_simple_coef"
 
 
-#' ascvd_pooled_coef
+#' Model coefficients for ASCVD 10y ACC/AHA model
 #'
 #' A data set containing the 2013 ACC/AHA ASCVD 10-year risk pooled cohort
 #' coefficients

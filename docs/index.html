@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Compute Risk Scores for Cardiovascular Diseases • CVrisk</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -83,16 +83,16 @@
 <li>Framingham 2008 10-year ASCVD risk (model with BMI)</li>
 <li>ACC/AHA 2013 10-year ASCVD risk</li>
 </ul>
-</div>
-<div id="coming-soon" class="section level3">
-<h3 class="hasAnchor">
-<a href="#coming-soon" class="anchor"></a>Coming soon</h3>
+<div id="coming-soon" class="section level4">
+<h4 class="hasAnchor">
+<a href="#coming-soon" class="anchor"></a>Coming soon</h4>
 <ul>
 <li>MESA 2015 10-year ASCVD risk (traditional risk factors)</li>
 <li>MESA 2015 10-year ASCVD risk (using coronary artery calcium)</li>
-<li>Reynolds 2007 10-year ASCVD risk in Women</li>
+<li>Reynolds 2007 10-year ASCVD risk in women</li>
 <li>Framingham 2009 30-year ASCVD risk</li>
 </ul>
+</div>
 </div>
 </div>
 <div id="installation" class="section level2">
@@ -106,12 +106,21 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
+<p>Calculate a single score:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vcastro/CVrisk">CVrisk</a></span><span class="op">)</span>
 <span class="fu"><a href="reference/ascvd_10y_accaha.html">ascvd_10y_accaha</a></span><span class="op">(</span>race <span class="op">=</span> <span class="st">"aa"</span>, gender <span class="op">=</span> <span class="st">"male"</span>, age <span class="op">=</span> <span class="fl">55</span>, 
    totchol <span class="op">=</span> <span class="fl">213</span>, hdl <span class="op">=</span> <span class="fl">50</span>, sbp <span class="op">=</span> <span class="fl">140</span>, 
    bp_med <span class="op">=</span> <span class="cn">FALSE</span>, smoker<span class="op">=</span><span class="fl">0</span>, diabetes<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
    </pre></div>
+<p>Calculate multiple scores for a dataframe of data and append scores to the dataframe:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+
+<span class="va">sample_data</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/compute_CVrisk.html">compute_CVrisk</a></span><span class="op">(</span>age <span class="op">=</span> <span class="st">"age"</span>, race <span class="op">=</span> <span class="st">"race"</span>, gender <span class="op">=</span> <span class="st">"gender"</span>, bmi <span class="op">=</span> <span class="st">"BMI"</span>, 
+      sbp <span class="op">=</span> <span class="st">"sbp"</span>, hdl <span class="op">=</span> <span class="st">"hdl"</span>, totchol <span class="op">=</span> <span class="st">"totchol"</span>, bp_med <span class="op">=</span> <span class="st">"bp_med"</span>, 
+      smoker <span class="op">=</span> <span class="st">"smoker"</span>, diabetes <span class="op">=</span> <span class="st">"diabetes"</span><span class="op">)</span></pre></div>
 </div>
 </div>
   </div>

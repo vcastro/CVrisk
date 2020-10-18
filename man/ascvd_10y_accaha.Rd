@@ -42,21 +42,22 @@ ascvd_10y_accaha(
 Estimated 10-Y Risk for hard ASCVD (percent)
 }
 \description{
-Computes 10-year risk for hard ASCVD event (defined as first occurrence of 
-non-fatal myocardial infarction (MI), congestive heart disease (CHD) death, 
+Computes 10-year risk for hard ASCVD event (defined as first occurrence of
+non-fatal myocardial infarction (MI), congestive heart disease (CHD) death,
 or fatal or nonfatal stroke).
 }
 \examples{
 library(CVrisk)
-ascvd_10y_accaha(race = "aa", gender = "male", age = 55, 
-  totchol = 213, hdl = 50, sbp = 140, 
-  bp_med = 0, smoker = 0, diabetes = 0)
-
+ascvd_10y_accaha(
+  race = "aa", gender = "male", age = 55,
+  totchol = 213, hdl = 50, sbp = 140,
+  bp_med = 0, smoker = 0, diabetes = 0
+)
 }
 \references{
-Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of 
-cardiovascular risk: a report of the American College of 
-Cardiology/American Heart Association Task Force on Practice 
-Guidelines." Journal of the American College of Cardiology 63.25 
+Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of
+cardiovascular risk: a report of the American College of
+Cardiology/American Heart Association Task Force on Practice
+Guidelines." Journal of the American College of Cardiology 63.25
 Part B (2014): 2935-2959.
 }

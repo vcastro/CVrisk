@@ -22,27 +22,27 @@ compute_CVrisk(
 \arguments{
 \item{df}{input dataframe}
 
-\item{scores}{which scores to compute}
+\item{scores}{scores to compute, default is all scores}
 
-\item{age}{patient age in years}
+\item{age}{patient age in years (required for all scores)}
 
 \item{gender}{patient gender (male or female)}
 
-\item{race}{patient race}
+\item{race}{character string for patient race (white, aa, other) column}
 
 \item{sbp}{character string of systolic blood pressure (in mm Hg) column}
 
-\item{bmi}{string of bmi column}
+\item{bmi}{character string of Body mass index (kg/m2) column}
 
-\item{hdl}{string of hdl column}
+\item{hdl}{character string of HDL column}
 
-\item{totchol}{string of totchol column}
+\item{totchol}{character string of total cholesterol column}
 
-\item{bp_med}{string of bp_med column}
+\item{bp_med}{character string of blood pressure medication column}
 
-\item{smoker}{string of smoker column}
+\item{smoker}{character string of smoking status column}
 
-\item{diabetes}{string of diabetes column}
+\item{diabetes}{character string of diabetes status column}
 }
 \value{
 input data frame with risk score results appended as columns
@@ -53,7 +53,9 @@ Compute multiple CV risk scores
 \examples{
 
 library(CVrisk)
-compute_CVrisk(sample_data, age = "age", race = "race", gender = "gender", bmi = "BMI", sbp = "sbp", 
-            hdl = "hdl", totchol = "totchol", bp_med = "bp_med", smoker = "smoker", diabetes="diabetes")
-
+compute_CVrisk(sample_data,
+  age = "age", race = "race", gender = "gender", bmi = "BMI", sbp = "sbp",
+  hdl = "hdl", totchol = "totchol", bp_med = "bp_med", smoker = "smoker",
+  diabetes = "diabetes"
+)
 }

@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="ACC/AHA 2013 ASCVD risk score — ascvd_10y_accaha" />
-<meta property="og:description" content="Computes 10-year risk for hard ASCVD event (defined as first occurrence of 
-non-fatal myocardial infarction (MI), congestive heart disease (CHD) death, 
+<meta property="og:description" content="Computes 10-year risk for hard ASCVD event (defined as first occurrence of
+non-fatal myocardial infarction (MI), congestive heart disease (CHD) death,
 or fatal or nonfatal stroke)." />
 
 
@@ -116,8 +116,8 @@ or fatal or nonfatal stroke)." />
     </div>
 
     <div class="ref-description">
-    <p>Computes 10-year risk for hard ASCVD event (defined as first occurrence of 
-non-fatal myocardial infarction (MI), congestive heart disease (CHD) death, 
+    <p>Computes 10-year risk for hard ASCVD event (defined as first occurrence of
+non-fatal myocardial infarction (MI), congestive heart disease (CHD) death,
 or fatal or nonfatal stroke).</p>
     </div>
 
@@ -184,19 +184,20 @@ or fatal or nonfatal stroke).</p>
     <p>Estimated 10-Y Risk for hard ASCVD (percent)</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of 
-cardiovascular risk: a report of the American College of 
-Cardiology/American Heart Association Task Force on Practice 
-Guidelines." Journal of the American College of Cardiology 63.25 
+    <p>Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of
+cardiovascular risk: a report of the American College of
+Cardiology/American Heart Association Task Force on Practice
+Guidelines." Journal of the American College of Cardiology 63.25
 Part B (2014): 2935-2959.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/vcastro/CVrisk'>CVrisk</a></span><span class='op'>)</span>
-<span class='fu'>ascvd_10y_accaha</span><span class='op'>(</span>race <span class='op'>=</span> <span class='st'>"aa"</span>, gender <span class='op'>=</span> <span class='st'>"male"</span>, age <span class='op'>=</span> <span class='fl'>55</span>, 
-  totchol <span class='op'>=</span> <span class='fl'>213</span>, hdl <span class='op'>=</span> <span class='fl'>50</span>, sbp <span class='op'>=</span> <span class='fl'>140</span>, 
-  bp_med <span class='op'>=</span> <span class='fl'>0</span>, smoker <span class='op'>=</span> <span class='fl'>0</span>, diabetes <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 7.95</div><div class='input'>
-</div></pre>
+<span class='fu'>ascvd_10y_accaha</span><span class='op'>(</span>
+  race <span class='op'>=</span> <span class='st'>"aa"</span>, gender <span class='op'>=</span> <span class='st'>"male"</span>, age <span class='op'>=</span> <span class='fl'>55</span>,
+  totchol <span class='op'>=</span> <span class='fl'>213</span>, hdl <span class='op'>=</span> <span class='fl'>50</span>, sbp <span class='op'>=</span> <span class='fl'>140</span>,
+  bp_med <span class='op'>=</span> <span class='fl'>0</span>, smoker <span class='op'>=</span> <span class='fl'>0</span>, diabetes <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 7.95</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

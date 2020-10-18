@@ -3,7 +3,7 @@
 \docType{data}
 \name{sample_data}
 \alias{sample_data}
-\title{sample_data}
+\title{Sample patient data}
 \format{
 A data frame with 3 obs. and 10 variables:
 \describe{

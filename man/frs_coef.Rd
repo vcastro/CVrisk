@@ -3,7 +3,7 @@
 \docType{data}
 \name{frs_coef}
 \alias{frs_coef}
-\title{frs_coef}
+\title{Model coefficients for ASCVD 10y FRS model}
 \format{
 A data frame with 2 obs. and 10 variables:
 \describe{
@@ -23,11 +23,12 @@ A data frame with 2 obs. and 10 variables:
 frs_coef
 }
 \description{
-A data set containing the Framingham risk score coefficients (full model with lab features)
+A data set containing the Framingham risk score coefficients (full model
+with lab features)
 }
 \references{
-D’agostino, R.B., Vasan, R.S., Pencina, M.J., Wolf, P.A., Cobain, M., Massaro, 
-J.M. and Kannel, W.B., 2008. General cardiovascular risk profile for use
-in primary care. Circulation, 117(6), pp.743-753.
+D’agostino, R.B., Vasan, R.S., Pencina, M.J., Wolf, P.A., Cobain, M.,
+Massaro, J.M. and Kannel, W.B., 2008. General cardiovascular risk
+profile for use in primary care. Circulation, 117(6), pp.743-753.
 }
 \keyword{datasets}

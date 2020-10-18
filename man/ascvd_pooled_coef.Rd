@@ -3,7 +3,7 @@
 \docType{data}
 \name{ascvd_pooled_coef}
 \alias{ascvd_pooled_coef}
-\title{ascvd_pooled_coef}
+\title{Model coefficients for ASCVD 10y ACC/AHA model}
 \format{
 A data frame with 4 obs. and 17 variables:
 \describe{
@@ -16,9 +16,11 @@ A data frame with 4 obs. and 17 variables:
   \item{ln_hdl}{Natural log of HDL level}
   \item{ln_age_hdl}{Natural log of HDL and age}
   \item{ln_treated_sbp}{Natural log of treated systolic blood pressure}
-  \item{ln_age_treated_sbp}{Natural log of treated systolic blood pressure and age}
+  \item{ln_age_treated_sbp}{Natural log of treated systolic blood pressure
+   and age}
   \item{ln_untreated_sbp}{Natural log of untreated systolic blood pressure}
-  \item{ln_age_untreated_sbp}{Natural log of untreated systolic blood pressure and age}
+  \item{ln_age_untreated_sbp}{Natural log of untreated systolic blood
+   pressure and age}
   \item{smoker}{Smoking status}
   \item{ln_age_smoker}{Natural log of smoking status and age}
   \item{diabetes}{Diabetes status}
@@ -30,13 +32,14 @@ A data frame with 4 obs. and 17 variables:
 ascvd_pooled_coef
 }
 \description{
-A data set containing the 2013 ACC/AHA ASCVD 10-year risk pooled cohort coefficients
+A data set containing the 2013 ACC/AHA ASCVD 10-year risk pooled cohort
+coefficients
 }
 \references{
-Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of 
-cardiovascular risk: a report of the American College of 
-Cardiology/American Heart Association Task Force on Practice 
-Guidelines." Journal of the American College of Cardiology 63.25 
+Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of
+cardiovascular risk: a report of the American College of
+Cardiology/American Heart Association Task Force on Practice
+Guidelines." Journal of the American College of Cardiology 63.25
 Part B (2014): 2935-2959.
 }
 \keyword{datasets}
