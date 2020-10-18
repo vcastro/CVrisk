@@ -9,7 +9,7 @@ A data frame with 2 obs. and 10 variables:
 \describe{
   \item{gender}{Patient gender, either female or male}
   \item{ln_age}{Natural log of patient age}
-  \item{ln_totchol}{Natural log of total cholestorol level}
+  \item{ln_totchol}{Natural log of total cholesterol level}
   \item{ln_hdl}{Natural log of HDL level}
   \item{ln_untreated_sbp}{Natural log of untreated systolic blood pressure}
   \item{ln_treated_sbp}{Natural log of treated systolic blood pressure}

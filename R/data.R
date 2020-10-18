@@ -11,7 +11,7 @@
 #'   \item{BMI}{Body mass index (kg/m2)}
 #'   \item{sbp}{systolic blood pressure}
 #'   \item{hdl}{HDL}
-#'   \item{totchol}{Total cholestorol}
+#'   \item{totchol}{Total cholesterol}
 #'   \item{bp_med}{Patient is on blood pressure medication}
 #'   \item{smoker}{Smoking status}
 #'   \item{diabetes}{Diabetes status}
@@ -29,7 +29,7 @@
 #' \describe{
 #'   \item{gender}{Patient gender, either female or male}
 #'   \item{ln_age}{Natural log of patient age}
-#'   \item{ln_totchol}{Natural log of total cholestorol level}
+#'   \item{ln_totchol}{Natural log of total cholesterol level}
 #'   \item{ln_hdl}{Natural log of HDL level}
 #'   \item{ln_untreated_sbp}{Natural log of untreated systolic blood pressure}
 #'   \item{ln_treated_sbp}{Natural log of treated systolic blood pressure}
@@ -83,8 +83,8 @@
 #'   \item{gender}{Patient gender, either female or male}
 #'   \item{ln_age}{Natural log of patient age}
 #'   \item{ln_age_squared}{Natural log of patient age in years, squared}
-#'   \item{ln_totchol}{Natural log of total cholestorol level}
-#'   \item{ln_age_totchol}{Natural log of combined age and total cholestorol}
+#'   \item{ln_totchol}{Natural log of total cholesterol level}
+#'   \item{ln_age_totchol}{Natural log of combined age and total cholesterol}
 #'   \item{ln_hdl}{Natural log of HDL level}
 #'   \item{ln_age_hdl}{Natural log of HDL and age}
 #'   \item{ln_treated_sbp}{Natural log of treated systolic blood pressure}

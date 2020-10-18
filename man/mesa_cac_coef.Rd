@@ -9,12 +9,12 @@ A data frame with 1 obs. and 15 variables:
 \describe{
   \item{age}{Coefficient for age}
   \item{gender_male}{Coefficient for male gender}
-  \item{race_chinese}{Coefficient for chinese race}
-  \item{race_aa}{Coefficient for african american race}
-  \item{race_hispanic}{Coefficient for hispanic race}
+  \item{race_chinese}{Coefficient for Chinese race}
+  \item{race_aa}{Coefficient for African American race}
+  \item{race_hispanic}{Coefficient for Hispanic race}
   \item{diabetes}{Coefficient for diabetes status}
   \item{smoker}{Coefficient for current smoker}
-  \item{totchol}{Coefficient for total cholestorol level}
+  \item{totchol}{Coefficient for total cholesterol level}
   \item{hdl}{Coefficient for HDL level}
   \item{hld_med}{Coefficient for antihyperlipidemic medication}
   \item{sbp}{Coefficient for systolic blood pressure}

@@ -13,7 +13,7 @@ A data frame with 3 obs. and 10 variables:
   \item{BMI}{Body mass index (kg/m2)}
   \item{sbp}{systolic blood pressure}
   \item{hdl}{HDL}
-  \item{totchol}{Total cholestorol}
+  \item{totchol}{Total cholesterol}
   \item{bp_med}{Patient is on blood pressure medication}
   \item{smoker}{Smoking status}
   \item{diabetes}{Diabetes status}
