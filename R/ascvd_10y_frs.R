@@ -31,7 +31,8 @@
 #' @references
 #' D’agostino, R.B., Vasan, R.S., Pencina, M.J., Wolf, P.A., Cobain, M.,
 #' Massaro, J.M. and Kannel, W.B., 2008. General cardiovascular risk
-#' profile for use in primary care. Circulation, 117(6), pp.743-753.
+#' profile for use in primary care: the Framingham Heart Study.
+#' Circulation, 117(6), pp.743-753.
 
 ascvd_10y_frs <- function(gender = c("male", "female"),
                           age, hdl, totchol, sbp,
