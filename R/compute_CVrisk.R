@@ -43,7 +43,7 @@ compute_CVrisk <- function(df, scores = c(
   }
 
 
-  results <- sapply(scores, function(x) do.call(Vectorize(x), pred_args))
+  results <- sapply(scores, function(x) do.call(x, pred_args))
 
   row.names(results) <- NULL
   return(cbind(df, results))

@@ -37,20 +37,20 @@
 ascvd_10y_accaha <- function(race = "white", gender = c("male", "female"),
                              age, totchol, hdl, sbp,
                              bp_med, smoker, diabetes, ...) {
-  if (!race %in% c("aa", "white") | missing(race)) {
+  if (!all(race %in% c("aa", "white")) | missing(race)) {
     stop("race must be either 'aa' or 'white'")
   }
 
-  if (!gender %in% c("male", "female") | missing(gender)) {
+  if (!all(gender %in% c("male", "female")) | missing(gender)) {
     stop("gender must be either 'male' or 'female'")
   }
 
-  if (!is.numeric(age) | age < 1 | age > 120 | missing(age)) {
-    stop("age must be a valid numeric value'")
+  if (!is.numeric(age) | any(age < 1, na.rm=TRUE) | any(age > 120, na.rm=TRUE) | missing(age)) {
+    stop("age must be a valid numeric value")
   }
 
-  if (!is.numeric(totchol) | totchol < 1 | totchol > 999 | missing(totchol)) {
-    stop("totchol must be a valid numeric value'")
+  if (!is.numeric(totchol) | any(totchol < 1, na.rm=TRUE) | any(totchol > 999, na.rm=TRUE) | missing(totchol)) {
+    stop("totchol must be a valid numeric value")
   }
 
 
@@ -58,9 +58,14 @@ ascvd_10y_accaha <- function(race = "white", gender = c("male", "female"),
 
   utils::data(ascvd_pooled_coef, envir = environment())
 
-  d <- ascvd_pooled_coef
+  # Generate data.frame of coefficients based on input `race` and `gender`
+  # vectors. We lose the original order after the merge operation, so will
+  # need to re-sort the output based on the original order of `race_sex`.
+  race_sex <- data.frame(race, gender)
+  race_sex$id <- as.numeric(row.names(race_sex))
 
-  pooled_coef <- d[which(d$race == race & d$gender == gender), ]
+  pooled_coef <- merge(race_sex, ascvd_pooled_coef)
+  pooled_coef <- pooled_coef[order(pooled_coef$id), ]
 
   sbp_treated <- ifelse(bp_med == 1, sbp, 1)
   sbp_untreated <- ifelse(bp_med == 0, sbp, 1)
