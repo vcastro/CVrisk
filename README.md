@@ -28,6 +28,9 @@
 ## Installation
 
 ``` r
+# Install from CRAN
+install.packages("CVRisk")
+
 # Install the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("vcastro/CVRisk")
