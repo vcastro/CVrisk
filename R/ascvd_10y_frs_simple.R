@@ -40,7 +40,7 @@ ascvd_10y_frs_simple <- function(gender = c("male", "female"),
   gender <- ifelse(gender == "m", "male", gender)
   gender <- ifelse(gender == "f", "female", gender)
 
-  if (!gender %in% c("male", "female") | missing(gender)) {
+  if (!all(gender %in% c("male", "female")) | missing(gender)) {
     stop("gender must be either 'male' or 'female'")
   }
 
@@ -48,19 +48,40 @@ ascvd_10y_frs_simple <- function(gender = c("male", "female"),
     stop("age must be a valid numeric value'")
   }
 
-  if (age < 1 | age > 120) {
-    return(NA)
+  age <- ifelse(age < 1 | age > 120, NA, age)
+
+  if (missing(bmi)) {
+    bmi <- NA
   }
 
-  if (missing(bmi) | missing(sbp) | missing(bp_med) | missing(smoker) |
-    missing(diabetes)) {
-    return(NA)
+  if (missing(sbp)) {
+    sbp <- NA
+  }
+
+  if (missing(bp_med)) {
+    bp_med <- NA
+  }
+
+  if (missing(smoker)) {
+    smoker <- NA
+  }
+
+  if (missing(diabetes)) {
+    diabetes <- NA
   }
 
   # retrieve model coefficients
   frs_simple_coef <- NULL
   utils::data(frs_simple_coef, envir = environment())
-  model_coef <- frs_simple_coef[which(frs_simple_coef$gender == gender), ]
+
+  # Generate data.frame of coefficients based on input `gender` vector.
+  # We lose the original order after the merge operation, so will need
+  # to re-sort the output based on the original order of `sex_df`.
+  sex_df <- data.frame(gender)
+  sex_df$id <- as.numeric(row.names(sex_df))
+
+  model_coef <- merge(sex_df, frs_simple_coef)
+  model_coef <- model_coef[order(model_coef$id), ]
 
   sbp_treated <- ifelse(bp_med == 1, sbp, 1)
   sbp_untreated <- ifelse(bp_med == 0, sbp, 1)

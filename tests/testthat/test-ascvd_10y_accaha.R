@@ -66,3 +66,17 @@ test_that("white male example is correct", {
     7.01
   )
 })
+
+test_that("compute_CVrisk throws error", {
+  expect_error(
+    ascvd_10y_accaha(
+      race = "aa",
+      gender = "female",
+      age = 60,
+      totchol = 9999,
+      hdl = 50,
+      sbp = 120,
+      bp_med = 0,
+      smoker = 1,
+      diabetes = 0))
+})
