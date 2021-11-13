@@ -37,7 +37,7 @@
 ascvd_10y_accaha <- function(race = "white", gender = c("male", "female"),
                              age, totchol, hdl, sbp,
                              bp_med, smoker, diabetes, ...) {
-  if (!all(race %in% c("aa", "white")) | missing(race)) {
+  if (!all(race %in% c("aa", "white", "other")) | missing(race)) {
     stop("race must be either 'aa' or 'white'")
   }
 
@@ -61,6 +61,9 @@ ascvd_10y_accaha <- function(race = "white", gender = c("male", "female"),
   # Generate data.frame of coefficients based on input `race` and `gender`
   # vectors. We lose the original order after the merge operation, so will
   # need to re-sort the output based on the original order of `race_sex`.
+  
+  race <- ifelse(race == "other", "white", race)
+  
   race_sex <- data.frame(race, gender)
   race_sex$id <- as.numeric(row.names(race_sex))
 

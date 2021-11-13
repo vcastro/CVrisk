@@ -67,6 +67,25 @@ test_that("white male example is correct", {
   )
 })
 
+
+test_that("Other race male example is correct (same as White)", {
+  expect_equal(
+    ascvd_10y_accaha(
+      race = "other",
+      gender = "male",
+      age = 55,
+      totchol = 213,
+      hdl = 50,
+      sbp = 140,
+      bp_med = 0,
+      smoker = 0,
+      diabetes = 0
+    ),
+    7.01
+  )
+})
+
+
 test_that("compute_CVrisk throws error", {
   expect_error(
     ascvd_10y_accaha(
