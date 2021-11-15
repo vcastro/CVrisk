@@ -18,7 +18,7 @@ ascvd_10y_accaha(
 )
 }
 \arguments{
-\item{race}{patient race (white, aa)}
+\item{race}{patient race (white, aa, other)}
 
 \item{gender}{patient gender (male, female)}
 

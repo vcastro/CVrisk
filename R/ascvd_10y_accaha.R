@@ -4,7 +4,7 @@
 #' non-fatal myocardial infarction (MI), congestive heart disease (CHD) death,
 #' or fatal or nonfatal stroke).
 #'
-#' @param race patient race (white, aa)
+#' @param race patient race (white, aa, other)
 #' @param gender patient gender (male, female)
 #' @param age patient age (years)
 #' @param totchol Total cholesterol (mg/dL)
@@ -38,7 +38,7 @@ ascvd_10y_accaha <- function(race = "white", gender = c("male", "female"),
                              age, totchol, hdl, sbp,
                              bp_med, smoker, diabetes, ...) {
   if (!all(race %in% c("aa", "white", "other")) | missing(race)) {
-    stop("race must be either 'aa' or 'white'")
+    stop("race must be either 'aa', 'white' or 'other'")
   }
 
   if (!all(gender %in% c("male", "female")) | missing(gender)) {
