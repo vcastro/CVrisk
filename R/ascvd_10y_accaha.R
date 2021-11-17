@@ -37,33 +37,33 @@
 ascvd_10y_accaha <- function(race = "white", gender = c("male", "female"),
                              age, totchol, hdl, sbp,
                              bp_med, smoker, diabetes, ...) {
-  if (!all(race %in% c("aa", "white", "other")) | missing(race)) {
-    stop("race must be either 'aa', 'white' or 'other'")
-  }
 
   if (!all(gender %in% c("male", "female")) | missing(gender)) {
     stop("gender must be either 'male' or 'female'")
   }
 
-  if (!is.numeric(age) | any(age < 1, na.rm=TRUE) | any(age > 120, na.rm=TRUE) | missing(age)) {
-    stop("age must be a valid numeric value")
-  }
+  age <- ifelse(!is.numeric(age) |
+      age < 20 | age > 79 | missing(age), NA, age)
 
-  if (!is.numeric(totchol) | any(totchol < 1, na.rm=TRUE) | any(totchol > 999, na.rm=TRUE) | missing(totchol)) {
-    stop("totchol must be a valid numeric value")
-  }
+  totchol <- ifelse(!is.numeric(totchol) |
+      totchol < 130 | totchol > 320 | missing(totchol), NA, totchol)
+
+  hdl <- ifelse(!is.numeric(hdl) |
+                   hdl < 20 | hdl > 100 | missing(hdl), NA, hdl)
+
+  sbp <- ifelse(!is.numeric(sbp) |
+                   sbp < 90 | sbp > 200 | missing(sbp), NA, sbp)
 
 
   ascvd_pooled_coef <- NULL
-
   utils::data(ascvd_pooled_coef, envir = environment())
 
   # Generate data.frame of coefficients based on input `race` and `gender`
   # vectors. We lose the original order after the merge operation, so will
   # need to re-sort the output based on the original order of `race_sex`.
-  
-  race <- ifelse(race == "other", "white", race)
-  
+
+  race <- ifelse(race %in% c("white", "aa"), race, "white")
+
   race_sex <- data.frame(race, gender)
   race_sex$id <- as.numeric(row.names(race_sex))
 
@@ -90,5 +90,6 @@ ascvd_10y_accaha <- function(race = "white", gender = c("male", "female"),
   risk_score <- round((1 - (pooled_coef$baseline_survival^
     exp(indv_sum - pooled_coef$group_mean))) * 100.000, 2)
 
-  ifelse(risk_score < 1, 1, ifelse(risk_score > 30, 30, risk_score))
+  ifelse(risk_score < 1, 1, risk_score)
+
 }

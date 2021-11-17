@@ -17,6 +17,9 @@ A data frame with 3 obs. and 10 variables:
   \item{bp_med}{Patient is on blood pressure medication}
   \item{smoker}{Smoking status}
   \item{diabetes}{Diabetes status}
+  \item{lipid_med}{Patient is on hyperlipidemic medication}
+  \item{fh_heartattack}{Family history of heart attack}
+  \item{cac}{Coronary artery calcification score}
 }
 }
 \usage{

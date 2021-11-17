@@ -8,14 +8,14 @@ chd_10y_mesa(
   race = "white",
   gender = c("male", "female"),
   age,
-  totchol,
-  hdl,
-  lipid_med,
-  sbp,
-  bp_med,
-  smoker,
-  diabetes,
-  fh_heartattack,
+  totchol = NA,
+  hdl = NA,
+  lipid_med = NA,
+  sbp = NA,
+  bp_med = NA,
+  smoker = NA,
+  diabetes = NA,
+  fh_heartattack = NA,
   ...
 )
 }
@@ -49,9 +49,10 @@ children) (1=Yes, 0=No)}
 Estimated 10-Y Risk for hard CAD event (percent)
 }
 \description{
-Computes 10-year risk for hard coronary heart disease (CHD) event (defined as 
-first occurrence of myocardial infarction (MI), resuscitated cardiac arrest,
-CHD death, or revascularization with prior or concurrent adjudicated angina).
+Computes 10-year risk for hard coronary heart disease (CHD) event (defined
+as first occurrence of myocardial infarction (MI), resuscitated cardiac
+arrest, CHD death, or revascularization with prior or concurrent adjudicated
+angina).
 }
 \examples{
 library(CVrisk)

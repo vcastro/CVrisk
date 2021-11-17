@@ -86,8 +86,8 @@ test_that("Other race male example is correct (same as White)", {
 })
 
 
-test_that("compute_CVrisk throws error", {
-  expect_error(
+test_that("invalid totchol returns NA", {
+  expect_equal(
     ascvd_10y_accaha(
       race = "aa",
       gender = "female",
@@ -97,5 +97,20 @@ test_that("compute_CVrisk throws error", {
       sbp = 120,
       bp_med = 0,
       smoker = 1,
-      diabetes = 0))
+      diabetes = 0), NA)
+})
+
+
+test_that("out of range age returns NA", {
+  expect_equal(
+    ascvd_10y_accaha(
+      race = "aa",
+      gender = "female",
+      age = 80,
+      totchol = 190,
+      hdl = 50,
+      sbp = 120,
+      bp_med = 0,
+      smoker = 1,
+      diabetes = 0), NA)
 })

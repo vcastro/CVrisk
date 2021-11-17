@@ -6,7 +6,8 @@
 \usage{
 compute_CVrisk(
   df,
-  scores = c("ascvd_10y_accaha", "ascvd_10y_frs", "ascvd_10y_frs_simple"),
+  scores = c("ascvd_10y_accaha", "ascvd_10y_frs", "ascvd_10y_frs_simple",
+    "chd_10y_mesa", "chd_10y_mesa_cac"),
   age,
   gender,
   race,
@@ -16,7 +17,10 @@ compute_CVrisk(
   totchol = NULL,
   bp_med = NULL,
   smoker = NULL,
-  diabetes = NULL
+  diabetes = NULL,
+  lipid_med = NULL,
+  fh_heartattack = NULL,
+  cac = NULL
 )
 }
 \arguments{
@@ -43,6 +47,12 @@ compute_CVrisk(
 \item{smoker}{character string of smoking status column}
 
 \item{diabetes}{character string of diabetes status column}
+
+\item{lipid_med}{character string of lipid medication column}
+
+\item{fh_heartattack}{character string of fh of heart attack status column}
+
+\item{cac}{character string of cac column}
 }
 \value{
 input data frame with risk score results appended as columns
@@ -56,6 +66,7 @@ library(CVrisk)
 compute_CVrisk(sample_data,
   age = "age", race = "race", gender = "gender", bmi = "BMI", sbp = "sbp",
   hdl = "hdl", totchol = "totchol", bp_med = "bp_med", smoker = "smoker",
-  diabetes = "diabetes"
+  diabetes = "diabetes", lipid_med = "lipid_med",
+  fh_heartattack = "fh_heartattack", cac = "cac"
 )
 }

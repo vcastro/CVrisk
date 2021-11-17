@@ -1,8 +1,9 @@
 #' MESA 2015 CHD risk score
 #'
-#' Computes 10-year risk for hard coronary heart disease (CHD) event (defined as 
-#' first occurrence of myocardial infarction (MI), resuscitated cardiac arrest,
-#' CHD death, or revascularization with prior or concurrent adjudicated angina).
+#' Computes 10-year risk for hard coronary heart disease (CHD) event (defined
+#' as first occurrence of myocardial infarction (MI), resuscitated cardiac
+#' arrest, CHD death, or revascularization with prior or concurrent adjudicated
+#' angina).
 #'
 #' @param race patient race/ethnicity (white, aa, chinese, or hispanic)
 #' @param gender patient gender (male, female)
@@ -39,36 +40,41 @@
 #' doi:10.1016/j.jacc.2015.08.035
 
 chd_10y_mesa <- function(race = "white", gender = c("male", "female"),
-                             age, totchol, hdl, lipid_med, sbp,
-                             bp_med, smoker, diabetes, fh_heartattack, 
+                             age, totchol = NA, hdl = NA, lipid_med = NA,
+                             sbp = NA, bp_med = NA, smoker = NA, diabetes = NA,
+                             fh_heartattack = NA,
                          ...) {
   if (!all(race %in% c("aa", "white", "chinese", "hispanic")) | missing(race)) {
     stop("race must be either 'aa', 'chinese', or 'hispanic'")
   }
-  
+
   if (!all(gender %in% c("male", "female")) | missing(gender)) {
     stop("gender must be either 'male' or 'female'")
   }
-  
-  if (!is.numeric(age) | any(age < 1, na.rm=TRUE) | any(age > 120, na.rm=TRUE) | missing(age)) {
+
+  if (!is.numeric(age) |
+      any(age < 1, na.rm = TRUE) |
+      any(age > 120, na.rm = TRUE) | missing(age)) {
     stop("age must be a valid numeric value")
   }
-  
-  if (!is.numeric(totchol) | any(totchol < 1, na.rm=TRUE) | any(totchol > 999, na.rm=TRUE) | missing(totchol)) {
+
+  if (!is.numeric(totchol) |
+      any(totchol < 1, na.rm = TRUE) |
+      any(totchol > 999, na.rm = TRUE) | missing(totchol)) {
     stop("totchol must be a valid numeric value")
   }
-  
+
   mesa_coef <- NULL
   utils::data(mesa_coef, envir = environment())
-  model_coef <- mesa_coef  
+  model_coef <- mesa_coef
 
-  race_chinese = ifelse(race == "chinese", 1, 0)
-  race_aa = ifelse(race == "aa", 1, 0)
-  race_hispanic = ifelse(race == "hispanic", 1, 0)
-  
-  
-  gender_male = ifelse(gender == "male", 1, 0)
-  
+  race_chinese <- ifelse(race == "chinese", 1, 0)
+  race_aa <- ifelse(race == "aa", 1, 0)
+  race_hispanic <- ifelse(race == "hispanic", 1, 0)
+
+
+  gender_male <- ifelse(gender == "male", 1, 0)
+
   indv_sum <- age * model_coef$age +
     gender_male * model_coef$gender_male +
     race_chinese * model_coef$race_chinese +
@@ -82,10 +88,10 @@ chd_10y_mesa <- function(race = "white", gender = c("male", "female"),
     sbp * model_coef$sbp +
     bp_med * model_coef$bp_med +
     fh_heartattack * model_coef$fh_heartattack
-  
+
   risk_score <- round((1 - (model_coef$baseline_survival^
-                              exp(indv_sum)))*100.000, 2)
-  
+                              exp(indv_sum))) * 100.000, 2)
+
   #risk_score
   ifelse(risk_score < 1, 1, ifelse(risk_score > 30, 30, risk_score))
 }
