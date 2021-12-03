@@ -5,6 +5,7 @@
 [![R build status](https://github.com/vcastro/CVrisk/workflows/R-CMD-check/badge.svg)](https://github.com/vcastro/CVrisk/actions)
 [![Codecov test coverage](https://codecov.io/gh/vcastro/CVrisk/branch/master/graph/badge.svg)](https://codecov.io/gh/vcastro/CVrisk?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/CVrisk)](https://CRAN.R-project.org/package=CVrisk)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/CVrisk)](https://CRAN.R-project.org/package=CVrisk)
 <!-- badges: end -->
 
 
@@ -17,11 +18,12 @@
 - Framingham 2008 10-year ASCVD risk (model with lipid labs)
 - Framingham 2008 10-year ASCVD risk (model with BMI)
 - ACC/AHA 2013 10-year ASCVD risk 
+- MESA 2015 10-year ASCVD risk (traditional risk factors)
+- MESA 2015 10-year ASCVD risk (using coronary artery calcium)
+
 
 #### Coming soon
 
-- MESA 2015 10-year ASCVD risk (traditional risk factors)
-- MESA 2015 10-year ASCVD risk (using coronary artery calcium)
 - Reynolds 2007 10-year ASCVD risk in women
 - Framingham 2009 30-year ASCVD risk
 
@@ -48,15 +50,17 @@ ascvd_10y_accaha(race = "aa", gender = "male", age = 55,
    
 ```
 
-Calculate multiple scores for a dataframe of data and append scores to the
+Calculate multiple scores for a dataframe and append scores to the
 dataframe:
 
 ``` r
-library(dplyr)
 
-sample_data %>% 
-  compute_CVrisk(age = "age", race = "race", gender = "gender", bmi = "BMI", 
-      sbp = "sbp", hdl = "hdl", totchol = "totchol", bp_med = "bp_med", 
-      smoker = "smoker", diabetes = "diabetes")
+compute_CVrisk(sample_data,
+   age = "age", race = "race", gender = "gender", bmi = "BMI", sbp = "sbp",
+   hdl = "hdl", totchol = "totchol", bp_med = "bp_med", smoker = "smoker",
+   diabetes = "diabetes", lipid_med = "lipid_med",
+   fh_heartattack = "fh_heartattack", cac = "cac"
+)
+
 ```
 

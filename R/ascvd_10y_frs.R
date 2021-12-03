@@ -49,7 +49,7 @@ ascvd_10y_frs <- function(gender = c("male", "female"),
     stop("age must be a valid numeric value'")
   }
 
-  age <- ifelse(age < 1 | age > 120, NA, age)
+  age <- ifelse(age < 30 | age > 74, NA, age)
 
   if (missing(hdl)) {
     hdl <- NA
@@ -102,5 +102,7 @@ ascvd_10y_frs <- function(gender = c("male", "female"),
   risk_score <- round((1 - (model_coef$baseline_survival^
     exp(indv_sum - model_coef$group_mean))) * 100.000, 2)
 
-  ifelse(risk_score < 1, 1, ifelse(risk_score > 30, 30, risk_score))
+  #ifelse(risk_score < 1, 1, ifelse(risk_score > 30, 30, risk_score))
+  
+    ifelse(risk_score < 1, 1, risk_score)
 }

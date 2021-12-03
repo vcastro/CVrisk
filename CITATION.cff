@@ -1,0 +1,53 @@
+# -----------------------------------------------------------
+# CITATION file created with {cffr} R package, v0.1.1
+# See also: https://docs.ropensci.org/cffr/
+# -----------------------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "CVrisk" in publications use:'
+type: software
+license: GPL-3.0-only
+title: 'CVrisk: Compute Risk Scores for Cardiovascular Diseases'
+version: 1.1.0
+abstract: Calculate various cardiovascular disease risk scores from the Framingham
+  Heart Study (FHS), the American College of Cardiology (ACC), and the American Heart
+  Association (AHA) as described in D’agostino, et al (2008) <doi:10.1161/circulationaha.107.699579>,
+  Goff, et al (2013) <doi:10.1161/01.cir.0000437741.48606.98>, and Mclelland, et al
+  (2015) <doi:10.1016/j.jacc.2015.08.035>.
+authors:
+- family-names: Castro
+  given-names: Victor
+  email: vcastro@mgh.harvard.edu
+  orcid: https://orcid.org/0000-0001-7390-6354
+preferred-citation:
+  type: manual
+  title: 'CVrisk: Compute Risk Scores for Cardiovascular Diseases'
+  authors:
+  - family-names: Castro
+    given-names: Victor
+    email: vcastro@mgh.harvard.edu
+    orcid: https://orcid.org/0000-0001-7390-6354
+  version: 1.1.0
+  abstract: Calculate various cardiovascular disease risk scores from the Framingham
+    Heart Study (FHS), the American College of Cardiology (ACC), and the American
+    Heart Association (AHA) as described in D’agostino, et al (2008) <doi:10.1161/circulationaha.107.699579>,
+    Goff, et al (2013) <doi:10.1161/01.cir.0000437741.48606.98>, and Mclelland, et
+    al (2015) <doi:10.1016/j.jacc.2015.08.035>.
+  repository: https://CRAN.R-project.org/package=CVrisk
+  repository-code: https://github.com/vcastro/CVrisk
+  url: https://github.com/vcastro/CVrisk
+  contact:
+  - family-names: Castro
+    given-names: Victor
+    email: vcastro@mgh.harvard.edu
+    orcid: https://orcid.org/0000-0001-7390-6354
+  license: GPL-3.0-only
+  year: '2021'
+repository: https://CRAN.R-project.org/package=CVrisk
+repository-code: https://github.com/vcastro/CVrisk
+url: https://github.com/vcastro/CVrisk
+contact:
+- family-names: Castro
+  given-names: Victor
+  email: vcastro@mgh.harvard.edu
+  orcid: https://orcid.org/0000-0001-7390-6354

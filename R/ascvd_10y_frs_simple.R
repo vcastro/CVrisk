@@ -48,7 +48,7 @@ ascvd_10y_frs_simple <- function(gender = c("male", "female"),
     stop("age must be a valid numeric value'")
   }
 
-  age <- ifelse(age < 1 | age > 120, NA, age)
+  age <- ifelse(age < 30 | age > 74, NA, age)
 
   if (missing(bmi)) {
     bmi <- NA
