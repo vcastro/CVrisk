@@ -31,11 +31,11 @@
 
 ``` r
 # Install from CRAN
-install.packages("CVRisk")
+install.packages("CVrisk")
 
 # Install the development version from GitHub:
 # install.packages("devtools")
-devtools::install_github("vcastro/CVRisk")
+devtools::install_github("vcastro/CVrisk")
 ```
 
 ## Usage
