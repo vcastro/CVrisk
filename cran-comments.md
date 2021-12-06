@@ -1,3 +1,14 @@
+# Review 1 - 2021-12-06
+
+>   Found the following (possibly) invalid URLs: URL: https://codecov.io/vcastro/CVrisk?branch=master (moved to https://app.codecov.io/vcastro/CVrisk?branch=master)        
+> From: README.md
+>       Status: 301
+>       Message: Moved Permanently
+
+
+Updated link in the README file 
+
+
 ## R CMD check results
 There were no errors, warnings or notes.
 

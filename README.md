@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 [![R build status](https://github.com/vcastro/CVrisk/workflows/R-CMD-check/badge.svg)](https://github.com/vcastro/CVrisk/actions)
-[![Codecov test coverage](https://codecov.io/gh/vcastro/CVrisk/branch/master/graph/badge.svg)](https://codecov.io/gh/vcastro/CVrisk?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/vcastro/CVrisk/branch/master/graph/badge.svg)](https://app.codecov.io/gh/vcastro/CVrisk?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/CVrisk)](https://CRAN.R-project.org/package=CVrisk)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/CVrisk)](https://CRAN.R-project.org/package=CVrisk)
 <!-- badges: end -->
