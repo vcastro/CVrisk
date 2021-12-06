@@ -16,6 +16,8 @@ reference:
   - ascvd_10y_frs
   - ascvd_10y_frs_simple
   - ascvd_10y_accaha
+  - chd_10y_mesa
+  - chd_10y_mesa_cac
 
 - title: Supporting datasets
   desc: ~
@@ -24,6 +26,8 @@ reference:
   - frs_coef
   - frs_simple_coef
   - ascvd_pooled_coef
+  - mesa_cac_coef
+  - mesa_coef
   
 - title: Package info
   desc: ~
