@@ -24,6 +24,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -36,18 +38,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">CVrisk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -57,8 +53,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/vcastro/CVrisk/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/vcastro/CVrisk/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -74,111 +70,123 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="cvrisk" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#cvrisk" class="anchor"></a>CVrisk</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="cvrisk">CVrisk<a class="anchor" aria-label="anchor" href="#cvrisk"></a>
+</h1></div>
 <!-- badges: start -->
 
-<div id="about-the-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#about-the-package" class="anchor"></a>About the package</h2>
+<div class="section level2">
+<h2 id="about-the-package">About the package<a class="anchor" aria-label="anchor" href="#about-the-package"></a>
+</h2>
 <p><code>CVrisk</code> is a package to calculate various cardiovascular disease risk scores.</p>
-<div id="currently-available-risk-scores" class="section level3">
-<h3 class="hasAnchor">
-<a href="#currently-available-risk-scores" class="anchor"></a>Currently available risk scores</h3>
+<div class="section level3">
+<h3 id="currently-available-risk-scores">Currently available risk scores<a class="anchor" aria-label="anchor" href="#currently-available-risk-scores"></a>
+</h3>
 <ul>
 <li>Framingham 2008 10-year ASCVD risk (model with lipid labs)</li>
 <li>Framingham 2008 10-year ASCVD risk (model with BMI)</li>
 <li>ACC/AHA 2013 10-year ASCVD risk</li>
-</ul>
-<div id="coming-soon" class="section level4">
-<h4 class="hasAnchor">
-<a href="#coming-soon" class="anchor"></a>Coming soon</h4>
-<ul>
 <li>MESA 2015 10-year ASCVD risk (traditional risk factors)</li>
 <li>MESA 2015 10-year ASCVD risk (using coronary artery calcium)</li>
+</ul>
+<div class="section level4">
+<h4 id="coming-soon">Coming soon<a class="anchor" aria-label="anchor" href="#coming-soon"></a>
+</h4>
+<ul>
 <li>Reynolds 2007 10-year ASCVD risk in women</li>
 <li>Framingham 2009 30-year ASCVD risk</li>
 </ul>
 </div>
 </div>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># Install from CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"CVRisk"</span><span class="op">)</span>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install from CRAN</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"CVrisk"</span><span class="op">)</span>
 
 <span class="co"># Install the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"vcastro/CVRisk"</span><span class="op">)</span></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"vcastro/CVrisk"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <p>Calculate a single score:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vcastro/CVrisk">CVrisk</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vcastro/CVrisk" class="external-link">CVrisk</a></span><span class="op">)</span>
 <span class="fu"><a href="reference/ascvd_10y_accaha.html">ascvd_10y_accaha</a></span><span class="op">(</span>race <span class="op">=</span> <span class="st">"aa"</span>, gender <span class="op">=</span> <span class="st">"male"</span>, age <span class="op">=</span> <span class="fl">55</span>, 
    totchol <span class="op">=</span> <span class="fl">213</span>, hdl <span class="op">=</span> <span class="fl">50</span>, sbp <span class="op">=</span> <span class="fl">140</span>, 
    bp_med <span class="op">=</span> <span class="cn">FALSE</span>, smoker<span class="op">=</span><span class="fl">0</span>, diabetes<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
-   </pre></div>
-<p>Calculate multiple scores for a dataframe of data and append scores to the dataframe:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-
-<span class="va">sample_data</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="reference/compute_CVrisk.html">compute_CVrisk</a></span><span class="op">(</span>age <span class="op">=</span> <span class="st">"age"</span>, race <span class="op">=</span> <span class="st">"race"</span>, gender <span class="op">=</span> <span class="st">"gender"</span>, bmi <span class="op">=</span> <span class="st">"BMI"</span>, 
-      sbp <span class="op">=</span> <span class="st">"sbp"</span>, hdl <span class="op">=</span> <span class="st">"hdl"</span>, totchol <span class="op">=</span> <span class="st">"totchol"</span>, bp_med <span class="op">=</span> <span class="st">"bp_med"</span>, 
-      smoker <span class="op">=</span> <span class="st">"smoker"</span>, diabetes <span class="op">=</span> <span class="st">"diabetes"</span><span class="op">)</span></pre></div>
+   </code></pre></div>
+<p>Calculate multiple scores for a dataframe and append scores to the dataframe:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="fu"><a href="reference/compute_CVrisk.html">compute_CVrisk</a></span><span class="op">(</span><span class="va">sample_data</span>,
+   age <span class="op">=</span> <span class="st">"age"</span>, race <span class="op">=</span> <span class="st">"race"</span>, gender <span class="op">=</span> <span class="st">"gender"</span>, bmi <span class="op">=</span> <span class="st">"BMI"</span>, sbp <span class="op">=</span> <span class="st">"sbp"</span>,
+   hdl <span class="op">=</span> <span class="st">"hdl"</span>, totchol <span class="op">=</span> <span class="st">"totchol"</span>, bp_med <span class="op">=</span> <span class="st">"bp_med"</span>, smoker <span class="op">=</span> <span class="st">"smoker"</span>,
+   diabetes <span class="op">=</span> <span class="st">"diabetes"</span>, lipid_med <span class="op">=</span> <span class="st">"lipid_med"</span>,
+   fh_heartattack <span class="op">=</span> <span class="st">"fh_heartattack"</span>, cac <span class="op">=</span> <span class="st">"cac"</span>
+<span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=CVrisk">https://​cloud.r-project.org/​package=CVrisk</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/vcastro/CVrisk/">https://​github.com/​vcastro/​CVrisk/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/vcastro/CVrisk/issues">https://​github.com/​vcastro/​CVrisk/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Victor Castro <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/https://orcid.org/0000-0001-7390-6354" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://cloud.r-project.org/package=CVrisk" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/vcastro/CVrisk/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/vcastro/CVrisk/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/vcastro/CVrisk/actions"><img src="https://github.com/vcastro/CVrisk/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/vcastro/CVrisk?branch=master"><img src="https://codecov.io/gh/vcastro/CVrisk/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://CRAN.R-project.org/package=CVrisk"><img src="https://www.r-pkg.org/badges/version/CVrisk" alt="CRAN status"></a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing CVrisk</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Victor Castro <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/https://orcid.org/0000-0001-7390-6354" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/vcastro/CVrisk/actions" class="external-link"><img src="https://github.com/vcastro/CVrisk/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://app.codecov.io/gh/vcastro/CVrisk?branch=master" class="external-link"><img src="https://codecov.io/gh/vcastro/CVrisk/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://CRAN.R-project.org/package=CVrisk" class="external-link"><img src="https://www.r-pkg.org/badges/version/CVrisk" alt="CRAN status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=CVrisk" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/CVrisk" alt="CRAN downloads"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Victor Castro.</p>
+  <p></p>
+<p>Developed by Victor Castro.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -186,6 +194,8 @@
 
   
 
+
+  
 
   </body>
 </html>
