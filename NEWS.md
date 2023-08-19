@@ -1,3 +1,8 @@
+# CVrisk 1.1.1
+
+Update package documentation to proper CVrisk-package sentinel file.
+
+
 # CVrisk 1.1.0
 
 Improve risk score calculation performance for large datasets.  Contribution by 
