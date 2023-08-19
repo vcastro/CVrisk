@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CVrisk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.1</span>
       </span>
     </div>
 
@@ -53,74 +53,105 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">compute_CVrisk</span><span class="op">(</span>
-  <span class="va">df</span>,
-  scores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ascvd_10y_accaha"</span>, <span class="st">"ascvd_10y_frs"</span>, <span class="st">"ascvd_10y_frs_simple"</span>,
-    <span class="st">"chd_10y_mesa"</span>, <span class="st">"chd_10y_mesa_cac"</span><span class="op">)</span>,
-  <span class="va">age</span>,
-  <span class="va">gender</span>,
-  <span class="va">race</span>,
-  sbp <span class="op">=</span> <span class="cn">NULL</span>,
-  bmi <span class="op">=</span> <span class="cn">NULL</span>,
-  hdl <span class="op">=</span> <span class="cn">NULL</span>,
-  totchol <span class="op">=</span> <span class="cn">NULL</span>,
-  bp_med <span class="op">=</span> <span class="cn">NULL</span>,
-  smoker <span class="op">=</span> <span class="cn">NULL</span>,
-  diabetes <span class="op">=</span> <span class="cn">NULL</span>,
-  lipid_med <span class="op">=</span> <span class="cn">NULL</span>,
-  fh_heartattack <span class="op">=</span> <span class="cn">NULL</span>,
-  cac <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">compute_CVrisk</span><span class="op">(</span></span>
+<span>  <span class="va">df</span>,</span>
+<span>  scores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ascvd_10y_accaha"</span>, <span class="st">"ascvd_10y_frs"</span>, <span class="st">"ascvd_10y_frs_simple"</span>, <span class="st">"chd_10y_mesa"</span>,</span>
+<span>    <span class="st">"chd_10y_mesa_cac"</span><span class="op">)</span>,</span>
+<span>  <span class="va">age</span>,</span>
+<span>  <span class="va">gender</span>,</span>
+<span>  <span class="va">race</span>,</span>
+<span>  sbp <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bmi <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hdl <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  totchol <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bp_med <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  smoker <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  diabetes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lipid_med <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fh_heartattack <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cac <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df</dt>
 <dd><p>input dataframe</p></dd>
+
+
 <dt>scores</dt>
 <dd><p>scores to compute, default is all scores</p></dd>
+
+
 <dt>age</dt>
 <dd><p>patient age in years (required for all scores)</p></dd>
+
+
 <dt>gender</dt>
 <dd><p>patient gender (male or female)</p></dd>
+
+
 <dt>race</dt>
 <dd><p>character string for patient race (white, aa, other) column</p></dd>
+
+
 <dt>sbp</dt>
 <dd><p>character string of systolic blood pressure (in mm Hg) column</p></dd>
+
+
 <dt>bmi</dt>
 <dd><p>character string of Body mass index (kg/m2) column</p></dd>
+
+
 <dt>hdl</dt>
 <dd><p>character string of HDL column</p></dd>
+
+
 <dt>totchol</dt>
 <dd><p>character string of total cholesterol column</p></dd>
+
+
 <dt>bp_med</dt>
 <dd><p>character string of blood pressure medication column</p></dd>
+
+
 <dt>smoker</dt>
 <dd><p>character string of smoking status column</p></dd>
+
+
 <dt>diabetes</dt>
 <dd><p>character string of diabetes status column</p></dd>
+
+
 <dt>lipid_med</dt>
 <dd><p>character string of lipid medication column</p></dd>
+
+
 <dt>fh_heartattack</dt>
 <dd><p>character string of fh of heart attack status column</p></dd>
+
+
 <dt>cac</dt>
 <dd><p>character string of cac column</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>input data frame with risk score results appended as columns</p>
+    
+
+<p>input data frame with risk score results appended as columns</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vcastro/CVrisk" class="external-link">CVrisk</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">compute_CVrisk</span><span class="op">(</span><span class="va">sample_data</span>,</span>
-<span class="r-in">  age <span class="op">=</span> <span class="st">"age"</span>, race <span class="op">=</span> <span class="st">"race"</span>, gender <span class="op">=</span> <span class="st">"gender"</span>, bmi <span class="op">=</span> <span class="st">"BMI"</span>, sbp <span class="op">=</span> <span class="st">"sbp"</span>,</span>
-<span class="r-in">  hdl <span class="op">=</span> <span class="st">"hdl"</span>, totchol <span class="op">=</span> <span class="st">"totchol"</span>, bp_med <span class="op">=</span> <span class="st">"bp_med"</span>, smoker <span class="op">=</span> <span class="st">"smoker"</span>,</span>
-<span class="r-in">  diabetes <span class="op">=</span> <span class="st">"diabetes"</span>, lipid_med <span class="op">=</span> <span class="st">"lipid_med"</span>,</span>
-<span class="r-in">  fh_heartattack <span class="op">=</span> <span class="st">"fh_heartattack"</span>, cac <span class="op">=</span> <span class="st">"cac"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vcastro/CVrisk" class="external-link">CVrisk</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">compute_CVrisk</span><span class="op">(</span><span class="va">sample_data</span>,</span></span>
+<span class="r-in"><span>  age <span class="op">=</span> <span class="st">"age"</span>, race <span class="op">=</span> <span class="st">"race"</span>, gender <span class="op">=</span> <span class="st">"gender"</span>, bmi <span class="op">=</span> <span class="st">"BMI"</span>, sbp <span class="op">=</span> <span class="st">"sbp"</span>,</span></span>
+<span class="r-in"><span>  hdl <span class="op">=</span> <span class="st">"hdl"</span>, totchol <span class="op">=</span> <span class="st">"totchol"</span>, bp_med <span class="op">=</span> <span class="st">"bp_med"</span>, smoker <span class="op">=</span> <span class="st">"smoker"</span>,</span></span>
+<span class="r-in"><span>  diabetes <span class="op">=</span> <span class="st">"diabetes"</span>, lipid_med <span class="op">=</span> <span class="st">"lipid_med"</span>,</span></span>
+<span class="r-in"><span>  fh_heartattack <span class="op">=</span> <span class="st">"fh_heartattack"</span>, cac <span class="op">=</span> <span class="st">"cac"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   age gender     race BMI sbp hdl totchol bp_med smoker diabetes lipid_med</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  55   male    white  30 140  50      NA      0      0        0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  45 female    white  27 125  50     200      1      0        0         0</span>
@@ -159,7 +190,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
