@@ -16,6 +16,11 @@
 
 ### Currently available risk scores
 
+- **AHA/ACC PREVENT 2023** (race-neutral, modern replacement for 2013 Pooled Cohort Equations)
+  - 10-year ASCVD risk (lipid-based model)
+  - 10-year ASCVD risk (BMI-based model)
+  - 30-year ASCVD risk (lipid-based model)
+  - 30-year ASCVD risk (BMI-based model)
 - Framingham 2008 10-year ASCVD risk (model with lipid labs)
 - Framingham 2008 10-year ASCVD risk (model with BMI)
 - ACC/AHA 2013 10-year ASCVD risk 
@@ -26,7 +31,6 @@
 #### Coming soon
 
 - Reynolds 2007 10-year ASCVD risk in women
-- Framingham 2009 30-year ASCVD risk
 
 ## Installation
 
@@ -45,10 +49,26 @@ Calculate a single score:
 
 ``` r
 library(CVrisk)
+
+# Using the 2013 ACC/AHA Pooled Cohort Equations
 ascvd_10y_accaha(race = "aa", gender = "male", age = 55, 
    totchol = 213, hdl = 50, sbp = 140, 
    bp_med = FALSE, smoker=0, diabetes=0)
-   
+
+# Using the 2023 AHA/ACC PREVENT equations (lipid-based)
+ascvd_10y_prevent(gender = "male", age = 55,
+   totchol = 213, hdl = 50, sbp = 140,
+   bp_med = 0, smoker = 0, diabetes = 0)
+
+# Using the 2023 AHA/ACC PREVENT equations (BMI-based)
+ascvd_10y_prevent_bmi(gender = "male", age = 55,
+   bmi = 30, sbp = 140,
+   bp_med = 0, smoker = 0, diabetes = 0)
+
+# 30-year risk using PREVENT
+ascvd_30y_prevent(gender = "male", age = 55,
+   totchol = 213, hdl = 50, sbp = 140,
+   bp_med = 0, smoker = 0, diabetes = 0)
 ```
 
 Calculate multiple scores for a dataframe and append scores to the
