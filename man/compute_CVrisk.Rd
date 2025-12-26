@@ -6,8 +6,9 @@
 \usage{
 compute_CVrisk(
   df,
-  scores = c("ascvd_10y_accaha", "ascvd_10y_frs", "ascvd_10y_frs_simple", "chd_10y_mesa",
-    "chd_10y_mesa_cac"),
+  scores = c("ascvd_10y_accaha", "ascvd_10y_frs", "ascvd_10y_frs_simple",
+    "ascvd_10y_prevent", "ascvd_10y_prevent_bmi", "ascvd_30y_prevent",
+    "ascvd_30y_prevent_bmi", "chd_10y_mesa", "chd_10y_mesa_cac"),
   age,
   gender,
   race,
@@ -20,7 +21,9 @@ compute_CVrisk(
   diabetes = NULL,
   lipid_med = NULL,
   fh_heartattack = NULL,
-  cac = NULL
+  cac = NULL,
+  egfr = NULL,
+  uacr = NULL
 )
 }
 \arguments{
@@ -53,6 +56,10 @@ compute_CVrisk(
 \item{fh_heartattack}{character string of fh of heart attack status column}
 
 \item{cac}{character string of cac column}
+
+\item{egfr}{character string of estimated glomerular filtration rate column}
+
+\item{uacr}{character string of urine albumin-to-creatinine ratio column}
 }
 \value{
 input data frame with risk score results appended as columns

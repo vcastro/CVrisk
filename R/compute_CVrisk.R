@@ -15,6 +15,8 @@
 #' @param lipid_med character string of lipid medication column
 #' @param fh_heartattack character string of fh of heart attack status column
 #' @param cac character string of cac column
+#' @param egfr character string of estimated glomerular filtration rate column
+#' @param uacr character string of urine albumin-to-creatinine ratio column
 #'
 #' @return input data frame with risk score results appended as columns
 #'
@@ -31,6 +33,8 @@
 compute_CVrisk <- function(df, scores = c(
                              "ascvd_10y_accaha",
                              "ascvd_10y_frs", "ascvd_10y_frs_simple",
+                             "ascvd_10y_prevent", "ascvd_10y_prevent_bmi",
+                             "ascvd_30y_prevent", "ascvd_30y_prevent_bmi",
                              "chd_10y_mesa",
                              "chd_10y_mesa_cac"
                            ),
@@ -38,11 +42,12 @@ compute_CVrisk <- function(df, scores = c(
                            hdl = NULL, totchol = NULL,
                            bp_med = NULL, smoker = NULL, diabetes = NULL,
                            lipid_med = NULL, fh_heartattack = NULL,
-                           cac = NULL) {
+                           cac = NULL, egfr = NULL, uacr = NULL) {
   all_args <- as.list(environment())
   valid_pred <- c(
     "age", "gender", "race", "sbp", "bmi", "hdl", "totchol",
-    "bp_med", "smoker", "diabetes", "lipid_med", "fh_heartattack", "cac"
+    "bp_med", "smoker", "diabetes", "lipid_med", "fh_heartattack", "cac",
+    "egfr", "uacr"
   )
 
   pred_args <- list()

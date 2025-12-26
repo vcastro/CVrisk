@@ -10,11 +10,13 @@ input_df <- as.data.frame(tribble(
 
 output_df <- cbind(input_df, as.data.frame(tribble(
   ~ascvd_10y_accaha, ~ascvd_10y_frs, ~ascvd_10y_frs_simple,
+    ~ascvd_10y_prevent, ~ascvd_10y_prevent_bmi,
+    ~ascvd_30y_prevent, ~ascvd_30y_prevent_bmi,
     ~chd_10y_mesa, ~chd_10y_mesa_cac,
-  7.01, 13.53, 16.75, NA_real_, NA_real_,
-  1.22, 4.68, 4.91, NA_real_, NA_real_,
-  NA_real_, NA_real_, NA_real_, NA_real_, NA_real_,
-  NA_real_, NA_real_, NA_real_, NA_real_, NA_real_,
+  7.01, 13.53, 16.75, 1.01, 3.58, 5.06, 17.06, NA_real_, NA_real_,
+  1.22, 4.68, 4.91, 1.48, 6.15, 6.37, 24.90, NA_real_, NA_real_,
+  NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_,
+  NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_,
 )))
 
 test_that("compute_CVrisk returns correct data frame", {

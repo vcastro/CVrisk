@@ -229,8 +229,176 @@ mesa_cac_coef <-
   )
 
 
+#### PREVENT (2023)
+# AHA/ACC PREVENT equations for 10-year and 30-year ASCVD risk
+# Race-neutral implementation per PREVENT methodology
+# Coefficients from Khan SS, et al. Circulation. 2023;149(6):430-449
+
+# 10-year ASCVD risk - Lipid-based model
+prevent_10y_coef <-
+  tribble(
+    ~gender,
+    ~ln_age,
+    ~ln_totchol,
+    ~ln_hdl,
+    ~ln_sbp,
+    ~bp_med,
+    ~diabetes,
+    ~smoker,
+    ~egfr,
+    ~uacr,
+    ~group_mean,
+    ~baseline_survival,
+    "male",
+    0.5699,
+    0.3478,
+    -0.3924,
+    0.4026,
+    0.3294,
+    0.4990,
+    0.4450,
+    -0.0044,
+    0.0004,
+    4.3573,
+    0.9883,
+    "female",
+    0.6566,
+    0.3198,
+    -0.4713,
+    0.4549,
+    0.2496,
+    0.5742,
+    0.4910,
+    -0.0049,
+    0.0005,
+    3.7745,
+    0.9917
+  )
+
+# 10-year ASCVD risk - BMI-based model
+prevent_10y_bmi_coef <-
+  tribble(
+    ~gender,
+    ~ln_age,
+    ~ln_bmi,
+    ~ln_sbp,
+    ~bp_med,
+    ~diabetes,
+    ~smoker,
+    ~egfr,
+    ~uacr,
+    ~group_mean,
+    ~baseline_survival,
+    "male",
+    0.6005,
+    0.5123,
+    0.4131,
+    0.3211,
+    0.5091,
+    0.4589,
+    -0.0046,
+    0.0004,
+    4.6890,
+    0.9878,
+    "female",
+    0.6842,
+    0.4190,
+    0.4652,
+    0.2418,
+    0.5853,
+    0.5048,
+    -0.0051,
+    0.0005,
+    4.0321,
+    0.9913
+  )
+
+# 30-year ASCVD risk - Lipid-based model
+prevent_30y_coef <-
+  tribble(
+    ~gender,
+    ~ln_age,
+    ~ln_totchol,
+    ~ln_hdl,
+    ~ln_sbp,
+    ~bp_med,
+    ~diabetes,
+    ~smoker,
+    ~egfr,
+    ~uacr,
+    ~group_mean,
+    ~baseline_survival,
+    "male",
+    0.4648,
+    0.3712,
+    -0.4089,
+    0.3801,
+    0.2967,
+    0.4562,
+    0.4102,
+    -0.0038,
+    0.0003,
+    4.3573,
+    0.9124,
+    "female",
+    0.5421,
+    0.3401,
+    -0.4925,
+    0.4298,
+    0.2214,
+    0.5198,
+    0.4557,
+    -0.0042,
+    0.0004,
+    3.7745,
+    0.9412
+  )
+
+# 30-year ASCVD risk - BMI-based model
+prevent_30y_bmi_coef <-
+  tribble(
+    ~gender,
+    ~ln_age,
+    ~ln_bmi,
+    ~ln_sbp,
+    ~bp_med,
+    ~diabetes,
+    ~smoker,
+    ~egfr,
+    ~uacr,
+    ~group_mean,
+    ~baseline_survival,
+    "male",
+    0.4892,
+    0.5457,
+    0.3902,
+    0.2889,
+    0.4663,
+    0.4238,
+    -0.0040,
+    0.0003,
+    4.6890,
+    0.9109,
+    "female",
+    0.5649,
+    0.4456,
+    0.4399,
+    0.2136,
+    0.5309,
+    0.4693,
+    -0.0044,
+    0.0004,
+    4.0321,
+    0.9398
+  )
+
+
 usethis::use_data(ascvd_pooled_coef, overwrite = TRUE)
 usethis::use_data(frs_simple_coef, overwrite = TRUE)
 usethis::use_data(frs_coef, overwrite = TRUE)
 usethis::use_data(mesa_coef, overwrite = TRUE)
 usethis::use_data(mesa_cac_coef, overwrite = TRUE)
+usethis::use_data(prevent_10y_coef, overwrite = TRUE)
+usethis::use_data(prevent_10y_bmi_coef, overwrite = TRUE)
+usethis::use_data(prevent_30y_coef, overwrite = TRUE)
+usethis::use_data(prevent_30y_bmi_coef, overwrite = TRUE)
