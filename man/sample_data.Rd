@@ -5,7 +5,7 @@
 \alias{sample_data}
 \title{Sample patient data}
 \format{
-A data frame with 3 obs. and 10 variables:
+A data frame with 7 obs. and 15 variables:
 \describe{
   \item{age}{age in years}
   \item{gender}{Patient gender}
@@ -20,6 +20,8 @@ A data frame with 3 obs. and 10 variables:
   \item{lipid_med}{Patient is on hyperlipidemic medication}
   \item{fh_heartattack}{Family history of heart attack}
   \item{cac}{Coronary artery calcification score}
+  \item{egfr}{Estimated glomerular filtration rate (mL/min/1.73m2)}
+  \item{uacr}{Urine albumin-to-creatinine ratio (mg/g)}
 }
 }
 \usage{
