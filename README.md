@@ -28,9 +28,6 @@
 - MESA 2015 10-year ASCVD risk (using coronary artery calcium)
 
 
-#### Coming soon
-
-- Reynolds 2007 10-year ASCVD risk in women
 
 ## Installation
 
