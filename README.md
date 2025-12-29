@@ -51,7 +51,7 @@ ascvd_10y_accaha(race = "aa", gender = "male", age = 55,
    bp_med = FALSE, smoker=0, diabetes=0)
 
 # Calculate PREVENT risk score (requires additional parameters)
-prevent_10y_base(gender = "female", age = 50, sbp = 160, bp_med = 1,
+ascvd_10y_prevent(gender = "female", age = 50, sbp = 160, bp_med = 1,
    totchol = 200, hdl = 45, statin = 0, diabetes = 1, smoker = 0,
    egfr = 90, bmi = 35)
    

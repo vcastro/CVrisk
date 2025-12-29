@@ -2,7 +2,7 @@ test_that("prevent female example from preventr docs is correct", {
   # Example from preventr documentation
   # https://github.com/martingmayer/preventr
   # Expected 10-year ASCVD risk: 0.092 (9.2%)
-  result <- prevent_10y_base(
+  result <- ascvd_10y_prevent(
     gender = "female",
     age = 50,
     sbp = 160,
@@ -22,7 +22,7 @@ test_that("prevent female example from preventr docs is correct", {
 })
 
 test_that("prevent male example is correct", {
-  result <- prevent_10y_base(
+  result <- ascvd_10y_prevent(
     gender = "male",
     age = 55,
     sbp = 140,
@@ -44,7 +44,7 @@ test_that("prevent male example is correct", {
 
 test_that("prevent handles missing required parameters", {
   # Missing age should return NA
-  result <- prevent_10y_base(
+  result <- ascvd_10y_prevent(
     gender = "female",
     sbp = 160,
     bp_med = 1,
@@ -62,7 +62,7 @@ test_that("prevent handles missing required parameters", {
 
 test_that("prevent handles invalid age", {
   # Age out of range (< 30)
-  result <- prevent_10y_base(
+  result <- ascvd_10y_prevent(
     gender = "female",
     age = 25,
     sbp = 160,
@@ -79,7 +79,7 @@ test_that("prevent handles invalid age", {
   expect_true(is.na(result))
   
   # Age out of range (> 79)
-  result2 <- prevent_10y_base(
+  result2 <- ascvd_10y_prevent(
     gender = "female",
     age = 85,
     sbp = 160,
@@ -98,7 +98,7 @@ test_that("prevent handles invalid age", {
 
 test_that("prevent handles invalid cholesterol values", {
   # Invalid total cholesterol
-  result <- prevent_10y_base(
+  result <- ascvd_10y_prevent(
     gender = "female",
     age = 50,
     sbp = 160,
@@ -117,7 +117,7 @@ test_that("prevent handles invalid cholesterol values", {
 
 test_that("prevent handles gender abbreviations", {
   # Test 'f' abbreviation
-  result_f <- prevent_10y_base(
+  result_f <- ascvd_10y_prevent(
     gender = "f",
     age = 50,
     sbp = 160,
@@ -134,7 +134,7 @@ test_that("prevent handles gender abbreviations", {
   expect_false(is.na(result_f))
   
   # Test 'm' abbreviation
-  result_m <- prevent_10y_base(
+  result_m <- ascvd_10y_prevent(
     gender = "m",
     age = 55,
     sbp = 140,

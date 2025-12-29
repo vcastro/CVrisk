@@ -48,7 +48,7 @@ test_that("compute_CVrisk works with PREVENT scores", {
   
   result <- compute_CVrisk(
     input_df_prevent,
-    scores = c("prevent_10y_base"),
+    scores = c("ascvd_10y_prevent"),
     age = "age",
     race = "race",
     gender = "gender",
@@ -64,13 +64,13 @@ test_that("compute_CVrisk works with PREVENT scores", {
   )
   
   # Check that result is returned and contains expected columns
-  expect_true("prevent_10y_base" %in% colnames(result))
+  expect_true("ascvd_10y_prevent" %in% colnames(result))
   expect_equal(nrow(result), 2)
   
   # Check that PREVENT scores are numeric and in valid range
-  expect_true(is.numeric(result$prevent_10y_base))
-  expect_false(any(is.na(result$prevent_10y_base)))
-  expect_true(all(result$prevent_10y_base >= 0 & result$prevent_10y_base <= 100))
+  expect_true(is.numeric(result$ascvd_10y_prevent))
+  expect_false(any(is.na(result$ascvd_10y_prevent)))
+  expect_true(all(result$ascvd_10y_prevent >= 0 & result$ascvd_10y_prevent <= 100))
 })
 
 test_that("compute_CVrisk uses lipid_med as statin when statin not provided", {
@@ -82,7 +82,7 @@ test_that("compute_CVrisk uses lipid_med as statin when statin not provided", {
   
   result <- compute_CVrisk(
     input_df_lipid,
-    scores = c("prevent_10y_base"),
+    scores = c("ascvd_10y_prevent"),
     age = "age",
     race = "race",
     gender = "gender",
@@ -98,6 +98,6 @@ test_that("compute_CVrisk uses lipid_med as statin when statin not provided", {
   )
   
   # Check that result is returned successfully
-  expect_true("prevent_10y_base" %in% colnames(result))
-  expect_false(is.na(result$prevent_10y_base))
+  expect_true("ascvd_10y_prevent" %in% colnames(result))
+  expect_false(is.na(result$ascvd_10y_prevent))
 })

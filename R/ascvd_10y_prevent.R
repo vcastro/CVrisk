@@ -1,8 +1,7 @@
-#' PREVENT 10-year risk score (base model)
+#' PREVENT 10-year ASCVD risk score (base model)
 #'
-#' Computes 10-year risk for cardiovascular disease events using the American
-#' Heart Association PREVENT equations (2023) base model. Estimates risk for
-#' total CVD, ASCVD, heart failure, CHD, and stroke.
+#' Computes 10-year risk for ASCVD (atherosclerotic cardiovascular disease)
+#' using the American Heart Association PREVENT equations (2023) base model.
 #'
 #' @param gender patient gender (male, female)
 #' @param age patient age (years), between 30 and 79
@@ -17,18 +16,13 @@
 #' @param bmi Body mass index (kg/m2)
 #' @param ... Additional predictors can be passed and will be ignored
 #'
-#' @return A list with 10-year risk estimates (as proportions) for:
-#'   \item{ascvd_10y_prevent}{ASCVD risk}
-#'   \item{cvd_10y_prevent}{Total CVD risk}
-#'   \item{hf_10y_prevent}{Heart failure risk}
-#'   \item{chd_10y_prevent}{CHD risk}
-#'   \item{stroke_10y_prevent}{Stroke risk}
+#' @return 10-year ASCVD risk estimate (percent)
 #'
 #' @export
 #'
 #' @examples
 #' library(CVrisk)
-#' prevent_10y_base(
+#' ascvd_10y_prevent(
 #'   gender = "female", age = 50,
 #'   sbp = 160, bp_med = 1,
 #'   totchol = 200, hdl = 45,
@@ -46,7 +40,7 @@
 #' Group. Development and Validation of the American Heart Association's
 #' PREVENT Equations. Circulation. 2024 Feb 6;149(6):430-449.
 
-prevent_10y_base <- function(gender = c("male", "female"),
+ascvd_10y_prevent <- function(gender = c("male", "female"),
                              age, sbp, bp_med, totchol, hdl, statin,
                              diabetes, smoker, egfr, bmi, ...) {
   

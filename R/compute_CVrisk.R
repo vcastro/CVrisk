@@ -35,7 +35,7 @@ compute_CVrisk <- function(df, scores = c(
                              "ascvd_10y_frs", "ascvd_10y_frs_simple",
                              "chd_10y_mesa",
                              "chd_10y_mesa_cac",
-                             "prevent_10y_base"
+                             "ascvd_10y_prevent"
                            ),
                            age, gender, race, sbp = NULL, bmi = NULL,
                            hdl = NULL, totchol = NULL,
