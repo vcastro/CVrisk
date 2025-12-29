@@ -62,11 +62,21 @@ dataframe:
 
 ``` r
 
+# Compute traditional risk scores
 compute_CVrisk(sample_data,
    age = "age", race = "race", gender = "gender", bmi = "BMI", sbp = "sbp",
    hdl = "hdl", totchol = "totchol", bp_med = "bp_med", smoker = "smoker",
-   diabetes = "diabetes", lipid_med = "lipid_med", egfr = "egfr",
+   diabetes = "diabetes", lipid_med = "lipid_med",
    fh_heartattack = "fh_heartattack", cac = "cac"
+)
+
+# To include PREVENT score, specify scores explicitly and provide egfr
+compute_CVrisk(my_data,
+   scores = c("ascvd_10y_accaha", "ascvd_10y_prevent"),
+   age = "age", gender = "gender", sbp = "sbp", 
+   hdl = "hdl", totchol = "totchol", bmi = "BMI",
+   bp_med = "bp_med", diabetes = "diabetes", smoker = "smoker",
+   statin = "lipid_med", egfr = "egfr"
 )
 
 ```
