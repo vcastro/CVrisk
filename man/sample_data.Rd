@@ -20,6 +20,7 @@ A data frame with 3 obs. and 10 variables:
   \item{lipid_med}{Patient is on hyperlipidemic medication}
   \item{fh_heartattack}{Family history of heart attack}
   \item{cac}{Coronary artery calcification score}
+  \item{egfr}{Estimated glomerular filtration rate (mL/min/1.73m2)}
 }
 }
 \usage{

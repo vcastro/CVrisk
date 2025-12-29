@@ -60,6 +60,7 @@ ascvd_10y_prevent(
   statin = 0, diabetes = 1, smoker = 0,
   egfr = 90, bmi = 35
 )
+
 }
 \references{
 Khan SS, Matsushita K, Sang Y, Ballew SH, Grams ME, Surapaneni A, Blaha MJ,
