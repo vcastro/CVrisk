@@ -54,14 +54,42 @@ ascvd_10y_prevent <- function(gender = c("male", "female"),
   gender <- ifelse(gender == "m", "male", gender)
   gender <- ifelse(gender == "f", "female", gender)
   
-  # Validate inputs - return NA if invalid
-  age <- ifelse(!is.numeric(age) | age < 30 | age > 79 | missing(age), NA, age)
-  sbp <- ifelse(!is.numeric(sbp) | sbp < 90 | sbp > 180 | missing(sbp), NA, sbp)
-  totchol <- ifelse(!is.numeric(totchol) | totchol < 130 | totchol > 320 | 
-                      missing(totchol), NA, totchol)
-  hdl <- ifelse(!is.numeric(hdl) | hdl < 20 | hdl > 100 | missing(hdl), NA, hdl)
-  egfr <- ifelse(!is.numeric(egfr) | egfr < 15 | egfr > 140 | missing(egfr), NA, egfr)
-  bmi <- ifelse(!is.numeric(bmi) | bmi < 18.5 | bmi > 39.9 | missing(bmi), NA, bmi)
+  # Validate inputs - check missing first, then validate ranges
+  if (missing(age)) {
+    age <- NA
+  } else if (!is.numeric(age) || age < 30 || age > 79) {
+    age <- NA
+  }
+  
+  if (missing(sbp)) {
+    sbp <- NA
+  } else if (!is.numeric(sbp) || sbp < 90 || sbp > 180) {
+    sbp <- NA
+  }
+  
+  if (missing(totchol)) {
+    totchol <- NA
+  } else if (!is.numeric(totchol) || totchol < 130 || totchol > 320) {
+    totchol <- NA
+  }
+  
+  if (missing(hdl)) {
+    hdl <- NA
+  } else if (!is.numeric(hdl) || hdl < 20 || hdl > 100) {
+    hdl <- NA
+  }
+  
+  if (missing(egfr)) {
+    egfr <- NA
+  } else if (!is.numeric(egfr) || egfr < 15 || egfr > 140) {
+    egfr <- NA
+  }
+  
+  if (missing(bmi)) {
+    bmi <- NA
+  } else if (!is.numeric(bmi) || bmi < 18.5 || bmi > 39.9) {
+    bmi <- NA
+  }
   
   # Handle missing values for binary variables
   if (missing(bp_med)) bp_med <- NA
