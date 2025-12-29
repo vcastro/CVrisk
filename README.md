@@ -21,6 +21,7 @@
 - ACC/AHA 2013 10-year ASCVD risk 
 - MESA 2015 10-year ASCVD risk (traditional risk factors)
 - MESA 2015 10-year ASCVD risk (using coronary artery calcium)
+- **AHA PREVENT 2023 10-year ASCVD risk (base model)** - New!
 
 
 #### Coming soon
@@ -48,6 +49,11 @@ library(CVrisk)
 ascvd_10y_accaha(race = "aa", gender = "male", age = 55, 
    totchol = 213, hdl = 50, sbp = 140, 
    bp_med = FALSE, smoker=0, diabetes=0)
+
+# Calculate PREVENT risk score (requires additional parameters)
+prevent_10y_base(gender = "female", age = 50, sbp = 160, bp_med = 1,
+   totchol = 200, hdl = 45, statin = 0, diabetes = 1, smoker = 0,
+   egfr = 90, bmi = 35)
    
 ```
 
@@ -59,7 +65,7 @@ dataframe:
 compute_CVrisk(sample_data,
    age = "age", race = "race", gender = "gender", bmi = "BMI", sbp = "sbp",
    hdl = "hdl", totchol = "totchol", bp_med = "bp_med", smoker = "smoker",
-   diabetes = "diabetes", lipid_med = "lipid_med",
+   diabetes = "diabetes", lipid_med = "lipid_med", egfr = "egfr",
    fh_heartattack = "fh_heartattack", cac = "cac"
 )
 
