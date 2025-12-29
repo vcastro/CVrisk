@@ -20,7 +20,9 @@ LazyData: true
 RoxygenNote: 7.2.3
 URL: https://github.com/vcastro/CVrisk
 BugReports: https://github.com/vcastro/CVrisk/issues
-Imports: utils
+Imports: 
+    utils,
+    preventr
 Suggests: 
     testthat (>= 2.1.0),
     covr,
