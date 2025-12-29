@@ -12,8 +12,8 @@
 #' @param bp_med character string of blood pressure medication column
 #' @param smoker character string of smoking status column
 #' @param diabetes character string of diabetes status column
-#' @param lipid_med character string of lipid medication column (alias for statin)
-#' @param statin character string of statin medication column
+#' @param lipid_med character string of lipid medication column (used as statin if statin not provided)
+#' @param statin character string of statin medication column (takes precedence over lipid_med)
 #' @param egfr character string of estimated glomerular filtration rate column
 #' @param fh_heartattack character string of fh of heart attack status column
 #' @param cac character string of cac column

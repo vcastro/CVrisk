@@ -44,14 +44,15 @@ ascvd_10y_prevent <- function(gender = c("male", "female"),
                              age, sbp, bp_med, totchol, hdl, statin,
                              diabetes, smoker, egfr, bmi, ...) {
   
+  # Validate gender before normalization
+  if (missing(gender) || !all(tolower(gender) %in% c("male", "female", "m", "f"))) {
+    stop("gender must be either 'male' or 'female'")
+  }
+  
   # Standardize gender input
   gender <- tolower(gender)
   gender <- ifelse(gender == "m", "male", gender)
   gender <- ifelse(gender == "f", "female", gender)
-  
-  if (!all(gender %in% c("male", "female")) | missing(gender)) {
-    stop("gender must be either 'male' or 'female'")
-  }
   
   # Validate inputs - return NA if invalid
   age <- ifelse(!is.numeric(age) | age < 30 | age > 79 | missing(age), NA, age)
@@ -101,11 +102,13 @@ ascvd_10y_prevent <- function(gender = c("male", "female"),
     return(NA)
   }
   
-  # Extract the 10-year risk estimates
-  # preventr returns a tibble with columns: total_cvd, ascvd, heart_failure, chd, stroke
-  # We convert these to percentages to match CVrisk conventions
-  ascvd_risk <- ifelse(is.null(result$ascvd) || is.na(result$ascvd), 
-                       NA, round(result$ascvd * 100, 2))
+  # Check if ascvd column exists and extract the risk
+  if (!("ascvd" %in% names(result)) || is.na(result$ascvd)) {
+    return(NA)
+  }
+  
+  # Convert from proportion to percentage to match CVrisk conventions
+  ascvd_risk <- round(result$ascvd * 100, 2)
   
   return(ascvd_risk)
 }
