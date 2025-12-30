@@ -1,3 +1,8 @@
+# CVrisk 1.2.0
+
+Added PREVENT 10-year ASCVD risk equations (via preventr) [#14]
+
+
 # CVrisk 1.1.1
 
 Update package documentation to proper CVrisk-package sentinel file.
