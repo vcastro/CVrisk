@@ -19,6 +19,8 @@ compute_CVrisk(
   smoker = NULL,
   diabetes = NULL,
   lipid_med = NULL,
+  statin = NULL,
+  egfr = NULL,
   fh_heartattack = NULL,
   cac = NULL
 )
@@ -48,7 +50,11 @@ compute_CVrisk(
 
 \item{diabetes}{character string of diabetes status column}
 
-\item{lipid_med}{character string of lipid medication column}
+\item{lipid_med}{character string of lipid medication column (used as statin if statin not provided)}
+
+\item{statin}{character string of statin medication column (takes precedence over lipid_med)}
+
+\item{egfr}{character string of estimated glomerular filtration rate column}
 
 \item{fh_heartattack}{character string of fh of heart attack status column}
 
@@ -63,7 +69,10 @@ Compute multiple CV risk scores
 \examples{
 
 library(CVrisk)
+# Compute traditional risk scores (excluding PREVENT which requires egfr)
 compute_CVrisk(sample_data,
+  scores = c("ascvd_10y_accaha", "ascvd_10y_frs", "ascvd_10y_frs_simple",
+             "chd_10y_mesa", "chd_10y_mesa_cac"),
   age = "age", race = "race", gender = "gender", bmi = "BMI", sbp = "sbp",
   hdl = "hdl", totchol = "totchol", bp_med = "bp_med", smoker = "smoker",
   diabetes = "diabetes", lipid_med = "lipid_med",
