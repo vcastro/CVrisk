@@ -63,8 +63,14 @@ compute_CVrisk <- function(df, scores = c(
   }
 
 
-  results <- sapply(scores, function(x) do.call(x, pred_args), simplify = FALSE)
-  results <- as.data.frame(results)
+  results <- sapply(scores, function(x) do.call(x, pred_args))
+  
+  # Ensure results is a matrix with proper column names
+  if (!is.matrix(results)) {
+    results <- matrix(results, ncol = length(scores))
+    colnames(results) <- scores
+  }
 
+  row.names(results) <- NULL
   return(cbind(df, results))
 }
