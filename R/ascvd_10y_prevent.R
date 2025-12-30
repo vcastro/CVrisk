@@ -98,46 +98,73 @@ ascvd_10y_prevent <- function(gender = c("male", "female"),
   if (missing(diabetes)) diabetes <- NA
   if (missing(smoker)) smoker <- NA
   
-  # Check if any required inputs are NA
-  if (any(is.na(c(age, gender, sbp, bp_med, totchol, hdl, statin, 
-                   diabetes, smoker, egfr, bmi)))) {
-    return(NA)
+  # Determine the length of the input (vectorized)
+  n <- max(length(age), length(gender), length(sbp), length(bp_med),
+           length(totchol), length(hdl), length(statin), length(diabetes),
+           length(smoker), length(egfr), length(bmi))
+  
+  # Function to calculate risk for a single row
+  calculate_single_risk <- function(i) {
+    # Extract single values for this row
+    age_i <- if(length(age) == 1) age else age[i]
+    gender_i <- if(length(gender) == 1) gender else gender[i]
+    sbp_i <- if(length(sbp) == 1) sbp else sbp[i]
+    bp_med_i <- if(length(bp_med) == 1) bp_med else bp_med[i]
+    totchol_i <- if(length(totchol) == 1) totchol else totchol[i]
+    hdl_i <- if(length(hdl) == 1) hdl else hdl[i]
+    statin_i <- if(length(statin) == 1) statin else statin[i]
+    diabetes_i <- if(length(diabetes) == 1) diabetes else diabetes[i]
+    smoker_i <- if(length(smoker) == 1) smoker else smoker[i]
+    egfr_i <- if(length(egfr) == 1) egfr else egfr[i]
+    bmi_i <- if(length(bmi) == 1) bmi else bmi[i]
+    
+    # Check if any required inputs are NA for this row
+    if (is.na(age_i) | is.na(gender_i) | is.na(sbp_i) | is.na(bp_med_i) |
+        is.na(totchol_i) | is.na(hdl_i) | is.na(statin_i) | is.na(diabetes_i) |
+        is.na(smoker_i) | is.na(egfr_i) | is.na(bmi_i)) {
+      return(NA)
+    }
+    
+    # Call preventr::estimate_risk with quiet = TRUE
+    result <- tryCatch({
+      preventr::estimate_risk(
+        age = age_i,
+        sex = gender_i,
+        sbp = sbp_i,
+        bp_tx = as.logical(bp_med_i),
+        total_c = totchol_i,
+        hdl_c = hdl_i,
+        statin = as.logical(statin_i),
+        dm = as.logical(diabetes_i),
+        smoking = as.logical(smoker_i),
+        egfr = egfr_i,
+        bmi = bmi_i,
+        model = "base",
+        time = "10yr",
+        quiet = TRUE
+      )
+    }, error = function(e) {
+      return(NULL)
+    })
+    
+    # Return NA if the call failed or result is null
+    if (is.null(result)) {
+      return(NA)
+    }
+    
+    # Check if ascvd column exists and extract the risk
+    if (!("ascvd" %in% names(result)) || is.na(result$ascvd)) {
+      return(NA)
+    }
+    
+    # Convert from proportion to percentage to match CVrisk conventions
+    ascvd_risk <- round(result$ascvd * 100, 2)
+    
+    return(ascvd_risk)
   }
   
-  # Call preventr::estimate_risk with quiet = TRUE
-  result <- tryCatch({
-    preventr::estimate_risk(
-      age = age,
-      sex = gender,
-      sbp = sbp,
-      bp_tx = as.logical(bp_med),
-      total_c = totchol,
-      hdl_c = hdl,
-      statin = as.logical(statin),
-      dm = as.logical(diabetes),
-      smoking = as.logical(smoker),
-      egfr = egfr,
-      bmi = bmi,
-      model = "base",
-      time = "10yr",
-      quiet = TRUE
-    )
-  }, error = function(e) {
-    return(NULL)
-  })
+  # Apply the function to each row
+  results <- sapply(1:n, calculate_single_risk)
   
-  # Return NA if the call failed or result is null
-  if (is.null(result)) {
-    return(NA)
-  }
-  
-  # Check if ascvd column exists and extract the risk
-  if (!("ascvd" %in% names(result)) || is.na(result$ascvd)) {
-    return(NA)
-  }
-  
-  # Convert from proportion to percentage to match CVrisk conventions
-  ascvd_risk <- round(result$ascvd * 100, 2)
-  
-  return(ascvd_risk)
+  return(results)
 }
