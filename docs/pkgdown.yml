@@ -1,6 +1,8 @@
-pandoc: 3.1.1
-pkgdown: 2.0.7
+pandoc: 3.6.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2023-08-19T20:59Z
-
+last_built: 2025-12-31T04:36Z
+urls:
+  reference: https://vcastro.github.io/CVrisk/reference
+  article: https://vcastro.github.io/CVrisk/articles

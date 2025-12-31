@@ -24,11 +24,6 @@
 - **AHA PREVENT 2023 10-year ASCVD risk (base model)** - New!
 
 
-#### Coming soon
-
-- Reynolds 2007 10-year ASCVD risk in women
-- Framingham 2009 30-year ASCVD risk
-
 ## Installation
 
 ``` r

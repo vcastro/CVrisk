@@ -1,72 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ascvd_10y_accaha.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ascvd_10y_frs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ascvd_10y_frs_simple.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ascvd_frs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ascvd_frs_simple.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ascvd_pooled_coef.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ascvd_risk_score.html</loc>
-  </url>
-  <url>
-    <loc>/reference/chd_10y_mesa.html</loc>
-  </url>
-  <url>
-    <loc>/reference/chd_10y_mesa_cac.html</loc>
-  </url>
-  <url>
-    <loc>/reference/compute_CVrisk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/CVrisk-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/CVrisk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/frs_coef.html</loc>
-  </url>
-  <url>
-    <loc>/reference/frs_simple_coef.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mesa_cac_coef.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mesa_coef.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sample_data.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://vcastro.github.io/CVrisk/404.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/LICENSE-text.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/authors.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/copilot-instructions.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/index.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/news/index.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/CVrisk-package.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/ascvd_10y_accaha.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/ascvd_10y_frs.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/ascvd_10y_frs_simple.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/ascvd_10y_prevent.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/ascvd_frs.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/ascvd_frs_simple.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/ascvd_pooled_coef.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/ascvd_risk_score.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/chd_10y_mesa.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/chd_10y_mesa_cac.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/compute_CVrisk.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/frs_coef.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/frs_simple_coef.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/index.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/mesa_cac_coef.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/mesa_coef.html</loc></url>
+<url><loc>https://vcastro.github.io/CVrisk/reference/sample_data.html</loc></url>
 </urlset>
+

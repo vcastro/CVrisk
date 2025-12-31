@@ -69,13 +69,13 @@ Compute multiple CV risk scores
 \examples{
 
 library(CVrisk)
-# Compute traditional risk scores (excluding PREVENT which requires egfr)
+# Compute traditional risk scores
 compute_CVrisk(sample_data,
   scores = c("ascvd_10y_accaha", "ascvd_10y_frs", "ascvd_10y_frs_simple",
-             "chd_10y_mesa", "chd_10y_mesa_cac"),
+             "chd_10y_mesa", "chd_10y_mesa_cac", "ascvd_10y_prevent"),
   age = "age", race = "race", gender = "gender", bmi = "BMI", sbp = "sbp",
   hdl = "hdl", totchol = "totchol", bp_med = "bp_med", smoker = "smoker",
-  diabetes = "diabetes", lipid_med = "lipid_med",
+  diabetes = "diabetes", lipid_med = "lipid_med", egfr = "egfr",
   fh_heartattack = "fh_heartattack", cac = "cac"
 )
 }

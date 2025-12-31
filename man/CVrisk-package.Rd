@@ -11,7 +11,8 @@ Calculate various cardiovascular disease risk scores from the Framingham Heart S
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/vcastro/CVrisk}
+  \item \url{https://vcastro.github.io/CVrisk/}
+  \item \url{https://github.com/vcastro/CVrisk/}
   \item Report bugs at \url{https://github.com/vcastro/CVrisk/issues}
 }
 

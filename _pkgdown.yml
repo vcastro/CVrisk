@@ -1,6 +1,9 @@
 destination: docs
 
+url: https://vcastro.github.io/CVrisk/
+
 template:
+  bootstrap: 5
   params:
     bootswatch: cosmo
 
@@ -18,6 +21,7 @@ reference:
   - ascvd_10y_accaha
   - chd_10y_mesa
   - chd_10y_mesa_cac
+  - ascvd_10y_prevent
 
 - title: Supporting datasets
   desc: ~
