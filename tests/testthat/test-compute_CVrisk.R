@@ -101,3 +101,79 @@ test_that("compute_CVrisk uses lipid_med as statin when statin not provided", {
   expect_true("ascvd_10y_prevent" %in% colnames(result))
   expect_false(is.na(result$ascvd_10y_prevent))
 })
+
+test_that("compute_CVrisk handles single score", {
+  input_df_single <- as.data.frame(tribble(
+    ~age, ~gender, ~race, ~sbp, ~hdl, ~totchol, ~bp_med, ~smoker, ~diabetes,
+    55, "male", "white", 140, 50, 213, 0, 0, 0
+  ))
+  
+  result <- compute_CVrisk(
+    input_df_single,
+    scores = "ascvd_10y_accaha",
+    age = "age",
+    race = "race",
+    gender = "gender",
+    sbp = "sbp",
+    hdl = "hdl",
+    totchol = "totchol",
+    bp_med = "bp_med",
+    smoker = "smoker",
+    diabetes = "diabetes"
+  )
+  
+  expect_true("ascvd_10y_accaha" %in% colnames(result))
+  expect_equal(nrow(result), 1)
+  expect_false(is.na(result$ascvd_10y_accaha))
+})
+
+test_that("compute_CVrisk preserves original data frame columns", {
+  input_df_orig <- as.data.frame(tribble(
+    ~patient_id, ~age, ~gender, ~race, ~sbp, ~hdl, ~totchol, ~bp_med, ~smoker, ~diabetes,
+    "001", 55, "male", "white", 140, 50, 213, 0, 0, 0
+  ))
+  
+  result <- compute_CVrisk(
+    input_df_orig,
+    scores = "ascvd_10y_accaha",
+    age = "age",
+    race = "race",
+    gender = "gender",
+    sbp = "sbp",
+    hdl = "hdl",
+    totchol = "totchol",
+    bp_med = "bp_med",
+    smoker = "smoker",
+    diabetes = "diabetes"
+  )
+  
+  expect_true("patient_id" %in% colnames(result))
+  expect_equal(result$patient_id, "001")
+  expect_true("ascvd_10y_accaha" %in% colnames(result))
+})
+
+test_that("compute_CVrisk works with multiple rows", {
+  input_df_multi <- as.data.frame(tribble(
+    ~age, ~gender, ~race, ~sbp, ~hdl, ~totchol, ~bp_med, ~smoker, ~diabetes,
+    55, "male", "white", 140, 50, 213, 0, 0, 0,
+    60, "female", "aa", 150, 45, 230, 1, 1, 1,
+    50, "male", "white", 130, 55, 190, 0, 0, 0
+  ))
+  
+  result <- compute_CVrisk(
+    input_df_multi,
+    scores = "ascvd_10y_accaha",
+    age = "age",
+    race = "race",
+    gender = "gender",
+    sbp = "sbp",
+    hdl = "hdl",
+    totchol = "totchol",
+    bp_med = "bp_med",
+    smoker = "smoker",
+    diabetes = "diabetes"
+  )
+  
+  expect_equal(nrow(result), 3)
+  expect_true(all(!is.na(result$ascvd_10y_accaha)))
+})

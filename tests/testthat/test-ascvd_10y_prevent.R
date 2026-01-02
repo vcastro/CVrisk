@@ -115,6 +115,242 @@ test_that("prevent handles invalid cholesterol values", {
   expect_true(is.na(result))
 })
 
+test_that("prevent handles invalid sbp", {
+  # SBP out of range (< 90)
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 80,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35
+  )
+  
+  expect_true(is.na(result))
+  
+  # SBP out of range (> 180)
+  result2 <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 200,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35
+  )
+  
+  expect_true(is.na(result2))
+})
+
+test_that("prevent handles invalid hdl", {
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 150,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35
+  )
+  
+  expect_true(is.na(result))
+})
+
+test_that("prevent handles invalid egfr", {
+  # eGFR out of range (< 15)
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 10,
+    bmi = 35
+  )
+  
+  expect_true(is.na(result))
+  
+  # eGFR out of range (> 140)
+  result2 <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 150,
+    bmi = 35
+  )
+  
+  expect_true(is.na(result2))
+})
+
+test_that("prevent handles invalid bmi", {
+  # BMI out of range (< 18.5)
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 15
+  )
+  
+  expect_true(is.na(result))
+  
+  # BMI out of range (> 39.9)
+  result2 <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 45
+  )
+  
+  expect_true(is.na(result2))
+})
+
+test_that("prevent handles missing sbp", {
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35
+  )
+  
+  expect_true(is.na(result))
+})
+
+test_that("prevent handles missing bp_med", {
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35
+  )
+  
+  expect_true(is.na(result))
+})
+
+test_that("prevent handles missing statin", {
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35
+  )
+  
+  expect_true(is.na(result))
+})
+
+test_that("prevent handles invalid gender", {
+  expect_error(
+    ascvd_10y_prevent(
+      gender = "unknown",
+      age = 50,
+      sbp = 160,
+      bp_med = 1,
+      totchol = 200,
+      hdl = 45,
+      statin = 0,
+      diabetes = 1,
+      smoker = 0,
+      egfr = 90,
+      bmi = 35
+    ),
+    "gender must be either 'male' or 'female'"
+  )
+})
+
+test_that("prevent with statin = 1", {
+  result <- ascvd_10y_prevent(
+    gender = "male",
+    age = 60,
+    sbp = 150,
+    bp_med = 1,
+    totchol = 180,
+    hdl = 45,
+    statin = 1,
+    diabetes = 0,
+    smoker = 0,
+    egfr = 85,
+    bmi = 32
+  )
+  
+  expect_true(is.numeric(result))
+  expect_false(is.na(result))
+  expect_true(result >= 0 && result <= 100)
+})
+
+test_that("prevent with smoker = 1", {
+  result <- ascvd_10y_prevent(
+    gender = "male",
+    age = 55,
+    sbp = 140,
+    bp_med = 0,
+    totchol = 213,
+    hdl = 50,
+    statin = 0,
+    diabetes = 0,
+    smoker = 1,
+    egfr = 90,
+    bmi = 30
+  )
+  
+  expect_true(is.numeric(result))
+  expect_false(is.na(result))
+  expect_true(result >= 0 && result <= 100)
+})
+
 test_that("prevent handles gender abbreviations", {
   # Test 'f' abbreviation
   result_f <- ascvd_10y_prevent(
