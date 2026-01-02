@@ -71,7 +71,7 @@ test_that("FRS: missing age throws error", {
       smoker = 0,
       diabetes = 0
     ),
-    "age must be a valid numeric value"
+    'argument "age" is missing'
   )
 })
 
@@ -86,7 +86,7 @@ test_that("FRS: missing gender throws error", {
       smoker = 0,
       diabetes = 0
     ),
-    "gender must be either 'male' or 'female'"
+    'argument "gender" is missing'
   )
 })
 

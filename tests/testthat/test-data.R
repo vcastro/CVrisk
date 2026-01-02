@@ -2,7 +2,7 @@ test_that("sample_data exists and has correct structure", {
   data(sample_data, package = "CVrisk")
   expect_true(exists("sample_data"))
   expect_true(is.data.frame(sample_data))
-  expect_equal(nrow(sample_data), 3)
+  expect_equal(nrow(sample_data), 7)
   expect_true("age" %in% colnames(sample_data))
   expect_true("gender" %in% colnames(sample_data))
   expect_true("race" %in% colnames(sample_data))

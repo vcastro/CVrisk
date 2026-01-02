@@ -131,7 +131,7 @@ test_that("MESA (with CAC): missing age throws error", {
       fh_heartattack = 0,
       cac = 0
     ),
-    "age must be a valid numeric value"
+    'argument "age" is missing'
   )
 })
 
