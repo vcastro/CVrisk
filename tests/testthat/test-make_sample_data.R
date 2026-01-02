@@ -70,8 +70,8 @@ test_that("make_sample_data generates values in correct ranges", {
   # Check egfr range (15-140)
   expect_true(all(result$egfr >= 15 & result$egfr <= 140))
   
-  # Check bmi range (18.5-49.9)
-  expect_true(all(result$bmi >= 18.5 & result$bmi <= 49.9))
+  # Check bmi range (18.5-39.9)
+  expect_true(all(result$bmi >= 18.5 & result$bmi <= 39.9))
   
   # Check hba1c range (4.5-15.0 or NA)
   hba1c_non_na <- result$hba1c[!is.na(result$hba1c)]
@@ -163,6 +163,30 @@ test_that("make_sample_data can be used with compute_CVrisk", {
       bp_med = "bp_med",
       smoker = "smoker",
       diabetes = "diabetes"
+    )
+  )
+})
+
+test_that("make_sample_data can be used with compute_CVrisk for PREVENT score", {
+  # Integration test for PREVENT score
+  data <- make_sample_data(n = 10)
+  
+  # Should not throw an error
+  expect_silent(
+    compute_CVrisk(
+      data,
+      scores = "ascvd_10y_prevent",
+      age = "age",
+      gender = "sex",
+      sbp = "sbp",
+      totchol = "totchol",
+      hdl = "hdl",
+      bp_med = "bp_med",
+      smoker = "smoker",
+      diabetes = "diabetes",
+      statin = "lipid_med",
+      egfr = "egfr",
+      bmi = "bmi"
     )
   )
 })

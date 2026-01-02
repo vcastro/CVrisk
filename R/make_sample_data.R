@@ -20,7 +20,7 @@
 #'   \item{diabetes}{Diabetes status (TRUE/FALSE)}
 #'   \item{smoker}{Smoking status (TRUE/FALSE)}
 #'   \item{egfr}{Estimated glomerular filtration rate in mL/min/1.73m2 (15-140)}
-#'   \item{bmi}{Body mass index in kg/m2 (18.5-49.9)}
+#'   \item{bmi}{Body mass index in kg/m2 (18.5-39.9)}
 #'   \item{hba1c}{Hemoglobin A1c percentage (4.5-15.0 or NA)}
 #'   \item{uacr}{Urine albumin-to-creatinine ratio in mg/g (0.1-25000 or NA)}
 #'   \item{zip}{ZIP code (30 valid codes or NA)}
@@ -83,7 +83,7 @@ make_sample_data <- function(n = 100) {
     diabetes = sample(c(TRUE, FALSE), n, replace = TRUE),
     smoker = sample(c(TRUE, FALSE), n, replace = TRUE),
     egfr = sample(15:140, n, replace = TRUE),
-    bmi = runif(n, 18.5, 49.9),
+    bmi = runif(n, 18.5, 39.9),
     hba1c = sample(
       # Sampling to give HbA1c and NA_real_ an
       # equal chance of being recorded for the sampled data
