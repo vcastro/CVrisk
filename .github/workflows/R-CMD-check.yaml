@@ -5,8 +5,9 @@ on:
     branches: [main, master]
   pull_request:
 
-
 name: R-CMD-check
+
+permissions: read-all
 
 jobs:
   R-CMD-check:
