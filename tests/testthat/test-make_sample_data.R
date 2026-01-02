@@ -71,7 +71,7 @@ test_that("make_sample_data generates values in correct ranges", {
   expect_true(all(result$egfr >= 15 & result$egfr <= 140))
   
   # Check bmi range (18.5-39.9)
-  expect_true(all(result$bmi >= 18.5 & result$bmi <= 39.9))
+  expect_true(all(result$bmi >= 18.5 & result$bmi <= 49.9))
   
   # Check hba1c range (4.5-15.0 or NA)
   hba1c_non_na <- result$hba1c[!is.na(result$hba1c)]

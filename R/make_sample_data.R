@@ -83,7 +83,7 @@ make_sample_data <- function(n = 100) {
     diabetes = sample(c(TRUE, FALSE), n, replace = TRUE),
     smoker = sample(c(TRUE, FALSE), n, replace = TRUE),
     egfr = sample(15:140, n, replace = TRUE),
-    bmi = runif(n, 18.5, 39.9),
+    bmi = stats::runif(n, 18.5, 49.9),
     hba1c = sample(
       # Sampling to give HbA1c and NA_real_ an
       # equal chance of being recorded for the sampled data
@@ -93,7 +93,7 @@ make_sample_data <- function(n = 100) {
     ),
     uacr = ifelse(
       sample(c(TRUE, FALSE), n, replace = TRUE),
-      runif(n, 0.1, 25000),
+      stats::runif(n, 0.1, 25000),
       NA_real_
     ),
     zip = sample(

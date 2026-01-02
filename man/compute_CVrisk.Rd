@@ -10,7 +10,7 @@ compute_CVrisk(
     "chd_10y_mesa_cac"),
   age,
   gender,
-  race,
+  race = NULL,
   sbp = NULL,
   bmi = NULL,
   hdl = NULL,

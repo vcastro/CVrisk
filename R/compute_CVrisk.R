@@ -39,7 +39,7 @@ compute_CVrisk <- function(df, scores = c(
                              "chd_10y_mesa",
                              "chd_10y_mesa_cac"
                            ),
-                           age, gender, race, sbp = NULL, bmi = NULL,
+                           age, gender, race = NULL, sbp = NULL, bmi = NULL,
                            hdl = NULL, totchol = NULL,
                            bp_med = NULL, smoker = NULL, diabetes = NULL,
                            lipid_med = NULL, statin = NULL, egfr = NULL,
@@ -61,7 +61,6 @@ compute_CVrisk <- function(df, scores = c(
   if (is.null(pred_args[["statin"]]) && !is.null(pred_args[["lipid_med"]])) {
     pred_args[["statin"]] <- pred_args[["lipid_med"]]
   }
-
 
   results <- sapply(scores, function(x) do.call(x, pred_args))
   
