@@ -55,6 +55,11 @@
 #' }
 make_sample_data <- function(n = 100) {
   
+  # Input validation
+  if (!is.numeric(n) || length(n) != 1 || n <= 0 || n != as.integer(n)) {
+    stop("n must be a positive integer")
+  }
+  
   valid_zips <- 
     c("27844","76201","24630","48821","89146","84631","23950","56552","14174", 
       "63454","53965","50561","27320","86336","00976","96744","55805","32548", 
@@ -73,7 +78,7 @@ make_sample_data <- function(n = 100) {
     diabetes = sample(c(TRUE, FALSE), n, replace = TRUE),
     smoker = sample(c(TRUE, FALSE), n, replace = TRUE),
     egfr = sample(15:140, n, replace = TRUE),
-    bmi = sample(seq(18.5, 49.9, 0.1), n, replace = TRUE),
+    bmi = runif(n, 18.5, 49.9),
     hba1c = sample(
       # Sampling to give HbA1c and NA_real_ an
       # equal chance of being recorded for the sampled data

@@ -125,6 +125,14 @@ test_that("make_sample_data works with n = 1", {
   expect_equal(ncol(result), 15)
 })
 
+test_that("make_sample_data validates n parameter", {
+  expect_error(make_sample_data(n = 0), "n must be a positive integer")
+  expect_error(make_sample_data(n = -5), "n must be a positive integer")
+  expect_error(make_sample_data(n = 1.5), "n must be a positive integer")
+  expect_error(make_sample_data(n = "100"), "n must be a positive integer")
+  expect_error(make_sample_data(n = c(10, 20)), "n must be a positive integer")
+})
+
 test_that("make_sample_data returns data.frame", {
   result <- make_sample_data(n = 10)
   expect_true(is.data.frame(result))
