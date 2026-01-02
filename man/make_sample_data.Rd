@@ -14,7 +14,8 @@ A data frame with \code{n} rows and the following columns:
 \describe{
   \item{id}{Sequential patient identifier (1 to n)}
   \item{age}{Patient age in years (30-79)}
-  \item{sex}{Patient sex ("female" or "male")}
+  \item{sex}{Sex at birth ("female" or "male")}
+  \item{race}{Patient race ("white", "aa", or "other")}
   \item{sbp}{Systolic blood pressure in mm Hg (90-200)}
   \item{bp_med}{Blood pressure medication status (TRUE/FALSE)}
   \item{totchol}{Total cholesterol in mg/dL (130-320)}
@@ -42,10 +43,9 @@ sample_data <- make_sample_data()
 # Generate 50 rows
 sample_data_50 <- make_sample_data(n = 50)
 
-# Use with compute_CVrisk (add race column as needed)
+# Use with compute_CVrisk
 \dontrun{
 data <- make_sample_data(n = 10)
-data$race <- "white"  # Add race column
 result <- compute_CVrisk(
   data,
   scores = "ascvd_10y_accaha",

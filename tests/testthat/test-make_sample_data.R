@@ -17,7 +17,7 @@ test_that("make_sample_data respects n parameter", {
 test_that("make_sample_data returns correct column names", {
   result <- make_sample_data(n = 10)
   expected_cols <- c(
-    "id", "age", "sex", "sbp", "bp_med", "totchol", "hdl", 
+    "id", "age", "sex", "race", "sbp", "bp_med", "totchol", "hdl", 
     "lipid_med", "diabetes", "smoker", "egfr", "bmi", "hba1c", "uacr", "zip"
   )
   expect_equal(colnames(result), expected_cols)
@@ -45,6 +45,7 @@ test_that("make_sample_data returns correct column types", {
   
   # Character columns
   expect_true(is.character(result$sex))
+  expect_true(is.character(result$race))
   expect_true(is.character(result$zip))
 })
 
@@ -86,6 +87,11 @@ test_that("make_sample_data generates valid sex values", {
   expect_true(all(result$sex %in% c("female", "male")))
 })
 
+test_that("make_sample_data generates valid race values", {
+  result <- make_sample_data(n = 100)
+  expect_true(all(result$race %in% c("white", "aa", "other")))
+})
+
 test_that("make_sample_data generates valid zip codes", {
   result <- make_sample_data(n = 100)
   
@@ -122,7 +128,7 @@ test_that("make_sample_data includes NA values in zip", {
 test_that("make_sample_data works with n = 1", {
   result <- make_sample_data(n = 1)
   expect_equal(nrow(result), 1)
-  expect_equal(ncol(result), 15)
+  expect_equal(ncol(result), 16)
 })
 
 test_that("make_sample_data validates n parameter", {
@@ -143,9 +149,6 @@ test_that("make_sample_data can be used with compute_CVrisk", {
   # is compatible with the package's main functions
   data <- make_sample_data(n = 10)
   
-  # Add a race column since compute_CVrisk might need it
-  data$race <- "white"
-  
   # Should not throw an error
   expect_silent(
     compute_CVrisk(
@@ -160,6 +163,30 @@ test_that("make_sample_data can be used with compute_CVrisk", {
       bp_med = "bp_med",
       smoker = "smoker",
       diabetes = "diabetes"
+    )
+  )
+})
+
+test_that("make_sample_data can be used with compute_CVrisk for PREVENT score", {
+  # Integration test for PREVENT score
+  data <- make_sample_data(n = 10)
+  
+  # Should not throw an error
+  expect_silent(
+    compute_CVrisk(
+      data,
+      scores = "ascvd_10y_prevent",
+      age = "age",
+      gender = "sex",
+      sbp = "sbp",
+      totchol = "totchol",
+      hdl = "hdl",
+      bp_med = "bp_med",
+      smoker = "smoker",
+      diabetes = "diabetes",
+      statin = "lipid_med",
+      egfr = "egfr",
+      bmi = "bmi"
     )
   )
 })

@@ -10,7 +10,8 @@
 #' \describe{
 #'   \item{id}{Sequential patient identifier (1 to n)}
 #'   \item{age}{Patient age in years (30-79)}
-#'   \item{sex}{Patient sex ("female" or "male")}
+#'   \item{sex}{Sex at birth ("female" or "male")}
+#'   \item{race}{Patient race ("white", "aa", or "other")}
 #'   \item{sbp}{Systolic blood pressure in mm Hg (90-200)}
 #'   \item{bp_med}{Blood pressure medication status (TRUE/FALSE)}
 #'   \item{totchol}{Total cholesterol in mg/dL (130-320)}
@@ -35,10 +36,9 @@
 #' # Generate 50 rows
 #' sample_data_50 <- make_sample_data(n = 50)
 #'
-#' # Use with compute_CVrisk (add race column as needed)
+#' # Use with compute_CVrisk
 #' \dontrun{
 #' data <- make_sample_data(n = 10)
-#' data$race <- "white"  # Add race column
 #' result <- compute_CVrisk(
 #'   data,
 #'   scores = "ascvd_10y_accaha",
@@ -74,6 +74,7 @@ make_sample_data <- function(n = 100) {
     id = seq_len(n),
     age = sample(30:79, n, replace = TRUE),
     sex = sample(c("female", "male"), n, replace = TRUE),
+    race = sample(c("white", "aa", "other"), n, replace = TRUE),
     sbp = sample(90:200, n, replace = TRUE),
     bp_med = sample(c(TRUE, FALSE), n, replace = TRUE),
     totchol = sample(130:320, n, replace = TRUE),
