@@ -12,7 +12,7 @@ Description: Calculate various cardiovascular disease risk scores from the
     and the American Heart Association (AHA) as described in D’agostino, et al
     (2008) <doi:10.1161/circulationaha.107.699579>, Goff, et al (2013)
     <doi:10.1161/01.cir.0000437741.48606.98>, and Mclelland, et al (2015)
-    <doi:10.1016/j.jacc.2015.08.035>, and Khan, et al (2024)
+    <doi:10.1016/j.jacc.2015.08.035>, and Khan, et al (2023)
     <doi:10.1161/CIRCULATIONAHA.123.067626>.
 License: GPL-3
 Depends: 
