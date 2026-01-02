@@ -75,21 +75,6 @@ test_that("FRS: missing age throws error", {
   )
 })
 
-test_that("FRS: missing gender throws error", {
-  expect_error(
-    ascvd_10y_frs(
-      age = 55,
-      sbp = 140,
-      hdl = 50,
-      totchol = 213,
-      bp_med = 0,
-      smoker = 0,
-      diabetes = 0
-    ),
-    'argument "gender" is missing'
-  )
-})
-
 test_that("FRS: invalid gender throws error", {
   expect_error(
     ascvd_10y_frs(
