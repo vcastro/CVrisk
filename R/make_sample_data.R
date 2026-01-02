@@ -65,6 +65,10 @@ make_sample_data <- function(n = 100) {
       "63454","53965","50561","27320","86336","00976","96744","55805","32548", 
       "12959","12138","77057","68118","07940","28579","26291","72601","48228",
       "11719","76667","02129")
+  
+  # Pre-compute sequences for efficiency
+  hba1c_values <- seq(4.5, 15, 0.1)
+  n_zips <- length(valid_zips)
     
   data.frame(
     id = seq_len(n),
@@ -82,10 +86,7 @@ make_sample_data <- function(n = 100) {
     hba1c = sample(
       # Sampling to give HbA1c and NA_real_ an
       # equal chance of being recorded for the sampled data
-      c(
-        seq(4.5, 15, 0.1), 
-        rep(NA_real_, length(seq(4.5, 15, 0.1)))
-      ), 
+      c(hba1c_values, rep(NA_real_, length(hba1c_values))), 
       n, 
       replace = TRUE
     ),
@@ -95,10 +96,7 @@ make_sample_data <- function(n = 100) {
       NA_real_
     ),
     zip = sample(
-      c(
-        valid_zips, 
-        rep(NA_character_, length(valid_zips))
-      ), 
+      c(valid_zips, rep(NA_character_, n_zips)), 
       n, 
       replace = TRUE
     )
