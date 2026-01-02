@@ -84,13 +84,10 @@ make_sample_data <- function(n = 100) {
       n, 
       replace = TRUE
     ),
-    uacr = sample(
-      c(
-        seq(0.1, 25000, 0.1), 
-        rep(NA_real_, length(seq(0.1, 25000, 0.1)))
-      ), 
-      n, 
-      replace = TRUE
+    uacr = ifelse(
+      sample(c(TRUE, FALSE), n, replace = TRUE),
+      runif(n, 0.1, 25000),
+      NA_real_
     ),
     zip = sample(
       c(

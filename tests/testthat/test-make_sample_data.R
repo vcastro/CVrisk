@@ -139,7 +139,7 @@ test_that("make_sample_data can be used with compute_CVrisk", {
   data$race <- "white"
   
   # Should not throw an error
-  expect_error(
+  expect_silent(
     compute_CVrisk(
       data,
       scores = "ascvd_10y_accaha",
@@ -152,7 +152,6 @@ test_that("make_sample_data can be used with compute_CVrisk", {
       bp_med = "bp_med",
       smoker = "smoker",
       diabetes = "diabetes"
-    ),
-    NA
+    )
   )
 })
