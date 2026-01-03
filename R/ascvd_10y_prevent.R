@@ -66,11 +66,12 @@
 #' Group. Development and Validation of the American Heart Association's
 #' PREVENT Equations. Circulation. 2024 Feb 6;149(6):430-449.
 
-ascvd_10y_prevent <- function(gender = c("male", "female"),
-                             age, sbp, bp_med, totchol, hdl, statin,
-                             diabetes, smoker, egfr, bmi, 
-                             hba1c = NULL, uacr = NULL, zip = NULL,
-                             model = "auto", ...) {
+# Internal helper function for PREVENT risk calculation
+# Not exported
+ascvd_prevent_internal <- function(gender, age, sbp, bp_med, totchol, hdl, 
+                                  statin, diabetes, smoker, egfr, bmi, 
+                                  hba1c = NULL, uacr = NULL, zip = NULL,
+                                  model = "auto", time = "10yr") {
   
   # Validate gender before normalization
   if (missing(gender) || !all(tolower(gender) %in% c("male", "female", "m", "f"))) {
@@ -173,7 +174,7 @@ ascvd_10y_prevent <- function(gender = c("male", "female"),
     preventr::estimate_risk(
       use_dat = input_df,
       model = preventr_model,
-      time = "10yr",
+      time = time,
       quiet = TRUE
     )
   }, error = function(e) {
@@ -192,6 +193,20 @@ ascvd_10y_prevent <- function(gender = c("male", "female"),
   return(ascvd_risk)
 }
 
+ascvd_10y_prevent <- function(gender = c("male", "female"),
+                             age, sbp, bp_med, totchol, hdl, statin,
+                             diabetes, smoker, egfr, bmi, 
+                             hba1c = NULL, uacr = NULL, zip = NULL,
+                             model = "auto", ...) {
+  
+  ascvd_prevent_internal(
+    gender = gender, age = age, sbp = sbp, bp_med = bp_med,
+    totchol = totchol, hdl = hdl, statin = statin,
+    diabetes = diabetes, smoker = smoker, egfr = egfr, bmi = bmi,
+    hba1c = hba1c, uacr = uacr, zip = zip,
+    model = model, time = "10yr"
+  )
+}
 
 #' PREVENT 30-year ASCVD risk score
 #'
@@ -267,122 +282,11 @@ ascvd_30y_prevent <- function(gender = c("male", "female"),
                              hba1c = NULL, uacr = NULL, zip = NULL,
                              model = "auto", ...) {
   
-  # Validate gender before normalization
-  if (missing(gender) || !all(tolower(gender) %in% c("male", "female", "m", "f"))) {
-    stop("gender must be either 'male' or 'female'")
-  }
-  
-  # Standardize gender input
-  gender <- tolower(gender)
-  gender <- ifelse(gender == "m", "male", gender)
-  gender <- ifelse(gender == "f", "female", gender)
-  
-  # Validate inputs - handle both missing and invalid values
-  # For vectorized operations, we can't use || or && - use | and & instead
-  if (missing(age)) {
-    age <- NA
-  } else {
-    age <- ifelse(!is.numeric(age) | age < 30 | age > 79, NA, age)
-  }
-  
-  if (missing(sbp)) {
-    sbp <- NA
-  } else {
-    sbp <- ifelse(!is.numeric(sbp) | sbp < 90 | sbp > 180, NA, sbp)
-  }
-  
-  if (missing(totchol)) {
-    totchol <- NA
-  } else {
-    totchol <- ifelse(!is.numeric(totchol) | totchol < 130 | totchol > 320, NA, totchol)
-  }
-  
-  if (missing(hdl)) {
-    hdl <- NA
-  } else {
-    hdl <- ifelse(!is.numeric(hdl) | hdl < 20 | hdl > 100, NA, hdl)
-  }
-  
-  if (missing(egfr)) {
-    egfr <- NA
-  } else {
-    egfr <- ifelse(!is.numeric(egfr) | egfr < 15 | egfr > 140, NA, egfr)
-  }
-  
-  if (missing(bmi)) {
-    bmi <- NA
-  } else {
-    bmi <- ifelse(!is.numeric(bmi) | bmi < 18.5 | bmi > 39.9, NA, bmi)
-  }
-  
-  # Handle missing values for binary variables
-  if (missing(bp_med)) bp_med <- NA
-  if (missing(statin)) statin <- NA
-  if (missing(diabetes)) diabetes <- NA
-  if (missing(smoker)) smoker <- NA
-  
-  # Normalize model parameter to work with preventr
-  # "auto" in CVrisk maps to NULL in preventr (auto-selection)
-  preventr_model <- if (model == "auto") NULL else model
-  
-  # Check if any required inputs are NA (vectorized check)
-  any_na <- is.na(age) | is.na(gender) | is.na(sbp) | is.na(bp_med) |
-            is.na(totchol) | is.na(hdl) | is.na(statin) | is.na(diabetes) |
-            is.na(smoker) | is.na(egfr) | is.na(bmi)
-  
-  # If all inputs are invalid, return NA
-  if (all(any_na)) {
-    return(rep(NA_real_, length(age)))
-  }
-  
-  # Call preventr::estimate_risk with vectorized inputs using use_dat
-  # Create a data frame with all inputs
-  input_df <- data.frame(
-    age = age,
-    sex = gender,
-    sbp = sbp,
-    bp_tx = bp_med,
-    total_c = totchol,
-    hdl_c = hdl,
-    statin = statin,
-    dm = diabetes,
-    smoking = smoker,
-    egfr = egfr,
-    bmi = bmi,
-    stringsAsFactors = FALSE
+  ascvd_prevent_internal(
+    gender = gender, age = age, sbp = sbp, bp_med = bp_med,
+    totchol = totchol, hdl = hdl, statin = statin,
+    diabetes = diabetes, smoker = smoker, egfr = egfr, bmi = bmi,
+    hba1c = hba1c, uacr = uacr, zip = zip,
+    model = model, time = "30yr"
   )
-  
-  # Add optional predictors if provided
-  if (!is.null(hba1c)) {
-    input_df$hba1c <- hba1c
-  }
-  if (!is.null(uacr)) {
-    input_df$uacr <- uacr
-  }
-  if (!is.null(zip)) {
-    input_df$zip <- zip
-  }
-  
-  # Call preventr with the data frame, requesting 30-year risk
-  result <- tryCatch({
-    preventr::estimate_risk(
-      use_dat = input_df,
-      model = preventr_model,
-      time = "30yr",
-      quiet = TRUE
-    )
-  }, error = function(e) {
-    return(NULL)
-  })
-  
-  # Return NA if the call failed or result is null
-  if (is.null(result) || nrow(result) == 0) {
-    return(rep(NA_real_, nrow(input_df)))
-  }
-  
-  # Extract ASCVD risk and convert from proportion to percentage
-  # preventr returns results ordered by preventr_id which matches input order
-  ascvd_risk <- ifelse(is.na(result$ascvd), NA_real_, round(result$ascvd * 100, 2))
-  
-  return(ascvd_risk)
 }
