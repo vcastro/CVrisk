@@ -17,6 +17,7 @@
 #' @param egfr character string of estimated glomerular filtration rate column
 #' @param fh_heartattack character string of fh of heart attack status column
 #' @param cac character string of cac column
+#' @param ... Additional arguments to pass to score functions (e.g., model parameter for PREVENT scores)
 #'
 #' @return input data frame with risk score results appended as columns
 #'
@@ -44,7 +45,7 @@ compute_CVrisk <- function(df, scores = c(
                            bp_med = NULL, smoker = NULL, diabetes = NULL,
                            lipid_med = NULL, statin = NULL, egfr = NULL,
                            fh_heartattack = NULL,
-                           cac = NULL) {
+                           cac = NULL, ...) {
   all_args <- as.list(environment())
   valid_pred <- c(
     "age", "gender", "race", "sbp", "bmi", "hdl", "totchol",
@@ -61,6 +62,10 @@ compute_CVrisk <- function(df, scores = c(
   if (is.null(pred_args[["statin"]]) && !is.null(pred_args[["lipid_med"]])) {
     pred_args[["statin"]] <- pred_args[["lipid_med"]]
   }
+
+  # Capture additional arguments from ... to pass to score functions
+  extra_args <- list(...)
+  pred_args <- c(pred_args, extra_args)
 
   results <- sapply(scores, function(x) do.call(x, pred_args))
   
