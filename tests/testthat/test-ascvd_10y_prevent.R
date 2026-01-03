@@ -572,3 +572,43 @@ test_that("ascvd_30y_prevent handles invalid gender", {
     "gender must be either 'male' or 'female'"
   )
 })
+
+test_that("prevent handles invalid model parameter", {
+  expect_error(
+    ascvd_10y_prevent(
+      gender = "female",
+      age = 50,
+      sbp = 160,
+      bp_med = 1,
+      totchol = 200,
+      hdl = 45,
+      statin = 0,
+      diabetes = 1,
+      smoker = 0,
+      egfr = 90,
+      bmi = 35,
+      model = "invalid_model"
+    ),
+    "model must be one of"
+  )
+})
+
+test_that("ascvd_30y_prevent handles invalid model parameter", {
+  expect_error(
+    ascvd_30y_prevent(
+      gender = "female",
+      age = 50,
+      sbp = 160,
+      bp_med = 1,
+      totchol = 200,
+      hdl = 45,
+      statin = 0,
+      diabetes = 1,
+      smoker = 0,
+      egfr = 90,
+      bmi = 35,
+      model = "wrong"
+    ),
+    "model must be one of"
+  )
+})

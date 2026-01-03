@@ -66,8 +66,33 @@
 #' Group. Development and Validation of the American Heart Association's
 #' PREVENT Equations. Circulation. 2024 Feb 6;149(6):430-449.
 
-# Internal helper function for PREVENT risk calculation
-# Not exported
+#' Internal helper function for PREVENT risk calculation
+#' 
+#' This is an internal helper function that contains the shared logic for 
+#' both 10-year and 30-year PREVENT ASCVD risk calculations. It handles
+#' input validation, normalization, and calls the preventr package.
+#' 
+#' @param gender patient gender (male, female)
+#' @param age patient age (years), between 30 and 79
+#' @param sbp Systolic blood pressure (mm Hg)
+#' @param bp_med Patient is on a blood pressure medication (1=Yes, 0=No)
+#' @param totchol Total cholesterol (mg/dL)
+#' @param hdl HDL cholesterol (mg/dL)
+#' @param statin Patient is on a statin (1=Yes, 0=No)
+#' @param diabetes Diabetes (1=Yes, 0=No)
+#' @param smoker Current smoker (1=Yes, 0=No)
+#' @param egfr Estimated glomerular filtration rate (mL/min/1.73m2)
+#' @param bmi Body mass index (kg/m2)
+#' @param hba1c Glycated hemoglobin (HbA1c) in percent (optional)
+#' @param uacr Urine albumin-to-creatinine ratio in mg/g (optional)
+#' @param zip ZIP code for Social Deprivation Index (optional)
+#' @param model PREVENT model variant to use: "auto", "base", "hba1c", 
+#'   "uacr", "sdi", or "full"
+#' @param time Time horizon: "10yr" or "30yr"
+#' 
+#' @return Numeric vector of ASCVD risk estimates (percent)
+#' 
+#' @noRd
 ascvd_prevent_internal <- function(gender, age, sbp, bp_med, totchol, hdl, 
                                   statin, diabetes, smoker, egfr, bmi, 
                                   hba1c = NULL, uacr = NULL, zip = NULL,
@@ -76,6 +101,12 @@ ascvd_prevent_internal <- function(gender, age, sbp, bp_med, totchol, hdl,
   # Validate gender before normalization
   if (missing(gender) || !all(tolower(gender) %in% c("male", "female", "m", "f"))) {
     stop("gender must be either 'male' or 'female'")
+  }
+  
+  # Validate model parameter
+  valid_models <- c("auto", "base", "hba1c", "uacr", "sdi", "full")
+  if (!model %in% valid_models) {
+    stop(sprintf("model must be one of: %s", paste(valid_models, collapse = ", ")))
   }
   
   # Standardize gender input
