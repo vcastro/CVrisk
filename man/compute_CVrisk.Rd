@@ -22,7 +22,8 @@ compute_CVrisk(
   statin = NULL,
   egfr = NULL,
   fh_heartattack = NULL,
-  cac = NULL
+  cac = NULL,
+  ...
 )
 }
 \arguments{
@@ -59,6 +60,8 @@ compute_CVrisk(
 \item{fh_heartattack}{character string of fh of heart attack status column}
 
 \item{cac}{character string of cac column}
+
+\item{...}{Additional arguments to pass to score functions (e.g., model parameter for PREVENT scores)}
 }
 \value{
 input data frame with risk score results appended as columns
