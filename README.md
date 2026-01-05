@@ -6,7 +6,6 @@
 [![Codecov test coverage](https://codecov.io/gh/vcastro/CVrisk/branch/master/graph/badge.svg)](https://app.codecov.io/gh/vcastro/CVrisk?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/CVrisk)](https://CRAN.R-project.org/package=CVrisk)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/CVrisk)](https://CRAN.R-project.org/package=CVrisk)
-[![R-CMD-check](https://github.com/vcastro/CVrisk/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vcastro/CVrisk/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 
@@ -66,7 +65,7 @@ compute_CVrisk(sample_data,
 )
 
 # To include PREVENT score, specify scores explicitly and provide egfr
-compute_CVrisk(my_data,
+compute_CVrisk(sample_data,
    scores = c("ascvd_10y_accaha", "ascvd_10y_prevent"),
    age = "age", gender = "gender", sbp = "sbp", 
    hdl = "hdl", totchol = "totchol", bmi = "BMI",

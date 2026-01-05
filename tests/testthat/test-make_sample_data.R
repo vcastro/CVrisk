@@ -172,7 +172,8 @@ test_that("make_sample_data can be used with compute_CVrisk for PREVENT score", 
   data <- make_sample_data(n = 10)
   
   # Should not throw an error
-  expect_silent(
+  
+  expect_true(is.data.frame(
     compute_CVrisk(
       data,
       scores = "ascvd_10y_prevent",
@@ -186,7 +187,8 @@ test_that("make_sample_data can be used with compute_CVrisk for PREVENT score", 
       diabetes = "diabetes",
       statin = "lipid_med",
       egfr = "egfr",
-      bmi = "bmi"
-    )
+      bmi = "bmi",
+      silent = TRUE
+    ))
   )
 })

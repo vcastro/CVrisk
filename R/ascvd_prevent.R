@@ -23,7 +23,6 @@
 #'
 #' @return 10-year ASCVD risk estimate (percent)
 #'
-#' @export
 #'
 #' @examples
 #' library(CVrisk)
@@ -206,7 +205,8 @@ ascvd_prevent_internal <- function(gender, age, sbp, bp_med, totchol, hdl,
       use_dat = input_df,
       model = preventr_model,
       time = time,
-      quiet = TRUE
+      quiet = TRUE,
+      progress = FALSE
     )
   }, error = function(e) {
     return(NULL)

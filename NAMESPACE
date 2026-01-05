@@ -3,7 +3,6 @@
 export(ascvd_10y_accaha)
 export(ascvd_10y_frs)
 export(ascvd_10y_frs_simple)
-export(ascvd_10y_prevent)
 export(ascvd_30y_prevent)
 export(chd_10y_mesa)
 export(chd_10y_mesa_cac)
