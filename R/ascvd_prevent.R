@@ -1,70 +1,3 @@
-#' PREVENT 10-year ASCVD risk score
-#'
-#' Computes 10-year risk for ASCVD (atherosclerotic cardiovascular disease)
-#' using the American Heart Association PREVENT equations (2023).
-#'
-#' @param gender patient gender (male, female)
-#' @param age patient age (years), between 30 and 79
-#' @param sbp Systolic blood pressure (mm Hg)
-#' @param bp_med Patient is on a blood pressure medication (1=Yes, 0=No)
-#' @param totchol Total cholesterol (mg/dL)
-#' @param hdl HDL cholesterol (mg/dL)
-#' @param statin Patient is on a statin (1=Yes, 0=No)
-#' @param diabetes Diabetes (1=Yes, 0=No)
-#' @param smoker Current smoker (1=Yes, 0=No)
-#' @param egfr Estimated glomerular filtration rate (mL/min/1.73m2)
-#' @param bmi Body mass index (kg/m2)
-#' @param hba1c Glycated hemoglobin (HbA1c) in percent (optional)
-#' @param uacr Urine albumin-to-creatinine ratio in mg/g (optional)
-#' @param zip ZIP code for Social Deprivation Index (optional)
-#' @param model PREVENT model variant to use: "auto" (default, selects based on 
-#'   available data), "base", "hba1c", "uacr", "sdi", or "full"
-#' @param ... Additional predictors can be passed and will be ignored
-#'
-#' @return 10-year ASCVD risk estimate (percent)
-#'
-#'
-#' @examples
-#' library(CVrisk)
-#' # Base model (default when model = "auto" and no optional predictors provided)
-#' ascvd_10y_prevent(
-#'   gender = "female", age = 50,
-#'   sbp = 160, bp_med = 1,
-#'   totchol = 200, hdl = 45,
-#'   statin = 0, diabetes = 1, smoker = 0,
-#'   egfr = 90, bmi = 35
-#' )
-#' 
-#' # Explicitly specify base model
-#' ascvd_10y_prevent(
-#'   gender = "female", age = 50,
-#'   sbp = 160, bp_med = 1,
-#'   totchol = 200, hdl = 45,
-#'   statin = 0, diabetes = 1, smoker = 0,
-#'   egfr = 90, bmi = 35,
-#'   model = "base"
-#' )
-#' 
-#' # Auto model with HbA1c (will use hba1c model variant)
-#' ascvd_10y_prevent(
-#'   gender = "male", age = 55,
-#'   sbp = 140, bp_med = 0,
-#'   totchol = 213, hdl = 50,
-#'   statin = 0, diabetes = 0, smoker = 0,
-#'   egfr = 90, bmi = 30,
-#'   hba1c = 6.5
-#' )
-#'
-#' @references
-#' Khan SS, Matsushita K, Sang Y, Ballew SH, Grams ME, Surapaneni A, Blaha MJ,
-#' Carson AP, Chang AR, Ciemins E, Go AS, Gutierrez OM, Hwang SJ, Jassal SK,
-#' Kovesdy CP, Lloyd-Jones DM, Shlipak MG, Palaniappan LP, Sperling L,
-#' Virani SS, Tuttle K, Neeland IJ, Chow SL, Rangaswami J, Pencina MJ,
-#' Ndumele CE, Coresh J; Chronic Kidney Disease Prognosis Consortium and the
-#' American Heart Association Cardiovascular-Kidney-Metabolic Science Advisory
-#' Group. Development and Validation of the American Heart Association's
-#' PREVENT Equations. Circulation. 2024 Feb 6;149(6):430-449.
-
 #' Internal helper function for PREVENT risk calculation
 #' 
 #' This is an internal helper function that contains the shared logic for 
@@ -223,6 +156,74 @@ ascvd_prevent_internal <- function(gender, age, sbp, bp_med, totchol, hdl,
   
   return(ascvd_risk)
 }
+
+#' PREVENT 10-year ASCVD risk score
+#'
+#' Computes 10-year risk for ASCVD (atherosclerotic cardiovascular disease)
+#' using the American Heart Association PREVENT equations (2023).
+#'
+#' @param gender patient gender (male, female)
+#' @param age patient age (years), between 30 and 79
+#' @param sbp Systolic blood pressure (mm Hg)
+#' @param bp_med Patient is on a blood pressure medication (1=Yes, 0=No)
+#' @param totchol Total cholesterol (mg/dL)
+#' @param hdl HDL cholesterol (mg/dL)
+#' @param statin Patient is on a statin (1=Yes, 0=No)
+#' @param diabetes Diabetes (1=Yes, 0=No)
+#' @param smoker Current smoker (1=Yes, 0=No)
+#' @param egfr Estimated glomerular filtration rate (mL/min/1.73m2)
+#' @param bmi Body mass index (kg/m2)
+#' @param hba1c Glycated hemoglobin (HbA1c) in percent (optional)
+#' @param uacr Urine albumin-to-creatinine ratio in mg/g (optional)
+#' @param zip ZIP code for Social Deprivation Index (optional)
+#' @param model PREVENT model variant to use: "auto" (default, selects based on 
+#'   available data), "base", "hba1c", "uacr", "sdi", or "full"
+#' @param ... Additional predictors can be passed and will be ignored
+#'
+#' @return 10-year ASCVD risk estimate (percent)
+#'
+#' @export
+#'
+#' @examples
+#' library(CVrisk)
+#' # Base model (default when model = "auto" and no optional predictors provided)
+#' ascvd_10y_prevent(
+#'   gender = "female", age = 50,
+#'   sbp = 160, bp_med = 1,
+#'   totchol = 200, hdl = 45,
+#'   statin = 0, diabetes = 1, smoker = 0,
+#'   egfr = 90, bmi = 35
+#' )
+#' 
+#' # Explicitly specify base model
+#' ascvd_10y_prevent(
+#'   gender = "female", age = 50,
+#'   sbp = 160, bp_med = 1,
+#'   totchol = 200, hdl = 45,
+#'   statin = 0, diabetes = 1, smoker = 0,
+#'   egfr = 90, bmi = 35,
+#'   model = "base"
+#' )
+#' 
+#' # Auto model with HbA1c (will use hba1c model variant)
+#' ascvd_10y_prevent(
+#'   gender = "male", age = 55,
+#'   sbp = 140, bp_med = 0,
+#'   totchol = 213, hdl = 50,
+#'   statin = 0, diabetes = 0, smoker = 0,
+#'   egfr = 90, bmi = 30,
+#'   hba1c = 6.5
+#' )
+#'
+#' @references
+#' Khan SS, Matsushita K, Sang Y, Ballew SH, Grams ME, Surapaneni A, Blaha MJ,
+#' Carson AP, Chang AR, Ciemins E, Go AS, Gutierrez OM, Hwang SJ, Jassal SK,
+#' Kovesdy CP, Lloyd-Jones DM, Shlipak MG, Palaniappan LP, Sperling L,
+#' Virani SS, Tuttle K, Neeland IJ, Chow SL, Rangaswami J, Pencina MJ,
+#' Ndumele CE, Coresh J; Chronic Kidney Disease Prognosis Consortium and the
+#' American Heart Association Cardiovascular-Kidney-Metabolic Science Advisory
+#' Group. Development and Validation of the American Heart Association's
+#' PREVENT Equations. Circulation. 2024 Feb 6;149(6):430-449.
 
 ascvd_10y_prevent <- function(gender = c("male", "female"),
                              age, sbp, bp_med, totchol, hdl, statin,
