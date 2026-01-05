@@ -1,4 +1,4 @@
-test_that("prevent female example from preventr docs is correct", {
+test_that("prevent female 10y base example from preventr docs is correct", {
   # Example from preventr documentation
   # https://github.com/martingmayer/preventr
   # Expected 10-year ASCVD risk: 0.092 (9.2%)
@@ -16,12 +16,10 @@ test_that("prevent female example from preventr docs is correct", {
     bmi = 35
   )
   
-  # preventr returns proportions, we convert to percentages
-  # Expected: 0.092 * 100 = 9.2
   expect_equal(result, 9.2)
 })
 
-test_that("prevent male example is correct", {
+test_that("prevent male 10y base ascvd example is correct", {
   result <- ascvd_10y_prevent(
     gender = "male",
     age = 55,
@@ -39,7 +37,7 @@ test_that("prevent male example is correct", {
   # Should return a numeric value
   expect_true(is.numeric(result))
   expect_false(is.na(result))
-  expect_true(result >= 0 && result <= 100)
+  expect_true(result == 3.9)
 })
 
 test_that("prevent handles missing required parameters", {
@@ -430,6 +428,7 @@ test_that("prevent with model parameter auto works", {
 })
 
 test_that("prevent with optional hba1c parameter works", {
+  # example tested in paper supp excel file Table S12C
   result <- ascvd_10y_prevent(
     gender = "male",
     age = 55,
@@ -448,12 +447,13 @@ test_that("prevent with optional hba1c parameter works", {
   # Should work with hba1c
   expect_true(is.numeric(result))
   expect_false(is.na(result))
-  expect_true(result >= 0 && result <= 100)
+  expect_true(result == 4.3)
 })
 
 test_that("prevent with optional uacr parameter works", {
+  # example tested in paper supp excel file Table S12B
   result <- ascvd_10y_prevent(
-    gender = "male",
+    gender = "female",
     age = 55,
     sbp = 140,
     bp_med = 0,
@@ -470,10 +470,13 @@ test_that("prevent with optional uacr parameter works", {
   # Should work with uacr
   expect_true(is.numeric(result))
   expect_false(is.na(result))
-  expect_true(result >= 0 && result <= 100)
+  expect_true(result == 3.1)
 })
 
-test_that("ascvd_30y_prevent female example works", {
+##TODO: add full model + SDI only example tests
+
+test_that("ascvd_30y_prevent base ascvd female example works", {
+  # example tested in paper supp excel file Table S12F
   result <- ascvd_30y_prevent(
     gender = "female",
     age = 50,
@@ -491,7 +494,7 @@ test_that("ascvd_30y_prevent female example works", {
   # Should return a valid 30-year risk
   expect_true(is.numeric(result))
   expect_false(is.na(result))
-  expect_true(result >= 0 && result <= 100)
+  expect_true(result == 35.4)
 })
 
 test_that("ascvd_30y_prevent male example works", {
