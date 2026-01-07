@@ -1,6 +1,6 @@
 Package: CVrisk
 Title: Compute Risk Scores for Cardiovascular Diseases
-Version: 1.2.0
+Version: 1.2.1
 Authors@R: 
     person(given = "Victor",
            family = "Castro",
