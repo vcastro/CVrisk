@@ -1,0 +1,432 @@
+---
+title: "Using PREVENT Risk Score Functions"
+author: "CVrisk Package"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using PREVENT Risk Score Functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+The CVrisk package now includes support for the American Heart Association's PREVENT (Predicting Risk of cardiovascular disease EVENTs) equations, published in 2024. These equations provide improved cardiovascular risk prediction compared to legacy models like the Pooled Cohort Equations (PCE).
+
+This vignette demonstrates how to:
+
+1. Use the PREVENT functions individually for 10-year and 30-year risk estimation
+2. Leverage different model variants (base, auto, with optional predictors)
+3. Compare PREVENT scores with older ACC/AHA and Framingham scores using `compute_CVrisk()`
+
+## Available PREVENT Functions
+
+The package provides two main functions:
+
+- `ascvd_10y_prevent()` - Calculate 10-year ASCVD risk
+- `ascvd_30y_prevent()` - Calculate 30-year ASCVD risk
+
+Both functions support multiple model variants through the `model` parameter.
+
+## Model Variants
+
+The PREVENT equations support several model variants:
+
+- **"auto"** (default): Automatically selects the best model based on available data
+- **"base"**: Base model using standard risk factors only
+- **"hba1c"**: Base model + HbA1c (glycated hemoglobin)
+- **"uacr"**: Base model + UACR (urine albumin-to-creatinine ratio)
+- **"sdi"**: Base model + SDI (Social Deprivation Index via ZIP code)
+- **"full"**: Full model with all optional predictors
+
+## Basic Usage: Individual Functions
+
+### 10-Year ASCVD Risk (Base Model)
+
+The base model requires these parameters:
+
+```{r basic_10y, eval=FALSE}
+library(CVrisk)
+
+# Calculate 10-year risk for a 50-year-old female
+risk_10y <- ascvd_10y_prevent(
+  gender = "female",
+  age = 50,
+  sbp = 160,           # Systolic blood pressure (mm Hg)
+  bp_med = 1,          # On BP medication (1=Yes, 0=No)
+  totchol = 200,       # Total cholesterol (mg/dL)
+  hdl = 45,            # HDL cholesterol (mg/dL)
+  statin = 0,          # On statin (1=Yes, 0=No)
+  diabetes = 1,        # Has diabetes (1=Yes, 0=No)
+  smoker = 0,          # Current smoker (1=Yes, 0=No)
+  egfr = 90,           # Estimated GFR (mL/min/1.73m²)
+  bmi = 35             # Body mass index (kg/m²)
+)
+
+print(risk_10y)  # Returns risk as percentage
+```
+
+### 30-Year ASCVD Risk
+
+For younger patients, 30-year risk provides better long-term perspective:
+
+```{r basic_30y, eval=FALSE}
+# Calculate 30-year risk for a 45-year-old male
+risk_30y <- ascvd_30y_prevent(
+  gender = "male",
+  age = 45,
+  sbp = 130,
+  bp_med = 0,
+  totchol = 200,
+  hdl = 50,
+  statin = 0,
+  diabetes = 0,
+  smoker = 1,          # Current smoker
+  egfr = 95,
+  bmi = 28
+)
+
+print(risk_30y)
+```
+
+## Using Optional Predictors
+
+### Adding HbA1c
+
+When HbA1c data is available, the model automatically uses the enhanced equation:
+
+```{r with_hba1c, eval=FALSE}
+# With HbA1c - model will automatically select "hba1c" variant
+risk_with_hba1c <- ascvd_10y_prevent(
+  gender = "male",
+  age = 55,
+  sbp = 140,
+  bp_med = 0,
+  totchol = 213,
+  hdl = 50,
+  statin = 0,
+  diabetes = 1,
+  smoker = 0,
+  egfr = 90,
+  bmi = 30,
+  hba1c = 7.5,         # Glycated hemoglobin (%)
+  model = "auto"       # Automatically uses hba1c model
+)
+```
+
+### Adding UACR
+
+UACR (urine albumin-to-creatinine ratio) provides additional kidney function information:
+
+```{r with_uacr, eval=FALSE}
+# With UACR
+risk_with_uacr <- ascvd_10y_prevent(
+  gender = "female",
+  age = 60,
+  sbp = 150,
+  bp_med = 1,
+  totchol = 220,
+  hdl = 55,
+  statin = 1,
+  diabetes = 1,
+  smoker = 0,
+  egfr = 75,
+  bmi = 32,
+  uacr = 150          # UACR in mg/g
+)
+```
+
+### Adding Social Deprivation Index (SDI)
+
+SDI captures socioeconomic factors using ZIP code:
+
+```{r with_sdi, eval=FALSE}
+# With ZIP code for SDI
+risk_with_sdi <- ascvd_10y_prevent(
+  gender = "male",
+  age = 52,
+  sbp = 135,
+  bp_med = 0,
+  totchol = 195,
+  hdl = 48,
+  statin = 0,
+  diabetes = 0,
+  smoker = 0,
+  egfr = 88,
+  bmi = 29,
+  zip = "02114"       # Boston, MA
+)
+```
+
+### Full Model
+
+When multiple optional predictors are available:
+
+```{r full_model, eval=FALSE}
+# Full model with all optional predictors
+risk_full <- ascvd_10y_prevent(
+  gender = "female",
+  age = 58,
+  sbp = 145,
+  bp_med = 1,
+  totchol = 210,
+  hdl = 52,
+  statin = 1,
+  diabetes = 1,
+  smoker = 0,
+  egfr = 80,
+  bmi = 31,
+  hba1c = 7.2,
+  uacr = 100,
+  zip = "10001",
+  model = "auto"      # Will use full model
+)
+```
+
+## Explicit Model Selection
+
+You can explicitly specify which model to use instead of "auto":
+
+```{r explicit_model, eval=FALSE}
+# Force base model even with optional predictors available
+risk_base_only <- ascvd_10y_prevent(
+  gender = "male",
+  age = 55,
+  sbp = 140,
+  bp_med = 0,
+  totchol = 213,
+  hdl = 50,
+  statin = 0,
+  diabetes = 1,
+  smoker = 0,
+  egfr = 90,
+  bmi = 30,
+  hba1c = 7.5,        # Available but will be ignored
+  model = "base"      # Explicitly use base model
+)
+```
+
+## Comparing Multiple Risk Scores with compute_CVrisk()
+
+The `compute_CVrisk()` function allows you to calculate multiple risk scores simultaneously and compare PREVENT with legacy scores.
+
+### Example: PREVENT vs ACC/AHA
+
+```{r compare_prevent_accaha, eval=FALSE}
+# Create sample patient data
+patient_data <- data.frame(
+  age = c(50, 55, 60),
+  gender = c("female", "male", "female"),
+  race = c("white", "aa", "white"),
+  sbp = c(160, 140, 150),
+  bp_med = c(1, 0, 1),
+  totchol = c(200, 213, 220),
+  hdl = c(45, 50, 55),
+  statin = c(0, 0, 1),
+  diabetes = c(1, 0, 1),
+  smoker = c(0, 0, 0),
+  egfr = c(90, 90, 75),
+  bmi = c(35, 30, 32)
+)
+
+# Compare PREVENT 10-year with ACC/AHA 2013
+results <- compute_CVrisk(
+  patient_data,
+  scores = c("ascvd_10y_accaha", "ascvd_10y_prevent"),
+  age = "age",
+  gender = "gender",
+  race = "race",
+  sbp = "sbp",
+  bp_med = "bp_med",
+  totchol = "totchol",
+  hdl = "hdl",
+  statin = "statin",
+  diabetes = "diabetes",
+  smoker = "smoker",
+  egfr = "egfr",
+  bmi = "bmi"
+)
+
+# View results
+print(results[, c("age", "gender", "ascvd_10y_accaha", "ascvd_10y_prevent")])
+```
+
+### Example: PREVENT vs Framingham
+
+```{r compare_prevent_frs, eval=FALSE}
+# Compare PREVENT with Framingham Risk Score
+results_frs <- compute_CVrisk(
+  patient_data,
+  scores = c("ascvd_10y_frs", "ascvd_10y_prevent"),
+  age = "age",
+  gender = "gender",
+  sbp = "sbp",
+  bp_med = "bp_med",
+  totchol = "totchol",
+  hdl = "hdl",
+  diabetes = "diabetes",
+  smoker = "smoker",
+  egfr = "egfr",
+  bmi = "bmi"
+)
+
+print(results_frs)
+```
+
+### Example: Multiple Scores Including 30-Year Risk
+
+```{r multiple_scores, eval=FALSE}
+# Calculate multiple scores including 30-year risk
+comprehensive_results <- compute_CVrisk(
+  patient_data,
+  scores = c("ascvd_10y_accaha", "ascvd_10y_frs", 
+             "ascvd_10y_prevent", "ascvd_30y_prevent"),
+  age = "age",
+  gender = "gender",
+  race = "race",
+  sbp = "sbp",
+  bp_med = "bp_med",
+  totchol = "totchol",
+  hdl = "hdl",
+  statin = "statin",
+  diabetes = "diabetes",
+  smoker = "smoker",
+  egfr = "egfr",
+  bmi = "bmi"
+)
+
+# View side-by-side comparison
+print(comprehensive_results[, c("age", "gender", 
+                                "ascvd_10y_accaha", 
+                                "ascvd_10y_frs",
+                                "ascvd_10y_prevent", 
+                                "ascvd_30y_prevent")])
+```
+
+## Passing Model Parameter through compute_CVrisk()
+
+You can specify the PREVENT model variant when using `compute_CVrisk()`:
+
+```{r model_param_compute, eval=FALSE}
+# Force base model for all PREVENT calculations
+results_base <- compute_CVrisk(
+  patient_data,
+  scores = c("ascvd_10y_prevent", "ascvd_30y_prevent"),
+  age = "age",
+  gender = "gender",
+  sbp = "sbp",
+  bp_med = "bp_med",
+  totchol = "totchol",
+  hdl = "hdl",
+  statin = "statin",
+  diabetes = "diabetes",
+  smoker = "smoker",
+  egfr = "egfr",
+  bmi = "bmi",
+  model = "base"      # Pass model parameter
+)
+```
+
+## Handling Missing Data
+
+The PREVENT functions return NA for patients with missing required predictors:
+
+```{r missing_data, eval=FALSE}
+# Patient with missing eGFR
+risk_missing <- ascvd_10y_prevent(
+  gender = "male",
+  age = 55,
+  sbp = 140,
+  bp_med = 0,
+  totchol = 213,
+  hdl = 50,
+  statin = 0,
+  diabetes = 0,
+  smoker = 0,
+  egfr = NA,          # Missing
+  bmi = 30
+)
+
+print(risk_missing)   # Returns NA
+```
+
+## Vectorized Operations
+
+Both PREVENT functions are vectorized and work efficiently with data frames:
+
+```{r vectorized, eval=FALSE}
+# Calculate risks for multiple patients at once
+ages <- c(45, 50, 55, 60)
+genders <- c("male", "female", "male", "female")
+sbps <- c(130, 140, 150, 160)
+
+risks <- ascvd_10y_prevent(
+  gender = genders,
+  age = ages,
+  sbp = sbps,
+  bp_med = c(0, 0, 1, 1),
+  totchol = c(200, 210, 220, 230),
+  hdl = c(50, 45, 55, 48),
+  statin = c(0, 0, 0, 1),
+  diabetes = c(0, 0, 1, 1),
+  smoker = c(0, 1, 0, 0),
+  egfr = c(95, 90, 85, 80),
+  bmi = c(28, 30, 32, 34)
+)
+
+print(risks)  # Returns vector of risks
+```
+
+## Clinical Interpretation
+
+### Risk Categories (10-year ASCVD risk)
+
+- **<5%**: Low risk
+- **5-7.4%**: Borderline risk
+- **7.5-19.9%**: Intermediate risk
+- **≥20%**: High risk
+
+### PREVENT vs Legacy Scores
+
+PREVENT equations typically provide more accurate risk estimates because they:
+
+1. Include kidney function (eGFR) as a standard predictor
+2. Include BMI instead of just lipid levels
+3. Use more recent data (updated cohorts)
+4. Better calibration in contemporary populations
+5. Support 30-year risk estimation for younger patients
+
+## Key Differences from ACC/AHA and Framingham
+
+| Feature | PREVENT | ACC/AHA 2013 | Framingham 2008 |
+|---------|---------|--------------|-----------------|
+| Age range | 30-79 | 40-79 | 30-74 |
+| eGFR required | Yes | No | No |
+| BMI required | Yes | No | Optional |
+| Statin status | Yes | No | No |
+| Race required | No | Yes | No |
+| 30-year risk | Yes | No | No |
+| Optional predictors | HbA1c, UACR, SDI | None | None |
+
+## References
+
+Khan SS, Matsushita K, Sang Y, et al. Development and Validation of the American Heart Association's PREVENT Equations. *Circulation*. 2024;149(6):430-449. doi:10.1161/CIRCULATIONAHA.123.067626
+
+## Summary
+
+The PREVENT functions in CVrisk provide:
+
+1. **Modern risk estimation** using the latest AHA equations
+2. **Flexibility** through multiple model variants (base, auto, with optional predictors)
+3. **Long-term perspective** with 30-year risk calculation
+4. **Easy comparison** with legacy scores via `compute_CVrisk()`
+5. **Efficient computation** through vectorized operations
+
+For most use cases, the default `model = "auto"` setting is recommended, as it automatically selects the best model based on available data.
