@@ -9,3 +9,4 @@
 ^data-raw$
 ^CRAN-RELEASE$
 ^CITATION\.cff$
+^vignettes/*\.html$

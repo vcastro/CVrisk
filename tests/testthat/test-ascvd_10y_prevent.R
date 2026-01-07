@@ -1,4 +1,4 @@
-test_that("prevent female example from preventr docs is correct", {
+test_that("prevent female 10y base example from preventr docs is correct", {
   # Example from preventr documentation
   # https://github.com/martingmayer/preventr
   # Expected 10-year ASCVD risk: 0.092 (9.2%)
@@ -16,12 +16,10 @@ test_that("prevent female example from preventr docs is correct", {
     bmi = 35
   )
   
-  # preventr returns proportions, we convert to percentages
-  # Expected: 0.092 * 100 = 9.2
   expect_equal(result, 9.2)
 })
 
-test_that("prevent male example is correct", {
+test_that("prevent male 10y base ascvd example is correct", {
   result <- ascvd_10y_prevent(
     gender = "male",
     age = 55,
@@ -39,7 +37,7 @@ test_that("prevent male example is correct", {
   # Should return a numeric value
   expect_true(is.numeric(result))
   expect_false(is.na(result))
-  expect_true(result >= 0 && result <= 100)
+  expect_true(result == 3.9)
 })
 
 test_that("prevent handles missing required parameters", {
@@ -385,4 +383,235 @@ test_that("prevent handles gender abbreviations", {
   )
   
   expect_false(is.na(result_m))
+})
+
+test_that("prevent with model parameter base works", {
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35,
+    model = "base"
+  )
+  
+  # Should match the same result as the default auto with no optional params
+  expect_equal(result, 9.2)
+})
+
+test_that("prevent with model parameter auto works", {
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35,
+    model = "auto"
+  )
+  
+  # Should work and return valid result
+  expect_true(is.numeric(result))
+  expect_false(is.na(result))
+  expect_equal(result, 9.2)
+})
+
+test_that("prevent with optional hba1c parameter works", {
+  # example tested in paper supp excel file Table S12C
+  result <- ascvd_10y_prevent(
+    gender = "male",
+    age = 55,
+    sbp = 140,
+    bp_med = 0,
+    totchol = 213,
+    hdl = 50,
+    statin = 0,
+    diabetes = 0,
+    smoker = 0,
+    egfr = 90,
+    bmi = 30,
+    hba1c = 6.5
+  )
+  
+  # Should work with hba1c
+  expect_true(is.numeric(result))
+  expect_false(is.na(result))
+  expect_true(result == 4.3)
+})
+
+test_that("prevent with optional uacr parameter works", {
+  # example tested in paper supp excel file Table S12B
+  result <- ascvd_10y_prevent(
+    gender = "female",
+    age = 55,
+    sbp = 140,
+    bp_med = 0,
+    totchol = 213,
+    hdl = 50,
+    statin = 0,
+    diabetes = 0,
+    smoker = 0,
+    egfr = 90,
+    bmi = 30,
+    uacr = 25
+  )
+  
+  # Should work with uacr
+  expect_true(is.numeric(result))
+  expect_false(is.na(result))
+  expect_true(result == 3.1)
+})
+
+##TODO: add full model + SDI only example tests
+
+test_that("ascvd_30y_prevent base ascvd female example works", {
+  # example tested in paper supp excel file Table S12F
+  result <- ascvd_30y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35
+  )
+  
+  # Should return a valid 30-year risk
+  expect_true(is.numeric(result))
+  expect_false(is.na(result))
+  expect_true(result == 35.4)
+})
+
+test_that("ascvd_30y_prevent male example works", {
+  result <- ascvd_30y_prevent(
+    gender = "male",
+    age = 45,
+    sbp = 130,
+    bp_med = 0,
+    totchol = 200,
+    hdl = 50,
+    statin = 0,
+    diabetes = 0,
+    smoker = 1,
+    egfr = 95,
+    bmi = 28
+  )
+  
+  # Should return a numeric value
+  expect_true(is.numeric(result))
+  expect_false(is.na(result))
+  expect_true(result >= 0 && result <= 100)
+})
+
+test_that("ascvd_30y_prevent with model parameter base works", {
+  result <- ascvd_30y_prevent(
+    gender = "female",
+    age = 50,
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35,
+    model = "base"
+  )
+  
+  # Should work with explicit base model
+  expect_true(is.numeric(result))
+  expect_false(is.na(result))
+  expect_true(result >= 0 && result <= 100)
+})
+
+test_that("ascvd_30y_prevent handles missing age", {
+  result <- ascvd_30y_prevent(
+    gender = "female",
+    sbp = 160,
+    bp_med = 1,
+    totchol = 200,
+    hdl = 45,
+    statin = 0,
+    diabetes = 1,
+    smoker = 0,
+    egfr = 90,
+    bmi = 35
+  )
+  
+  expect_true(is.na(result))
+})
+
+test_that("ascvd_30y_prevent handles invalid gender", {
+  expect_error(
+    ascvd_30y_prevent(
+      gender = "unknown",
+      age = 50,
+      sbp = 160,
+      bp_med = 1,
+      totchol = 200,
+      hdl = 45,
+      statin = 0,
+      diabetes = 1,
+      smoker = 0,
+      egfr = 90,
+      bmi = 35
+    ),
+    "gender must be either 'male' or 'female'"
+  )
+})
+
+test_that("prevent handles invalid model parameter", {
+  expect_error(
+    ascvd_10y_prevent(
+      gender = "female",
+      age = 50,
+      sbp = 160,
+      bp_med = 1,
+      totchol = 200,
+      hdl = 45,
+      statin = 0,
+      diabetes = 1,
+      smoker = 0,
+      egfr = 90,
+      bmi = 35,
+      model = "invalid_model"
+    ),
+    "model must be one of"
+  )
+})
+
+test_that("ascvd_30y_prevent handles invalid model parameter", {
+  expect_error(
+    ascvd_30y_prevent(
+      gender = "female",
+      age = 50,
+      sbp = 160,
+      bp_med = 1,
+      totchol = 200,
+      hdl = 45,
+      statin = 0,
+      diabetes = 1,
+      smoker = 0,
+      egfr = 90,
+      bmi = 35,
+      model = "wrong"
+    ),
+    "model must be one of"
+  )
 })

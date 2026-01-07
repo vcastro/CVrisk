@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="CVrisk Package" />
+
+<meta name="date" content="2026-01-07" />
+
+<title>Using PREVENT Risk Score Functions</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using PREVENT Risk Score Functions</h1>
+<h4 class="author">CVrisk Package</h4>
+<h4 class="date">2026-01-07</h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The CVrisk package now includes support for the American Heart
+Association’s PREVENT (Predicting Risk of cardiovascular disease EVENTs)
+equations, published in 2024. These equations provide improved
+cardiovascular risk prediction compared to legacy models like the Pooled
+Cohort Equations (PCE).</p>
+<p><strong>Implementation Note:</strong> The PREVENT risk calculations
+in CVrisk are powered by the <a href="https://github.com/martingmayer/preventr"><code>preventr</code>
+package</a>, which provides a comprehensive implementation of the AHA
+PREVENT equations. While the PREVENT equations can predict multiple
+cardiovascular outcomes (total CVD, ASCVD, heart failure, CHD, and
+stroke), <strong>CVrisk focuses specifically on ASCVD (atherosclerotic
+cardiovascular disease) risk</strong> to maintain consistency with
+legacy risk scores for research applications.</p>
+<p>This vignette demonstrates how to:</p>
+<ol style="list-style-type: decimal">
+<li>Use the PREVENT functions individually for 10-year and 30-year risk
+estimation</li>
+<li>Leverage different model variants (base, auto, with optional
+predictors)</li>
+<li>Compare PREVENT scores with older ACC/AHA and Framingham scores
+using <code>compute_CVrisk()</code></li>
+</ol>
+</div>
+<div id="available-prevent-functions" class="section level2">
+<h2>Available PREVENT Functions</h2>
+<p>The package provides two main functions:</p>
+<ul>
+<li><code>ascvd_10y_prevent()</code> - Calculate 10-year ASCVD risk</li>
+<li><code>ascvd_30y_prevent()</code> - Calculate 30-year ASCVD risk</li>
+</ul>
+<p>Both functions support multiple model variants through the
+<code>model</code> parameter, with <strong><code>model = &quot;auto&quot;</code>
+as the default</strong>, which automatically selects the best model
+based on available data.</p>
+</div>
+<div id="model-variants" class="section level2">
+<h2>Model Variants</h2>
+<p>The PREVENT equations support several model variants through the
+<code>preventr</code> package:</p>
+<ul>
+<li><strong>“auto”</strong> (<strong>default</strong>): Automatically
+selects the best model based on available data. This is the recommended
+setting for most use cases.</li>
+<li><strong>“base”</strong>: Base model using standard risk factors
+only</li>
+<li><strong>“hba1c”</strong>: Base model + HbA1c (glycated
+hemoglobin)</li>
+<li><strong>“uacr”</strong>: Base model + UACR (urine
+albumin-to-creatinine ratio)</li>
+<li><strong>“sdi”</strong>: Base model + SDI (Social Deprivation Index
+via ZIP code)</li>
+<li><strong>“full”</strong>: Full model with all optional
+predictors</li>
+</ul>
+<div id="how-the-auto-model-selection-works" class="section level3">
+<h3>How the “auto” Model Selection Works</h3>
+<p>When <code>model = &quot;auto&quot;</code> (the default), the
+<code>preventr</code> package automatically selects the most appropriate
+model variant based on which optional predictors you provide in your
+data:</p>
+<ol style="list-style-type: decimal">
+<li>If <strong>no optional predictors</strong> (HbA1c, UACR, or ZIP
+code) are provided → uses <strong>base model</strong></li>
+<li>If <strong>only HbA1c</strong> is provided → uses <strong>hba1c
+model</strong></li>
+<li>If <strong>only UACR</strong> is provided → uses <strong>uacr
+model</strong></li>
+<li>If <strong>only ZIP code</strong> is provided → uses <strong>sdi
+model</strong></li>
+<li>If <strong>multiple optional predictors</strong> are provided → uses
+<strong>full model</strong> incorporating all available predictors</li>
+</ol>
+<p>This intelligent selection ensures you always get the most accurate
+risk estimate based on your available data, without needing to manually
+specify which model variant to use. The auto-selection examines the data
+for each patient individually, so different patients in the same dataset
+can use different model variants based on their available data.</p>
+</div>
+</div>
+<div id="basic-usage-individual-functions" class="section level2">
+<h2>Basic Usage: Individual Functions</h2>
+<div id="year-ascvd-risk-base-model" class="section level3">
+<h3>10-Year ASCVD Risk (Base Model)</h3>
+<p>The base model requires these parameters:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(CVrisk)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># Calculate 10-year risk for a 50-year-old female</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>risk_10y <span class="ot">&lt;-</span> <span class="fu">ascvd_10y_prevent</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;female&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">50</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="dv">160</span>,           <span class="co"># Systolic blood pressure (mm Hg)</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="dv">1</span>,          <span class="co"># On BP medication (1=Yes, 0=No)</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="dv">200</span>,       <span class="co"># Total cholesterol (mg/dL)</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="dv">45</span>,            <span class="co"># HDL cholesterol (mg/dL)</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="at">statin =</span> <span class="dv">0</span>,          <span class="co"># On statin (1=Yes, 0=No)</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="dv">1</span>,        <span class="co"># Has diabetes (1=Yes, 0=No)</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="dv">0</span>,          <span class="co"># Current smoker (1=Yes, 0=No)</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="dv">90</span>,           <span class="co"># Estimated GFR (mL/min/1.73m²)</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="dv">35</span>             <span class="co"># Body mass index (kg/m²)</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="fu">print</span>(risk_10y)  <span class="co"># Returns risk as percentage</span></span></code></pre></div>
+</div>
+<div id="year-ascvd-risk" class="section level3">
+<h3>30-Year ASCVD Risk</h3>
+<p>For younger patients, 30-year risk provides better long-term
+perspective:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Calculate 30-year risk for a 45-year-old male</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>risk_30y <span class="ot">&lt;-</span> <span class="fu">ascvd_30y_prevent</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;male&quot;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">45</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="dv">130</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="dv">0</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="dv">200</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="dv">50</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">statin =</span> <span class="dv">0</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="dv">0</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="dv">1</span>,          <span class="co"># Current smoker</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="dv">95</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="dv">28</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>)</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="fu">print</span>(risk_30y)</span></code></pre></div>
+</div>
+</div>
+<div id="using-optional-predictors" class="section level2">
+<h2>Using Optional Predictors</h2>
+<div id="adding-hba1c" class="section level3">
+<h3>Adding HbA1c</h3>
+<p>When HbA1c data is available, the model automatically uses the
+enhanced equation:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># With HbA1c - model will automatically select &quot;hba1c&quot; variant</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>risk_with_hba1c <span class="ot">&lt;-</span> <span class="fu">ascvd_10y_prevent</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;male&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">55</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="dv">140</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="dv">0</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="dv">213</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="dv">50</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="at">statin =</span> <span class="dv">0</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="dv">1</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="dv">0</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="dv">90</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="dv">30</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>  <span class="at">hba1c =</span> <span class="fl">7.5</span>,         <span class="co"># Glycated hemoglobin (%)</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;auto&quot;</span>       <span class="co"># Automatically uses hba1c model</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="adding-uacr" class="section level3">
+<h3>Adding UACR</h3>
+<p>UACR (urine albumin-to-creatinine ratio) provides additional kidney
+function information:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># With UACR</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>risk_with_uacr <span class="ot">&lt;-</span> <span class="fu">ascvd_10y_prevent</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;female&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">60</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="dv">150</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="dv">1</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="dv">220</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="dv">55</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="at">statin =</span> <span class="dv">1</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="dv">1</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="dv">0</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="dv">75</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="dv">32</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>  <span class="at">uacr =</span> <span class="dv">150</span>          <span class="co"># UACR in mg/g</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="adding-social-deprivation-index-sdi" class="section level3">
+<h3>Adding Social Deprivation Index (SDI)</h3>
+<p>SDI captures socioeconomic factors using ZIP code:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># With ZIP code for SDI</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>risk_with_sdi <span class="ot">&lt;-</span> <span class="fu">ascvd_10y_prevent</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;male&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">52</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="dv">135</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="dv">0</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="dv">195</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="dv">48</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="at">statin =</span> <span class="dv">0</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="dv">0</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="dv">0</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="dv">88</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="dv">29</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  <span class="at">zip =</span> <span class="st">&quot;02114&quot;</span>       <span class="co"># Boston, MA</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="full-model" class="section level3">
+<h3>Full Model</h3>
+<p>When multiple optional predictors are available:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Full model with all optional predictors</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>risk_full <span class="ot">&lt;-</span> <span class="fu">ascvd_10y_prevent</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;female&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">58</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="dv">145</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="dv">1</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="dv">210</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="dv">52</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  <span class="at">statin =</span> <span class="dv">1</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="dv">1</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="dv">0</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="dv">80</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="dv">31</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>  <span class="at">hba1c =</span> <span class="fl">7.2</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>  <span class="at">uacr =</span> <span class="dv">100</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>  <span class="at">zip =</span> <span class="st">&quot;10001&quot;</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;auto&quot;</span>      <span class="co"># Will use full model</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+</div>
+<div id="explicit-model-selection" class="section level2">
+<h2>Explicit Model Selection</h2>
+<p>You can explicitly specify which model to use instead of “auto”:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Force base model even with optional predictors available</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>risk_base_only <span class="ot">&lt;-</span> <span class="fu">ascvd_10y_prevent</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;male&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">55</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="dv">140</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="dv">0</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="dv">213</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="dv">50</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="at">statin =</span> <span class="dv">0</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="dv">1</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="dv">0</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="dv">90</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="dv">30</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>  <span class="at">hba1c =</span> <span class="fl">7.5</span>,        <span class="co"># Available but will be ignored</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;base&quot;</span>      <span class="co"># Explicitly use base model</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="comparing-multiple-risk-scores-with-compute_cvrisk" class="section level2">
+<h2>Comparing Multiple Risk Scores with compute_CVrisk()</h2>
+<p>The <code>compute_CVrisk()</code> function allows you to calculate
+multiple risk scores simultaneously and compare PREVENT with legacy
+scores.</p>
+<div id="example-prevent-vs-accaha" class="section level3">
+<h3>Example: PREVENT vs ACC/AHA</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Create sample patient data</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>patient_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">60</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">gender =</span> <span class="fu">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="at">race =</span> <span class="fu">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;aa&quot;</span>, <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">140</span>, <span class="dv">150</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">213</span>, <span class="dv">220</span>),</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">50</span>, <span class="dv">55</span>),</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  <span class="at">statin =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">90</span>, <span class="dv">75</span>),</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="fu">c</span>(<span class="dv">35</span>, <span class="dv">30</span>, <span class="dv">32</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>)</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co"># Compare PREVENT 10-year with ACC/AHA 2013</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">compute_CVrisk</span>(</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>  patient_data,</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>  <span class="at">scores =</span> <span class="fu">c</span>(<span class="st">&quot;ascvd_10y_accaha&quot;</span>, <span class="st">&quot;ascvd_10y_prevent&quot;</span>),</span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>  <span class="at">age =</span> <span class="st">&quot;age&quot;</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;gender&quot;</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>  <span class="at">race =</span> <span class="st">&quot;race&quot;</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="st">&quot;sbp&quot;</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="st">&quot;bp_med&quot;</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="st">&quot;totchol&quot;</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="st">&quot;hdl&quot;</span>,</span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a>  <span class="at">statin =</span> <span class="st">&quot;statin&quot;</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="st">&quot;diabetes&quot;</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="st">&quot;smoker&quot;</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="st">&quot;egfr&quot;</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="st">&quot;bmi&quot;</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a>)</span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co"># View results</span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="fu">print</span>(results[, <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;ascvd_10y_accaha&quot;</span>, <span class="st">&quot;ascvd_10y_prevent&quot;</span>)])</span></code></pre></div>
+</div>
+<div id="example-prevent-vs-framingham" class="section level3">
+<h3>Example: PREVENT vs Framingham</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Compare PREVENT with Framingham Risk Score</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>results_frs <span class="ot">&lt;-</span> <span class="fu">compute_CVrisk</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  patient_data,</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="at">scores =</span> <span class="fu">c</span>(<span class="st">&quot;ascvd_10y_frs&quot;</span>, <span class="st">&quot;ascvd_10y_prevent&quot;</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="at">age =</span> <span class="st">&quot;age&quot;</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;gender&quot;</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="st">&quot;sbp&quot;</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="st">&quot;bp_med&quot;</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="st">&quot;totchol&quot;</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="st">&quot;hdl&quot;</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="st">&quot;diabetes&quot;</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="st">&quot;smoker&quot;</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="st">&quot;egfr&quot;</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="st">&quot;bmi&quot;</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>)</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="fu">print</span>(results_frs)</span></code></pre></div>
+</div>
+<div id="example-multiple-scores-including-30-year-risk" class="section level3">
+<h3>Example: Multiple Scores Including 30-Year Risk</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Calculate multiple scores including 30-year risk</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>comprehensive_results <span class="ot">&lt;-</span> <span class="fu">compute_CVrisk</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  patient_data,</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="at">scores =</span> <span class="fu">c</span>(<span class="st">&quot;ascvd_10y_accaha&quot;</span>, <span class="st">&quot;ascvd_10y_frs&quot;</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>             <span class="st">&quot;ascvd_10y_prevent&quot;</span>, <span class="st">&quot;ascvd_30y_prevent&quot;</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="at">age =</span> <span class="st">&quot;age&quot;</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;gender&quot;</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="at">race =</span> <span class="st">&quot;race&quot;</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="st">&quot;sbp&quot;</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="st">&quot;bp_med&quot;</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="st">&quot;totchol&quot;</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="st">&quot;hdl&quot;</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>  <span class="at">statin =</span> <span class="st">&quot;statin&quot;</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="st">&quot;diabetes&quot;</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="st">&quot;smoker&quot;</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="st">&quot;egfr&quot;</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="st">&quot;bmi&quot;</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>)</span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co"># View side-by-side comparison</span></span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="fu">print</span>(comprehensive_results[, <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>, </span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>                                <span class="st">&quot;ascvd_10y_accaha&quot;</span>, </span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a>                                <span class="st">&quot;ascvd_10y_frs&quot;</span>,</span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>                                <span class="st">&quot;ascvd_10y_prevent&quot;</span>, </span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>                                <span class="st">&quot;ascvd_30y_prevent&quot;</span>)])</span></code></pre></div>
+</div>
+</div>
+<div id="passing-model-parameter-through-compute_cvrisk" class="section level2">
+<h2>Passing Model Parameter through compute_CVrisk()</h2>
+<p>You can specify the PREVENT model variant when using
+<code>compute_CVrisk()</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Force base model for all PREVENT calculations</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>results_base <span class="ot">&lt;-</span> <span class="fu">compute_CVrisk</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  patient_data,</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="at">scores =</span> <span class="fu">c</span>(<span class="st">&quot;ascvd_10y_prevent&quot;</span>, <span class="st">&quot;ascvd_30y_prevent&quot;</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="at">age =</span> <span class="st">&quot;age&quot;</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;gender&quot;</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="st">&quot;sbp&quot;</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="st">&quot;bp_med&quot;</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="st">&quot;totchol&quot;</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="st">&quot;hdl&quot;</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>  <span class="at">statin =</span> <span class="st">&quot;statin&quot;</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="st">&quot;diabetes&quot;</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="st">&quot;smoker&quot;</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="st">&quot;egfr&quot;</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="st">&quot;bmi&quot;</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">&quot;base&quot;</span>      <span class="co"># Pass model parameter</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="handling-missing-data" class="section level2">
+<h2>Handling Missing Data</h2>
+<p>The PREVENT functions return NA for patients with missing required
+predictors:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Patient with missing eGFR</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>risk_missing <span class="ot">&lt;-</span> <span class="fu">ascvd_10y_prevent</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="at">gender =</span> <span class="st">&quot;male&quot;</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">55</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="dv">140</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="dv">0</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="dv">213</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="dv">50</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  <span class="at">statin =</span> <span class="dv">0</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="dv">0</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="dv">0</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="cn">NA</span>,          <span class="co"># Missing</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="dv">30</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>)</span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="fu">print</span>(risk_missing)   <span class="co"># Returns NA</span></span></code></pre></div>
+</div>
+<div id="vectorized-operations" class="section level2">
+<h2>Vectorized Operations</h2>
+<p>Both PREVENT functions are vectorized and work efficiently with data
+frames:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Calculate risks for multiple patients at once</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">60</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>genders <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>sbps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">130</span>, <span class="dv">140</span>, <span class="dv">150</span>, <span class="dv">160</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>risks <span class="ot">&lt;-</span> <span class="fu">ascvd_10y_prevent</span>(</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="at">gender =</span> genders,</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>  <span class="at">age =</span> ages,</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>  <span class="at">sbp =</span> sbps,</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>  <span class="at">bp_med =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>  <span class="at">totchol =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">210</span>, <span class="dv">220</span>, <span class="dv">230</span>),</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>  <span class="at">hdl =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">45</span>, <span class="dv">55</span>, <span class="dv">48</span>),</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>  <span class="at">statin =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>  <span class="at">smoker =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>  <span class="at">egfr =</span> <span class="fu">c</span>(<span class="dv">95</span>, <span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>),</span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>  <span class="at">bmi =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">30</span>, <span class="dv">32</span>, <span class="dv">34</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>)</span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="fu">print</span>(risks)  <span class="co"># Returns vector of risks</span></span></code></pre></div>
+</div>
+<div id="risk-interpretation" class="section level2">
+<h2>Risk Interpretation</h2>
+<div id="risk-categories-10-year-ascvd-risk" class="section level3">
+<h3>Risk Categories (10-year ASCVD risk)</h3>
+<ul>
+<li><strong>&lt;5%</strong>: Low risk</li>
+<li><strong>5-7.4%</strong>: Borderline risk</li>
+<li><strong>7.5-19.9%</strong>: Intermediate risk</li>
+<li><strong>≥20%</strong>: High risk</li>
+</ul>
+</div>
+<div id="prevent-vs-legacy-scores" class="section level3">
+<h3>PREVENT vs Legacy Scores</h3>
+<p>PREVENT equations typically provide more accurate risk estimates
+because they:</p>
+<ol style="list-style-type: decimal">
+<li>Include kidney function (eGFR) as a standard predictor</li>
+<li>Include BMI instead of just lipid levels</li>
+<li>Use more recent data (updated cohorts)</li>
+<li>Better calibration in contemporary populations</li>
+<li>Support 30-year risk estimation for younger patients</li>
+</ol>
+</div>
+</div>
+<div id="key-differences-from-accaha-framingham-and-mesa" class="section level2">
+<h2>Key Differences from ACC/AHA, Framingham, and MESA</h2>
+<p>The table below compares all clinical parameters across the available
+risk scores in CVrisk:</p>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="12%" />
+<col width="19%" />
+<col width="23%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Clinical Parameter</th>
+<th>PREVENT (2024)</th>
+<th>ACC/AHA (2013)</th>
+<th>Framingham (2008)</th>
+<th>MESA (2015)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Age range</strong></td>
+<td>30-79 years</td>
+<td>40-79 years</td>
+<td>30-74 years</td>
+<td>45-85 years</td>
+</tr>
+<tr class="even">
+<td><strong>Gender</strong></td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr class="odd">
+<td><strong>Race</strong></td>
+<td>Not used</td>
+<td>Required (White/AA/Other)</td>
+<td>Not used</td>
+<td>Required (White/AA/Chinese/Hispanic)</td>
+</tr>
+<tr class="even">
+<td><strong>Systolic BP</strong></td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr class="odd">
+<td><strong>BP medication</strong></td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr class="even">
+<td><strong>Total cholesterol</strong></td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr class="odd">
+<td><strong>HDL cholesterol</strong></td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr class="even">
+<td><strong>LDL cholesterol</strong></td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Not used</td>
+</tr>
+<tr class="odd">
+<td><strong>Diabetes status</strong></td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr class="even">
+<td><strong>Smoking status</strong></td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr class="odd">
+<td><strong>Lipid/Statin use</strong></td>
+<td>Required (statin)</td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Required (lipid meds)</td>
+</tr>
+<tr class="even">
+<td><strong>BMI</strong></td>
+<td>Required</td>
+<td>Not used</td>
+<td>Optional</td>
+<td>Not used</td>
+</tr>
+<tr class="odd">
+<td><strong>eGFR</strong></td>
+<td>Required</td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Not used</td>
+</tr>
+<tr class="even">
+<td><strong>Family history</strong></td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Optional</td>
+</tr>
+<tr class="odd">
+<td><strong>CAC score</strong></td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Optional</td>
+</tr>
+<tr class="even">
+<td><strong>HbA1c</strong></td>
+<td>Optional</td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Not used</td>
+</tr>
+<tr class="odd">
+<td><strong>UACR</strong></td>
+<td>Optional</td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Not used</td>
+</tr>
+<tr class="even">
+<td><strong>ZIP code (SDI)</strong></td>
+<td>Optional</td>
+<td>Not used</td>
+<td>Not used</td>
+<td>Not used</td>
+</tr>
+<tr class="odd">
+<td><strong>30-year risk</strong></td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td><strong>Risk outcome</strong></td>
+<td>ASCVD</td>
+<td>ASCVD</td>
+<td>CVD (broader)</td>
+<td>CHD</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key advantages of PREVENT:</strong> - Most comprehensive risk
+factor assessment (includes kidney function via eGFR) - Does not require
+race (reduces potential for bias) - Accounts for statin therapy - Offers
+optional predictors for enhanced accuracy (HbA1c, UACR, socioeconomic
+factors) - Provides both 10-year and 30-year risk estimates - Uses
+<code>model = &quot;auto&quot;</code> (default) to automatically select the best
+model variant</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>Khan SS, Matsushita K, Sang Y, et al. Development and Validation of
+the American Heart Association’s PREVENT Equations.
+<em>Circulation</em>. 2024;149(6):430-449. <a href="doi:10.1161/CIRCULATIONAHA.123.067626" class="uri">doi:10.1161/CIRCULATIONAHA.123.067626</a></p>
+<p>McClelland RL, Jorgensen NW, Budoff M, et al. 10-Year Coronary Heart
+Disease Risk Prediction Using Coronary Artery Calcium and Traditional
+Risk Factors: Derivation in the MESA (Multi-Ethnic Study of
+Atherosclerosis) With Validation in the HNR (Heinz Nixdorf Recall) Study
+and the DHS (Dallas Heart Study). <em>J Am Coll Cardiol</em>.
+2015;66(15):1643-1653. <a href="doi:10.1016/j.jacc.2015.08.035" class="uri">doi:10.1016/j.jacc.2015.08.035</a></p>
+<p>Mayer MG. preventr: R Implementation of the AHA PREVENT Equations. R
+package. <a href="https://github.com/martingmayer/preventr" class="uri">https://github.com/martingmayer/preventr</a></p>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>The PREVENT functions in CVrisk, powered by the <code>preventr</code>
+package, provide:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Modern risk estimation</strong> using the latest AHA
+equations, focusing on ASCVD outcomes</li>
+<li><strong>Automatic model selection</strong> with
+<code>model = &quot;auto&quot;</code> (default) that intelligently chooses the
+best variant</li>
+<li><strong>Flexibility</strong> through multiple model variants (base,
+hba1c, uacr, sdi, full)</li>
+<li><strong>Long-term perspective</strong> with 30-year risk calculation
+for younger patients</li>
+<li><strong>Easy comparison</strong> with legacy scores (ACC/AHA,
+Framingham) via <code>compute_CVrisk()</code></li>
+<li><strong>Efficient computation</strong> through vectorized
+operations</li>
+<li><strong>Enhanced accuracy</strong> with optional predictors (HbA1c,
+UACR, ZIP code for SDI)</li>
+</ol>
+<p><strong>Recommendation:</strong> For most research applications,
+simply use the default <code>model = &quot;auto&quot;</code> setting. This allows
+the algorithm to automatically select the best model variant based on
+which data you provide, ensuring optimal risk prediction without
+requiring manual model selection.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
