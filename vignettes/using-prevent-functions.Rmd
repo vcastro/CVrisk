@@ -398,16 +398,7 @@ risks <- ascvd_10y_prevent(
 print(risks)  # Returns vector of risks
 ```
 
-## Risk Interpretation
-
-### Risk Categories (10-year ASCVD risk)
-
-- **<5%**: Low risk
-- **5-7.4%**: Borderline risk
-- **7.5-19.9%**: Intermediate risk
-- **≥20%**: High risk
-
-### PREVENT vs Legacy Scores
+## PREVENT vs Legacy Scores
 
 PREVENT equations typically provide more accurate risk estimates because they:
 
@@ -417,7 +408,7 @@ PREVENT equations typically provide more accurate risk estimates because they:
 4. Better calibration in contemporary populations
 5. Support 30-year risk estimation for younger patients
 
-## Key Differences from ACC/AHA, Framingham, and MESA
+### Key Differences from ACC/AHA, Framingham, and MESA
 
 The table below compares all clinical parameters across the available risk scores in CVrisk:
 
@@ -430,10 +421,9 @@ The table below compares all clinical parameters across the available risk score
 | **BP medication** | Required | Required | Required | Required |
 | **Total cholesterol** | Required | Required | Required | Required |
 | **HDL cholesterol** | Required | Required | Required | Required |
-| **LDL cholesterol** | Not used | Not used | Not used | Not used |
 | **Diabetes status** | Required | Required | Required | Required |
 | **Smoking status** | Required | Required | Required | Required |
-| **Lipid/Statin use** | Required (statin) | Not used | Not used | Required (lipid meds) |
+| **Lipid medication** | Required (statin) | Not used | Not used | Required (lipid meds) |
 | **BMI** | Required | Not used | Optional | Not used |
 | **eGFR** | Required | Not used | Not used | Not used |
 | **Family history** | Not used | Not used | Not used | Optional |
@@ -450,26 +440,21 @@ The table below compares all clinical parameters across the available risk score
 - Accounts for statin therapy
 - Offers optional predictors for enhanced accuracy (HbA1c, UACR, socioeconomic factors)
 - Provides both 10-year and 30-year risk estimates
-- Uses `model = "auto"` (default) to automatically select the best model variant
 
 ## References
 
 Khan SS, Matsushita K, Sang Y, et al. Development and Validation of the American Heart Association's PREVENT Equations. *Circulation*. 2024;149(6):430-449. doi:10.1161/CIRCULATIONAHA.123.067626
 
-McClelland RL, Jorgensen NW, Budoff M, et al. 10-Year Coronary Heart Disease Risk Prediction Using Coronary Artery Calcium and Traditional Risk Factors: Derivation in the MESA (Multi-Ethnic Study of Atherosclerosis) With Validation in the HNR (Heinz Nixdorf Recall) Study and the DHS (Dallas Heart Study). *J Am Coll Cardiol*. 2015;66(15):1643-1653. doi:10.1016/j.jacc.2015.08.035
-
 Mayer MG. preventr: R Implementation of the AHA PREVENT Equations. R package. https://github.com/martingmayer/preventr
 
-## Summary
+McClelland RL, Jorgensen NW, Budoff M, et al. 10-Year Coronary Heart Disease Risk Prediction Using Coronary Artery Calcium and Traditional Risk Factors: Derivation in the MESA (Multi-Ethnic Study of Atherosclerosis) With Validation in the HNR (Heinz Nixdorf Recall) Study and the DHS (Dallas Heart Study). *J Am Coll Cardiol*. 2015;66(15):1643-1653. doi:10.1016/j.jacc.2015.08.035
 
-The PREVENT functions in CVrisk, powered by the `preventr` package, provide:
+D’agostino, RB, Vasan, RS, Pencina, et al. General cardiovascular risk
+profile for use in primary care: the Framingham Heart Study.
+*Circulation*. 2008;117(6), pp.743-753.
 
-1. **Modern risk estimation** using the latest AHA equations, focusing on ASCVD outcomes
-2. **Automatic model selection** with `model = "auto"` (default) that intelligently chooses the best variant
-3. **Flexibility** through multiple model variants (base, hba1c, uacr, sdi, full)
-4. **Long-term perspective** with 30-year risk calculation for younger patients
-5. **Easy comparison** with legacy scores (ACC/AHA, Framingham) via `compute_CVrisk()`
-6. **Efficient computation** through vectorized operations
-7. **Enhanced accuracy** with optional predictors (HbA1c, UACR, ZIP code for SDI)
-
-**Recommendation:** For most research applications, simply use the default `model = "auto"` setting. This allows the algorithm to automatically select the best model variant based on which data you provide, ensuring optimal risk prediction without requiring manual model selection.
+Goff, DC, et al. 2013 ACC/AHA guideline on the assessment of
+cardiovascular risk: a report of the American College of
+Cardiology/American Heart Association Task Force on Practice
+Guidelines. *Journal of the American College of Cardiology*. 2014;63.25
+Part B: 2935-2959.
