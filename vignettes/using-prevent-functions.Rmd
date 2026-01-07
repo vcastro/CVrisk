@@ -20,6 +20,8 @@ knitr::opts_chunk$set(
 
 The CVrisk package now includes support for the American Heart Association's PREVENT (Predicting Risk of cardiovascular disease EVENTs) equations, published in 2024. These equations provide improved cardiovascular risk prediction compared to legacy models like the Pooled Cohort Equations (PCE).
 
+**Implementation Note:** The PREVENT risk calculations in CVrisk are powered by the [`preventr` package](https://github.com/martingmayer/preventr), which provides a comprehensive implementation of the AHA PREVENT equations. While the PREVENT equations can predict multiple cardiovascular outcomes (total CVD, ASCVD, heart failure, CHD, and stroke), **CVrisk focuses specifically on ASCVD (atherosclerotic cardiovascular disease) risk** to maintain consistency with legacy risk scores and simplify clinical decision-making.
+
 This vignette demonstrates how to:
 
 1. Use the PREVENT functions individually for 10-year and 30-year risk estimation
@@ -33,18 +35,20 @@ The package provides two main functions:
 - `ascvd_10y_prevent()` - Calculate 10-year ASCVD risk
 - `ascvd_30y_prevent()` - Calculate 30-year ASCVD risk
 
-Both functions support multiple model variants through the `model` parameter.
+Both functions support multiple model variants through the `model` parameter, with **`model = "auto"` as the default**, which automatically selects the best model based on available data.
 
 ## Model Variants
 
-The PREVENT equations support several model variants:
+The PREVENT equations support several model variants through the `preventr` package:
 
-- **"auto"** (default): Automatically selects the best model based on available data
+- **"auto"** (**default**): Automatically selects the best model based on available data. This is the recommended setting for most use cases.
 - **"base"**: Base model using standard risk factors only
 - **"hba1c"**: Base model + HbA1c (glycated hemoglobin)
 - **"uacr"**: Base model + UACR (urine albumin-to-creatinine ratio)
 - **"sdi"**: Base model + SDI (Social Deprivation Index via ZIP code)
 - **"full"**: Full model with all optional predictors
+
+The `model = "auto"` parameter intelligently selects the appropriate variant based on which optional predictors (HbA1c, UACR, ZIP code) you provide, maximizing the accuracy of the risk prediction.
 
 ## Basic Usage: Individual Functions
 
@@ -405,28 +409,53 @@ PREVENT equations typically provide more accurate risk estimates because they:
 
 ## Key Differences from ACC/AHA and Framingham
 
-| Feature | PREVENT | ACC/AHA 2013 | Framingham 2008 |
-|---------|---------|--------------|-----------------|
-| Age range | 30-79 | 40-79 | 30-74 |
-| eGFR required | Yes | No | No |
-| BMI required | Yes | No | Optional |
-| Statin status | Yes | No | No |
-| Race required | No | Yes | No |
-| 30-year risk | Yes | No | No |
-| Optional predictors | HbA1c, UACR, SDI | None | None |
+The table below compares all clinical parameters across the available risk scores in CVrisk:
+
+| Clinical Parameter | PREVENT | ACC/AHA 2013 | Framingham 2008 | Framingham BMI |
+|-------------------|---------|--------------|-----------------|----------------|
+| **Age range** | 30-79 years | 40-79 years | 30-74 years | 30-74 years |
+| **Gender** | Required | Required | Required | Required |
+| **Race** | Not used | Required (White/AA/Other) | Not used | Not used |
+| **Systolic BP** | Required | Required | Required | Required |
+| **BP medication** | Required | Required | Required | Required |
+| **Total cholesterol** | Required | Required | Required | Optional |
+| **HDL cholesterol** | Required | Required | Required | Optional |
+| **LDL cholesterol** | Not used | Not used | Not used | Not used |
+| **Diabetes status** | Required | Required | Required | Required |
+| **Smoking status** | Required | Required | Required | Required |
+| **Statin use** | Required | Not used | Not used | Not used |
+| **BMI** | Required | Not used | Optional | Required |
+| **eGFR** | Required | Not used | Not used | Not used |
+| **HbA1c** | Optional | Not used | Not used | Not used |
+| **UACR** | Optional | Not used | Not used | Not used |
+| **ZIP code (SDI)** | Optional | Not used | Not used | Not used |
+| **30-year risk** | Yes | No | No | No |
+| **Risk outcome** | ASCVD | ASCVD | CVD (broader) | CVD (broader) |
+
+**Key advantages of PREVENT:**
+- Most comprehensive risk factor assessment (includes kidney function via eGFR)
+- Does not require race (reduces potential for bias)
+- Accounts for statin therapy
+- Offers optional predictors for enhanced accuracy (HbA1c, UACR, socioeconomic factors)
+- Provides both 10-year and 30-year risk estimates
+- Uses `model = "auto"` (default) to automatically select the best model variant
 
 ## References
 
 Khan SS, Matsushita K, Sang Y, et al. Development and Validation of the American Heart Association's PREVENT Equations. *Circulation*. 2024;149(6):430-449. doi:10.1161/CIRCULATIONAHA.123.067626
 
+Mayer MG. preventr: R Implementation of the AHA PREVENT Equations. R package. https://github.com/martingmayer/preventr
+
 ## Summary
 
-The PREVENT functions in CVrisk provide:
+The PREVENT functions in CVrisk, powered by the `preventr` package, provide:
 
-1. **Modern risk estimation** using the latest AHA equations
-2. **Flexibility** through multiple model variants (base, auto, with optional predictors)
-3. **Long-term perspective** with 30-year risk calculation
-4. **Easy comparison** with legacy scores via `compute_CVrisk()`
-5. **Efficient computation** through vectorized operations
+1. **Modern risk estimation** using the latest AHA equations, focusing on ASCVD outcomes
+2. **Automatic model selection** with `model = "auto"` (default) that intelligently chooses the best variant
+3. **Flexibility** through multiple model variants (base, hba1c, uacr, sdi, full)
+4. **Long-term perspective** with 30-year risk calculation for younger patients
+5. **Easy comparison** with legacy scores (ACC/AHA, Framingham) via `compute_CVrisk()`
+6. **Efficient computation** through vectorized operations
+7. **Enhanced accuracy** with optional predictors (HbA1c, UACR, ZIP code for SDI)
 
-For most use cases, the default `model = "auto"` setting is recommended, as it automatically selects the best model based on available data.
+**Recommendation:** For most clinical use cases, simply use the default `model = "auto"` setting. This allows the algorithm to automatically select the best model variant based on which data you provide, ensuring optimal risk prediction without requiring manual model selection.
