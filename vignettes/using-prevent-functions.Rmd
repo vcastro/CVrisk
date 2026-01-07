@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 The CVrisk package now includes support for the American Heart Association's PREVENT (Predicting Risk of cardiovascular disease EVENTs) equations, published in 2024. These equations provide improved cardiovascular risk prediction compared to legacy models like the Pooled Cohort Equations (PCE).
 
-**Implementation Note:** The PREVENT risk calculations in CVrisk are powered by the [`preventr` package](https://github.com/martingmayer/preventr), which provides a comprehensive implementation of the AHA PREVENT equations. While the PREVENT equations can predict multiple cardiovascular outcomes (total CVD, ASCVD, heart failure, CHD, and stroke), **CVrisk focuses specifically on ASCVD (atherosclerotic cardiovascular disease) risk** to maintain consistency with legacy risk scores and simplify clinical decision-making.
+**Implementation Note:** The PREVENT risk calculations in CVrisk are powered by the [`preventr` package](https://github.com/martingmayer/preventr), which provides a comprehensive implementation of the AHA PREVENT equations. While the PREVENT equations can predict multiple cardiovascular outcomes (total CVD, ASCVD, heart failure, CHD, and stroke), **CVrisk focuses specifically on ASCVD (atherosclerotic cardiovascular disease) risk** to maintain consistency with legacy risk scores for research applications.
 
 This vignette demonstrates how to:
 
@@ -48,7 +48,17 @@ The PREVENT equations support several model variants through the `preventr` pack
 - **"sdi"**: Base model + SDI (Social Deprivation Index via ZIP code)
 - **"full"**: Full model with all optional predictors
 
-The `model = "auto"` parameter intelligently selects the appropriate variant based on which optional predictors (HbA1c, UACR, ZIP code) you provide, maximizing the accuracy of the risk prediction.
+### How the "auto" Model Selection Works
+
+When `model = "auto"` (the default), the `preventr` package automatically selects the most appropriate model variant based on which optional predictors you provide in your data:
+
+1. If **no optional predictors** (HbA1c, UACR, or ZIP code) are provided → uses **base model**
+2. If **only HbA1c** is provided → uses **hba1c model**
+3. If **only UACR** is provided → uses **uacr model**
+4. If **only ZIP code** is provided → uses **sdi model**
+5. If **multiple optional predictors** are provided → uses **full model** incorporating all available predictors
+
+This intelligent selection ensures you always get the most accurate risk estimate based on your available data, without needing to manually specify which model variant to use. The auto-selection examines the data for each patient individually, so different patients in the same dataset can use different model variants based on their available data.
 
 ## Basic Usage: Individual Functions
 
@@ -388,7 +398,7 @@ risks <- ascvd_10y_prevent(
 print(risks)  # Returns vector of risks
 ```
 
-## Clinical Interpretation
+## Risk Interpretation
 
 ### Risk Categories (10-year ASCVD risk)
 
@@ -407,30 +417,32 @@ PREVENT equations typically provide more accurate risk estimates because they:
 4. Better calibration in contemporary populations
 5. Support 30-year risk estimation for younger patients
 
-## Key Differences from ACC/AHA and Framingham
+## Key Differences from ACC/AHA, Framingham, and MESA
 
 The table below compares all clinical parameters across the available risk scores in CVrisk:
 
-| Clinical Parameter | PREVENT | ACC/AHA 2013 | Framingham 2008 | Framingham BMI |
-|-------------------|---------|--------------|-----------------|----------------|
-| **Age range** | 30-79 years | 40-79 years | 30-74 years | 30-74 years |
+| Clinical Parameter | PREVENT (2024) | ACC/AHA (2013) | Framingham (2008) | MESA (2015) |
+|-------------------|---------|--------------|-----------------|-------------|
+| **Age range** | 30-79 years | 40-79 years | 30-74 years | 45-85 years |
 | **Gender** | Required | Required | Required | Required |
-| **Race** | Not used | Required (White/AA/Other) | Not used | Not used |
+| **Race** | Not used | Required (White/AA/Other) | Not used | Required (White/AA/Chinese/Hispanic) |
 | **Systolic BP** | Required | Required | Required | Required |
 | **BP medication** | Required | Required | Required | Required |
-| **Total cholesterol** | Required | Required | Required | Optional |
-| **HDL cholesterol** | Required | Required | Required | Optional |
+| **Total cholesterol** | Required | Required | Required | Required |
+| **HDL cholesterol** | Required | Required | Required | Required |
 | **LDL cholesterol** | Not used | Not used | Not used | Not used |
 | **Diabetes status** | Required | Required | Required | Required |
 | **Smoking status** | Required | Required | Required | Required |
-| **Statin use** | Required | Not used | Not used | Not used |
-| **BMI** | Required | Not used | Optional | Required |
+| **Lipid/Statin use** | Required (statin) | Not used | Not used | Required (lipid meds) |
+| **BMI** | Required | Not used | Optional | Not used |
 | **eGFR** | Required | Not used | Not used | Not used |
+| **Family history** | Not used | Not used | Not used | Optional |
+| **CAC score** | Not used | Not used | Not used | Optional |
 | **HbA1c** | Optional | Not used | Not used | Not used |
 | **UACR** | Optional | Not used | Not used | Not used |
 | **ZIP code (SDI)** | Optional | Not used | Not used | Not used |
 | **30-year risk** | Yes | No | No | No |
-| **Risk outcome** | ASCVD | ASCVD | CVD (broader) | CVD (broader) |
+| **Risk outcome** | ASCVD | ASCVD | CVD (broader) | CHD |
 
 **Key advantages of PREVENT:**
 - Most comprehensive risk factor assessment (includes kidney function via eGFR)
@@ -443,6 +455,8 @@ The table below compares all clinical parameters across the available risk score
 ## References
 
 Khan SS, Matsushita K, Sang Y, et al. Development and Validation of the American Heart Association's PREVENT Equations. *Circulation*. 2024;149(6):430-449. doi:10.1161/CIRCULATIONAHA.123.067626
+
+McClelland RL, Jorgensen NW, Budoff M, et al. 10-Year Coronary Heart Disease Risk Prediction Using Coronary Artery Calcium and Traditional Risk Factors: Derivation in the MESA (Multi-Ethnic Study of Atherosclerosis) With Validation in the HNR (Heinz Nixdorf Recall) Study and the DHS (Dallas Heart Study). *J Am Coll Cardiol*. 2015;66(15):1643-1653. doi:10.1016/j.jacc.2015.08.035
 
 Mayer MG. preventr: R Implementation of the AHA PREVENT Equations. R package. https://github.com/martingmayer/preventr
 
@@ -458,4 +472,4 @@ The PREVENT functions in CVrisk, powered by the `preventr` package, provide:
 6. **Efficient computation** through vectorized operations
 7. **Enhanced accuracy** with optional predictors (HbA1c, UACR, ZIP code for SDI)
 
-**Recommendation:** For most clinical use cases, simply use the default `model = "auto"` setting. This allows the algorithm to automatically select the best model variant based on which data you provide, ensuring optimal risk prediction without requiring manual model selection.
+**Recommendation:** For most research applications, simply use the default `model = "auto"` setting. This allows the algorithm to automatically select the best model variant based on which data you provide, ensuring optimal risk prediction without requiring manual model selection.
