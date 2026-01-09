@@ -12,7 +12,7 @@ scores.
 - ACC/AHA 2013 10-year ASCVD risk
 - MESA 2015 10-year ASCVD risk (traditional risk factors)
 - MESA 2015 10-year ASCVD risk (using coronary artery calcium)
-- **AHA PREVENT 2023 10-year ASCVD risk (base model)** - New!
+- **AHA PREVENT 2024 10- and 30-year ASCVD risk** - New!
 
 ## Installation
 
@@ -56,10 +56,10 @@ compute_CVrisk(sample_data,
 )
 
 # To include PREVENT score, specify scores explicitly and provide egfr
-compute_CVrisk(sample_data,
+compute_CVrisk(make_sample_data(100),
    scores = c("ascvd_10y_accaha", "ascvd_10y_prevent"),
-   age = "age", gender = "gender", sbp = "sbp", 
-   hdl = "hdl", totchol = "totchol", bmi = "BMI",
+   age = "age", gender = "sex", sbp = "sbp", 
+   hdl = "hdl", totchol = "totchol", bmi = "bmi",
    bp_med = "bp_med", diabetes = "diabetes", smoker = "smoker",
    statin = "lipid_med", egfr = "egfr"
 )
