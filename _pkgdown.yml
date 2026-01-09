@@ -22,6 +22,7 @@ reference:
   - chd_10y_mesa
   - chd_10y_mesa_cac
   - ascvd_10y_prevent
+  - ascvd_30y_prevent
 
 - title: Supporting datasets
   desc: ~
@@ -32,7 +33,7 @@ reference:
   - ascvd_pooled_coef
   - mesa_cac_coef
   - mesa_coef
-  
+  - make_sample_data
 - title: Package info
   desc: ~
   contents:

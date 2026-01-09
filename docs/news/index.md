@@ -1,8 +1,15 @@
 # Changelog
 
+## CVrisk 1.2.1
+
+Improve PREVENT functions and added many tests and vignette. Now
+including ascvd_30y_prevent and enabled auto model selection based on
+available clinical features.
+
 ## CVrisk 1.2.0
 
-Added PREVENT 10-year ASCVD risk equations (via preventr) \[#14\]
+Added PREVENT 10-year ASCVD risk equations (via preventr). See
+[\#14](https://github.com/vcastro/CVrisk/issues/14).
 
 ## CVrisk 1.1.1
 

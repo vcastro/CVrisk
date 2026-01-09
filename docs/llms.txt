@@ -56,7 +56,7 @@ compute_CVrisk(sample_data,
 )
 
 # To include PREVENT score, specify scores explicitly and provide egfr
-compute_CVrisk(my_data,
+compute_CVrisk(sample_data,
    scores = c("ascvd_10y_accaha", "ascvd_10y_prevent"),
    age = "age", gender = "gender", sbp = "sbp", 
    hdl = "hdl", totchol = "totchol", bmi = "BMI",
@@ -85,7 +85,9 @@ compute_CVrisk(my_data,
 - [`chd_10y_mesa_cac()`](https://vcastro.github.io/CVrisk/reference/chd_10y_mesa_cac.md)
   : MESA 2015 CHD risk score with CAC
 - [`ascvd_10y_prevent()`](https://vcastro.github.io/CVrisk/reference/ascvd_10y_prevent.md)
-  : PREVENT 10-year ASCVD risk score (base model)
+  : PREVENT 10-year ASCVD risk score
+- [`ascvd_30y_prevent()`](https://vcastro.github.io/CVrisk/reference/ascvd_30y_prevent.md)
+  : PREVENT 30-year ASCVD risk score
 
 ## Supporting datasets
 
@@ -101,6 +103,8 @@ compute_CVrisk(my_data,
   : mesa_cac_coef
 - [`mesa_coef`](https://vcastro.github.io/CVrisk/reference/mesa_coef.md)
   : mesa_coef
+- [`make_sample_data()`](https://vcastro.github.io/CVrisk/reference/make_sample_data.md)
+  : Generate sample cardiovascular risk data
 
 ## Package info
 
@@ -108,3 +112,9 @@ compute_CVrisk(my_data,
   [`CVrisk-package`](https://vcastro.github.io/CVrisk/reference/CVrisk-package.md)
   : CVrisk: Compute Risk Scores for Cardiovascular Diseases
 
+# Articles
+
+### All vignettes
+
+- [Using PREVENT Risk Score
+  Functions](https://vcastro.github.io/CVrisk/articles/using-prevent-functions.md):

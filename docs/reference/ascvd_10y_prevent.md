@@ -1,8 +1,7 @@
-# PREVENT 10-year ASCVD risk score (base model)
+# PREVENT 10-year ASCVD risk score
 
 Computes 10-year risk for ASCVD (atherosclerotic cardiovascular disease)
-using the American Heart Association PREVENT equations (2023) base
-model.
+using the American Heart Association PREVENT equations (2023).
 
 ## Usage
 
@@ -19,6 +18,10 @@ ascvd_10y_prevent(
   smoker,
   egfr,
   bmi,
+  hba1c = NULL,
+  uacr = NULL,
+  zip = NULL,
+  model = "auto",
   ...
 )
 ```
@@ -69,6 +72,23 @@ ascvd_10y_prevent(
 
   Body mass index (kg/m2)
 
+- hba1c:
+
+  Glycated hemoglobin (HbA1c) in percent (optional)
+
+- uacr:
+
+  Urine albumin-to-creatinine ratio in mg/g (optional)
+
+- zip:
+
+  ZIP code for Social Deprivation Index (optional)
+
+- model:
+
+  PREVENT model variant to use: "auto" (default, selects based on
+  available data), "base", "hba1c", "uacr", "sdi", or "full"
+
 - ...:
 
   Additional predictors can be passed and will be ignored
@@ -93,6 +113,7 @@ Circulation. 2024 Feb 6;149(6):430-449.
 
 ``` r
 library(CVrisk)
+# Base model (default when model = "auto" and no optional predictors provided)
 ascvd_10y_prevent(
   gender = "female", age = 50,
   sbp = 160, bp_med = 1,
@@ -101,4 +122,26 @@ ascvd_10y_prevent(
   egfr = 90, bmi = 35
 )
 #> [1] 9.2
+
+# Explicitly specify base model
+ascvd_10y_prevent(
+  gender = "female", age = 50,
+  sbp = 160, bp_med = 1,
+  totchol = 200, hdl = 45,
+  statin = 0, diabetes = 1, smoker = 0,
+  egfr = 90, bmi = 35,
+  model = "base"
+)
+#> [1] 9.2
+
+# Auto model with HbA1c (will use hba1c model variant)
+ascvd_10y_prevent(
+  gender = "male", age = 55,
+  sbp = 140, bp_med = 0,
+  totchol = 213, hdl = 50,
+  statin = 0, diabetes = 0, smoker = 0,
+  egfr = 90, bmi = 30,
+  hba1c = 6.5
+)
+#> [1] 4.3
 ```

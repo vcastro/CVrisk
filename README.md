@@ -1,5 +1,5 @@
 
-# CVrisk
+  # CVrisk <a href="https://vcastro.github.io/CVrisk/"><img src="man/figures/logo.png" align="right" height="120" alt="CVrisk website" /></a>
 
 <!-- badges: start -->
 [![R build status](https://github.com/vcastro/CVrisk/workflows/R-CMD-check/badge.svg)](https://github.com/vcastro/CVrisk/actions)

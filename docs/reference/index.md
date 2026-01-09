@@ -18,7 +18,9 @@
 - [`chd_10y_mesa_cac()`](https://vcastro.github.io/CVrisk/reference/chd_10y_mesa_cac.md)
   : MESA 2015 CHD risk score with CAC
 - [`ascvd_10y_prevent()`](https://vcastro.github.io/CVrisk/reference/ascvd_10y_prevent.md)
-  : PREVENT 10-year ASCVD risk score (base model)
+  : PREVENT 10-year ASCVD risk score
+- [`ascvd_30y_prevent()`](https://vcastro.github.io/CVrisk/reference/ascvd_30y_prevent.md)
+  : PREVENT 30-year ASCVD risk score
 
 ## Supporting datasets
 
@@ -34,6 +36,8 @@
   : mesa_cac_coef
 - [`mesa_coef`](https://vcastro.github.io/CVrisk/reference/mesa_coef.md)
   : mesa_coef
+- [`make_sample_data()`](https://vcastro.github.io/CVrisk/reference/make_sample_data.md)
+  : Generate sample cardiovascular risk data
 
 ## Package info
 

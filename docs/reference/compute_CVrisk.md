@@ -11,7 +11,7 @@ compute_CVrisk(
     "chd_10y_mesa_cac"),
   age,
   gender,
-  race,
+  race = NULL,
   sbp = NULL,
   bmi = NULL,
   hdl = NULL,
@@ -23,7 +23,8 @@ compute_CVrisk(
   statin = NULL,
   egfr = NULL,
   fh_heartattack = NULL,
-  cac = NULL
+  cac = NULL,
+  ...
 )
 ```
 
@@ -98,6 +99,11 @@ compute_CVrisk(
 - cac:
 
   character string of cac column
+
+- ...:
+
+  Additional arguments to pass to score functions (e.g., model parameter
+  for PREVENT scores)
 
 ## Value
 

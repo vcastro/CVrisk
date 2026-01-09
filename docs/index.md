@@ -56,7 +56,7 @@ compute_CVrisk(sample_data,
 )
 
 # To include PREVENT score, specify scores explicitly and provide egfr
-compute_CVrisk(my_data,
+compute_CVrisk(sample_data,
    scores = c("ascvd_10y_accaha", "ascvd_10y_prevent"),
    age = "age", gender = "gender", sbp = "sbp", 
    hdl = "hdl", totchol = "totchol", bmi = "BMI",
