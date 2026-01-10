@@ -6,15 +6,16 @@ There were no errors, warnings or notes.
 
 ## Test environments
 
-* macOS 12.6.7 (on github actions), R 4.3.1
-* ubuntu 22.04.3 (release) (on github actions), R 4.3.1
-* ubuntu 22.04.3 (dev) (on github actions), R 4.3.1
-* Windows 10.0.20348 (on github actions), R 4.3.1
+* macOS 15.7.3 (on github actions), R 4.5.2
+* ubuntu 24.04.3 (release) (on github actions), R 4.5.2
+* ubuntu 24.04.3 (dev) (on github actions), R 4.5.2
+* ubuntu 24.04.3 (old-rel-1) (on github actions), R 4.4.3
+* Windows 10.0.26100 (on github actions), R 4.5.2
 
 
 ## Downstream dependencies
 
-There are currently no downstream dependencies for this package
+We have added the preventr package as a downstream dependency in this release.
 
 
 
